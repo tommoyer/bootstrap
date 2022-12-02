@@ -121,3 +121,5 @@ done
 
 exit
 EOF
+
+echo "Bootstrap complete, please check output carefully"
