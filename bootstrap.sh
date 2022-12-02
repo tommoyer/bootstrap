@@ -122,4 +122,7 @@ done
 exit
 EOF
 
+echo "Look at this URL for shared folders in LXD:"
+echo "https://www.cyberciti.biz/faq/how-to-add-or-mount-directory-in-lxd-linux-container/"
+
 echo "Bootstrap complete, please check output carefully"
