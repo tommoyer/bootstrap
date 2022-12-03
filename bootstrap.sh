@@ -8,7 +8,8 @@ PIPE_CMD=''
 DRY_RUN=0
 GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager"
 CLI_APT_PKGS="bat build-essential flatpak htop libfuse2 myrepos ncdu pcsd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop"
-GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring code"
+GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring"
+GUI_SNAPS_CLASSIC="code"
 CLI_SNAPS="multipass"
 
 CLI_ONLY=0
@@ -128,6 +129,9 @@ ${CMD} sudo apt install -y ${CLI_APT_PKGS} ${GUI_APT_PKGS} ${GNOME} ${KDE} ${SYS
 
 # Install snaps
 ${CMD} sudo snap install ${GUI_SNAPS} ${CLI_SNAPS}
+if [[ ${CLI_ONLY} == 0 ]]; then
+  ${CMD} sudo snap install ${GUI_SNAPS_CLASSIC} --classic
+fi
 
 # Install tailscale
 if [[ ${DRY_RUN} == 0 ]] ; then
