@@ -57,6 +57,9 @@ set -e
 ${CMD} sudo add-apt-repository -y universe multiverse
 
 # Download .deb packages
+
+mkdir -p ~/Downloads
+
 ## Dropbox
 [ ! -f ~/Downloads/dropbox_2020.03.04_amd64.deb ] && ${CMD} wget https://www.dropbox.com/download\?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb -O ~/Downloads/dropbox_2020.03.04_amd64.deb
 
@@ -151,6 +154,8 @@ ${CMD} python3 -m pip install busylight-for-humans
 ${CMD} busylight udev-rules -o 99-busylights.rules
 ${CMD} sudo cp 99-busylights.rules /etc/udev/rules.d
 ${CMD} sudo udevadm control -R
+
+rm -v ~/Downloads/*.deb
 
 # Useful commands to run depending on the desktop
 echo "Need to run Stow to setup symlinks"
