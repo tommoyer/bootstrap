@@ -188,7 +188,7 @@ if [[ ${GNOME} == 1 ]]; then
 fi
 
 echo "Run the below snippet for setting up YubiKeys"
-cat << EOF
+cat <<'EOF'
 sudo apt install libpam-u2f
 pamu2fcfg | sudo tee -a /etc/u2f_mappings
 
