@@ -6,15 +6,21 @@ SYSTEM76=""
 CMD=''
 PIPE_CMD=''
 DRY_RUN=0
-APT_PKGS="albert bat build-essential flatpak fprintd gnome-keyring gnuplot graphviz htop input-remapper libfuse2 myrepos ncdu pcscd podman python3-pip silversearcher-ag sshuttle stow texlive-full tig tmux vim virt-manager virt-viewer virtinst yubikey-manager yubikey-personalization zsh-autosuggestions zsh-syntax-highlighting zsh system76-wallpapers scdaemon curl yubikey-manager libpam-yubico libpam-u2f btop"
+GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager"
+CLI_APT_PKGS="bat build-essential flatpak htop libfuse2 myrepos ncdu pcsd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop"
+GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring code"
+CLI_SNAPS="multipass"
+
+CLI_ONLY=0
 
 usage() {
-  echo "Usage: $0 [ -n ] [ -g ] [ -k ] [ -s ] [ -d ]" 1>&2
+  echo "Usage: $0 [ -n ] [ -g ] [ -k ] [ -s ] [ -d ] [ -c ]" 1>&2
   echo " -n : dry-run, just show what would be executed"
   echo " -k : install KDE packages"
   echo " -g : install Gnome packages"
   echo " -s : install System76 drivers"
   echo " -d : debug, show commands"
+  echo " -c : command-line only stuff, skip the GUI"
 }
 
 exit_abnormal() {
@@ -22,7 +28,7 @@ exit_abnormal() {
   exit 1
 }
 
-while getopts ":gksdn" options; do
+while getopts ":gksdnc" options; do
   case "${options}" in
     g)
       GNOME="gir1.2-gda-5.0 gir1.2-gsound-1.0 gir1.2-gtop-2.0 gnome-shell-extension-manager gnome-tweaks wl-clipboard"
@@ -35,6 +41,11 @@ while getopts ":gksdn" options; do
       ;;
     d)
       set -x
+      ;;
+    c)
+      GUI_APT_PKGS=""
+      GUI_SNAPS=""
+      CLI_ONLY=1
       ;;
     n)
       CMD='echo'
@@ -58,38 +69,40 @@ ${CMD} sudo add-apt-repository -y universe multiverse
 
 # Download .deb packages
 
-mkdir -p ~/Downloads
+if [[ ${CLI_ONLY} == 0 ]]; then
+  mkdir -p ~/Downloads
+  ## Dropbox
+  [ ! -f ~/Downloads/dropbox_2020.03.04_amd64.deb ] && ${CMD} wget https://www.dropbox.com/download\?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb -O ~/Downloads/dropbox_2020.03.04_amd64.deb
 
-## Dropbox
-[ ! -f ~/Downloads/dropbox_2020.03.04_amd64.deb ] && ${CMD} wget https://www.dropbox.com/download\?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb -O ~/Downloads/dropbox_2020.03.04_amd64.deb
+  ## Minecraft
+  [ ! -f ~/Downloads/Minecraft.deb ] && ${CMD} wget https://launcher.mojang.com/download/Minecraft.deb -O ~/Downloads/Minecraft.deb
 
-## Minecraft
-[ ! -f ~/Downloads/Minecraft.deb ] && ${CMD} wget https://launcher.mojang.com/download/Minecraft.deb -O ~/Downloads/Minecraft.deb
+  ## Moneydance
+  [ ! -f ~/Downloads/moneydance_linux_amd64.deb ] && ${CMD} wget https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb -O ~/Downloads/moneydance_linux_amd64.deb
 
-## Moneydance
-[ ! -f ~/Downloads/moneydance_linux_amd64.deb ] && ${CMD} wget https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb -O ~/Downloads/moneydance_linux_amd64.deb
+  ## Obsidian
+  [ ! -f ~/Downloads/obsidian_1.0.0_amd64.deb ] && ${CMD} wget https://github.com/obsidianmd/obsidian-releases/releases/download/v1.0.0/obsidian_1.0.0_amd64.deb -O ~/Downloads/obsidian_1.0.0_amd64.deb
 
-## Obsidian
-[ ! -f ~/Downloads/obsidian_1.0.0_amd64.deb ] && ${CMD} wget https://github.com/obsidianmd/obsidian-releases/releases/download/v1.0.0/obsidian_1.0.0_amd64.deb -O ~/Downloads/obsidian_1.0.0_amd64.deb
+  ## Zoom
+  [ ! -f ~/Downloads/zoom_amd64.deb ] && ${CMD} wget https://zoom.us/client/5.12.2.4816/zoom_amd64.deb -O ~/Downloads/zoom_amd64.deb
 
-## Zoom
-[ ! -f ~/Downloads/zoom_amd64.deb ] && ${CMD} wget https://zoom.us/client/5.12.2.4816/zoom_amd64.deb -O ~/Downloads/zoom_amd64.deb
+  ## Chrome
+  [ ! -f ~/Downloads/google-chrome-stable_current_amd64.deb ] && ${CMD} wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Downloads/google-chrome-stable_current_amd64.deb
 
-## Chrome
-[ ! -f ~/Downloads/google-chrome-stable_current_amd64.deb ] && ${CMD} wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Downloads/google-chrome-stable_current_amd64.deb
+  ## Ticktick
+  [ ! -f ~/Downloads/ticktick-1.0.40-amd64.deb ] && ${CMD} wget https://appest-public.s3.amazonaws.com/download/linux/linux_deb_x64/ticktick-1.0.40-amd64.deb -O ~/Downloads/ticktick-1.0.40-amd64.deb
 
-## Ticktick
-[ ! -f ~/Downloads/ticktick-1.0.40-amd64.deb ] && ${CMD} wget https://appest-public.s3.amazonaws.com/download/linux/linux_deb_x64/ticktick-1.0.40-amd64.deb -O ~/Downloads/ticktick-1.0.40-amd64.deb
+  # Add apt repositories
+  ## Albert
+  if [[ ${DRY_RUN} == 0 ]] ; then
+    [ ! -f /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg ] && wget -qO - https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg
+    echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_22.04/ /' | sudo tee /etc/apt/sources.list.d/home:manuelschneid3r.list
+  else
+    echo '[ ! -f /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg ] && wget -qO - https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg'
+    echo "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_22.04/ /' | sudo tee /etc/apt/sources.list.d/home:manuelschneid3r.list"
+  fi
 
-# Add apt repositories
-## Albert
-if [[ ${DRY_RUN} == 0 ]] ; then
-  [ ! -f /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg ] && wget -qO - https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg
-  echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_22.04/ /' | sudo tee /etc/apt/sources.list.d/home:manuelschneid3r.list
-else
-  echo '[ ! -f /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg ] && wget -qO - https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg'
-  echo "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_22.04/ /' | sudo tee /etc/apt/sources.list.d/home:manuelschneid3r.list"
-fi
+fi 
 
 ## Yubikey software
 ${CMD} sudo add-apt-repository -y ppa:yubico/stable
@@ -111,10 +124,10 @@ ${CMD} sudo apt-add-repository -y ppa:system76-dev/stable
 # Update package index files
 ${CMD} sudo apt update
 
-${CMD} sudo apt install ${APT_PKGS} ${GNOME} ${KDE} ${SYSTEM76}
+${CMD} sudo apt install -y ${CLI_APT_PKGS} ${GUI_APT_PKGS} ${GNOME} ${KDE} ${SYSTEM76}
 
 # Install snaps
-${CMD} sudo snap install authy bitwarden icloud-for-linux mattermost-desktop multipass slack spotify telegram-desktop zotero-snap morgen mailspring code
+${CMD} sudo snap install ${GUI_SNAPS} ${CLI_SNAPS}
 
 # Install tailscale
 if [[ ${DRY_RUN} == 0 ]] ; then
@@ -129,14 +142,17 @@ ${CMD} sudo pip install podman-compose
 # Setup Flathub
 ${CMD} flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# Install Junction
-${CMD} flatpak install -y Junction
+if [[ ${CLI_ONLY} == 0 ]]; then
+  # Install Junction
+  ${CMD} flatpak install -y Junction
 
-# Install the downloaded .deb files
-for x in ~/Downloads/*.deb
-do
-    ${CMD} sudo apt install -y ${x}
-done
+  # Install the downloaded .deb files
+  for x in ~/Downloads/*.deb
+  do
+      ${CMD} sudo apt install -y ${x}
+  done
+  rm -vf ~/Downloads/*.deb
+fi
 
 # Download zimfw
 if [[ ${DRY_RUN} == 0 ]] ; then
@@ -154,8 +170,6 @@ ${CMD} python3 -m pip install busylight-for-humans
 ${CMD} busylight udev-rules -o 99-busylights.rules
 ${CMD} sudo cp 99-busylights.rules /etc/udev/rules.d
 ${CMD} sudo udevadm control -R
-
-rm -v ~/Downloads/*.deb
 
 # Useful commands to run depending on the desktop
 echo "Need to run Stow to setup symlinks"
