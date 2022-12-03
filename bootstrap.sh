@@ -174,6 +174,7 @@ ${CMD} python3 -m pip install busylight-for-humans
 ${CMD} busylight udev-rules -o 99-busylights.rules
 ${CMD} sudo cp 99-busylights.rules /etc/udev/rules.d
 ${CMD} sudo udevadm control -R
+${CMD} sudo rm -v 99-busylights.rules
 
 # Useful commands to run depending on the desktop
 echo "Need to run Stow to setup symlinks"
