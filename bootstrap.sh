@@ -3,16 +3,19 @@
 GNOME=""
 KDE=""
 SYSTEM76=""
-CMD=''
-PIPE_CMD=''
+CMD=""
+
 DRY_RUN=0
+
 GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager"
-CLI_APT_PKGS="bat build-essential flatpak htop libfuse2 myrepos ncdu pcsd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop"
 GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring"
 GUI_SNAPS_CLASSIC="code"
-CLI_SNAPS="multipass"
 
+CLI_APT_PKGS="bat build-essential flatpak htop libfuse2 myrepos ncdu pcsd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop"
+CLI_SNAPS="multipass"
 CLI_ONLY=0
+
+GITHUB_KEY=""
 
 usage() {
   echo "Usage: $0 [ -n ] [ -g ] [ -k ] [ -s ] [ -d ] [ -c ]" 1>&2
@@ -28,6 +31,11 @@ exit_abnormal() {
   usage
   exit 1
 }
+
+if [[ "$EUID" == 0 ]] ; then
+  echo "Please do not run as root. This script will use sudo when root privileges are needed"
+  exit 1
+fi
 
 while getopts ":gksdnc" options; do
   case "${options}" in
@@ -50,7 +58,6 @@ while getopts ":gksdnc" options; do
       ;;
     n)
       CMD='echo'
-      PIPE_CMD='tr "\n\" " " | cat && echo'
       DRY_RUN=1
       ;;
     :)
@@ -176,28 +183,41 @@ ${CMD} sudo cp 99-busylights.rules /etc/udev/rules.d
 ${CMD} sudo udevadm control -R
 ${CMD} sudo rm -v 99-busylights.rules
 
+# Dotfiles
+${CMD} git clone https://github.com/tommoyer/dotfiles.git ~/.dotfiles
+pushd ~/.dotfiles
+${CMD} git remote set-url origin git@github.com:tommoyer/dotfiles.git
+popd # ~/.dotfiles
+
 # Useful commands to run depending on the desktop
 echo "Need to run Stow to setup symlinks"
+echo ""
 echo "To set Juntion as the default browser: xdg-settings set default-web-browser re.sonny.Junction.desktop"
+echo ""
 echo "To ensure that the Chrome profile options are in the menu: update-desktop-database ~/.local/share/applications"
+echo ""
 echo "To have Junction find Chrome profiles: update-desktop-database ~/.local/share/flatpak/exports/share/applications"
+echo ""
 
 if [[ ${GNOME} == 1 ]]; then
   echo "To turn off Evolution alarm pop-ups: gsettings set org.gnome.evolution-data-server.calendar notify-with-tray true"
+  echo ""
   echo "Center windows in Gnome: gsettings set org.gnome.mutter center-new-windows true"
+  echo ""
   echo "Gnome Shell Extensions to install: Extension Sync"
+  echo ""
 fi
 
 echo "Run the below snippet for setting up YubiKeys"
 cat <<'EOF'
-sudo apt install libpam-u2f
-pamu2fcfg | sudo tee -a /etc/u2f_mappings
-
-# (At this point, press the button. You should see a long string of numbers.
-# If you don't, make sure you have 'udev' setup correctly.)
+pamu2fcfg | tee u2fmappings               # Main YubiKey
+pamu2fcfg -n | tee -a u2f_mappings   # Backup YubiKey
+echo >> u2fmappings
+sudo mv u2fmappings /etc
 
 sudo -i
 echo >> /etc/u2f_mappings
+
 cd /etc/pam.d
 
 echo 'auth sufficient pam_u2f.so authfile=/etc/u2f_mappings cue' > common-u2f
@@ -212,7 +232,11 @@ done
 exit
 EOF
 
+echo "To fetch public key: gpg --keyserver keyserver.ubuntu.com --search-keys tom.moyer@canonical.com"
+echo ""
 echo "Look at this URL for shared folders in LXD:"
 echo "https://www.cyberciti.biz/faq/how-to-add-or-mount-directory-in-lxd-linux-container/"
-
+echo ""
+echo "To rebuild GPG keyring: gpg-connect-agent \"scd serialno\" \"learn --force\" /bye"
+echo ""
 echo "Bootstrap complete, please check output carefully"
