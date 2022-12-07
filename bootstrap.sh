@@ -1,27 +1,21 @@
 #!/bin/bash
 
-GNOME=""
-KDE="syncthingtray-kde-plasma"
 SYSTEM76=""
 CMD=""
 
 DRY_RUN=0
 
-GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing"
+GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing syncthingtray-kde-plasma"
 GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring"
 GUI_SNAPS_CLASSIC="code"
 
-CLI_APT_PKGS="bat build-essential flatpak htop libfuse2 myrepos ncdu pcsd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop"
+CLI_APT_PKGS="bat build-essential flatpak htop libfuse2 myrepos ncdu pcscd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop"
 CLI_SNAPS="multipass"
 CLI_ONLY=0
 
-GITHUB_KEY=""
-
 usage() {
-  echo "Usage: $0 [ -n ] [ -g ] [ -k ] [ -s ] [ -d ] [ -c ]" 1>&2
+  echo "Usage: $0 [ -n ] [ -s ] [ -d ] [ -c ]" 1>&2
   echo " -n : dry-run, just show what would be executed"
-  echo " -k : install KDE packages"
-  echo " -g : install Gnome packages"
   echo " -s : install System76 drivers"
   echo " -d : debug, show commands"
   echo " -c : command-line only stuff, skip the GUI"
@@ -37,16 +31,10 @@ if [[ "$EUID" == 0 ]] ; then
   exit 1
 fi
 
-while getopts ":gksdnc" options; do
+while getopts ":nsdc" options; do
   case "${options}" in
-    g)
-      GNOME="gir1.2-gda-5.0 gir1.2-gsound-1.0 gir1.2-gtop-2.0 gnome-shell-extension-manager gnome-tweaks wl-clipboard"
-      ;;
-    k)
-      KDE=""
-      ;;
     s)
-      SYSTEM76="system76-drivers"
+      SYSTEM76="system76-driver"
       ;;
     d)
       set -x
@@ -80,7 +68,7 @@ ${CMD} sudo add-apt-repository -y universe multiverse
 if [[ ${CLI_ONLY} == 0 ]]; then
   mkdir -p ~/Downloads
   ## Dropbox
-  [ ! -f ~/Downloads/dropbox_2020.03.04_amd64.deb ] && ${CMD} wget https://www.dropbox.com/download\?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb -O ~/Downloads/dropbox_2020.03.04_amd64.deb
+  [ ! -f ~/Downloads/dropbox_2020.03.04_amd64.deb ] && ${CMD} wget https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb -O ~/Downloads/dropbox_2020.03.04_amd64.deb
 
   ## Minecraft
   [ ! -f ~/Downloads/Minecraft.deb ] && ${CMD} wget https://launcher.mojang.com/download/Minecraft.deb -O ~/Downloads/Minecraft.deb
@@ -132,7 +120,7 @@ ${CMD} sudo apt-add-repository -y ppa:system76-dev/stable
 # Update package index files
 ${CMD} sudo apt update
 
-${CMD} sudo apt install -y ${CLI_APT_PKGS} ${GUI_APT_PKGS} ${GNOME} ${KDE} ${SYSTEM76}
+${CMD} sudo apt install -y ${CLI_APT_PKGS} ${GUI_APT_PKGS} ${SYSTEM76}
 
 # Install snaps
 ${CMD} sudo snap install ${GUI_SNAPS} ${CLI_SNAPS}
@@ -178,7 +166,7 @@ ${CMD} sudo chsh -s /usr/bin/zsh tmoyer
 # Busylight
 ${CMD} python3 -m pip install busylight-for-humans
 
-${CMD} busylight udev-rules -o 99-busylights.rules
+${CMD} ~/.local/bin/busylight udev-rules -o 99-busylights.rules
 ${CMD} sudo cp 99-busylights.rules /etc/udev/rules.d
 ${CMD} sudo udevadm control -R
 ${CMD} sudo rm -v 99-busylights.rules
@@ -187,36 +175,38 @@ ${CMD} sudo rm -v 99-busylights.rules
 ${CMD} git clone https://github.com/tommoyer/dotfiles.git ~/.dotfiles
 pushd ~/.dotfiles
 ${CMD} git remote set-url origin git@github.com:tommoyer/dotfiles.git
+${CMD} stow apps
+${CMD} stow chrome
+${CMD} stow gpg
+${CMD} stow latex
+${CMD} stow misc
+${CMD} stow pics
+${CMD} stow ssh
+${CMD} stow tmux
+${CMD} stow vcs
+${CMD} rm ~/.zshrc ~/.zimrc
+${CMD} stow zsh
 popd # ~/.dotfiles
 
-# Useful commands to run depending on the desktop
-echo "Need to run Stow to setup symlinks"
-echo ""
-echo "To set Juntion as the default browser: xdg-settings set default-web-browser re.sonny.Junction.desktop"
-echo ""
-echo "To ensure that the Chrome profile options are in the menu: update-desktop-database ~/.local/share/applications"
-echo ""
-echo "To have Junction find Chrome profiles: update-desktop-database ~/.local/share/flatpak/exports/share/applications"
-echo ""
+mkdir -p ~/Repos/home-server/
 
-if [[ ${GNOME} == 1 ]]; then
-  echo "To turn off Evolution alarm pop-ups: gsettings set org.gnome.evolution-data-server.calendar notify-with-tray true"
-  echo ""
-  echo "Center windows in Gnome: gsettings set org.gnome.mutter center-new-windows true"
-  echo ""
-  echo "Gnome Shell Extensions to install: Extension Sync"
-  echo ""
-fi
+${CMD} chmod go-rwx ~/.gnupg ~/.ssh
+
+${CMD} xdg-settings set default-web-browser re.sonny.Junction.desktop
+
+${CMD} update-desktop-database ~/.local/share/applications
+${CMD} update-desktop-database ~/.local/share/flatpak/exports/share/applications 
+
+${CMD} gpg --keyserver keyserver.ubuntu.com --search-keys tom.moyer@canonical.com
 
 echo "Run the below snippet for setting up YubiKeys"
 cat <<'EOF'
-pamu2fcfg | tee u2fmappings               # Main YubiKey
+pamu2fcfg | tee u2f_mappings               # Main YubiKey
 pamu2fcfg -n | tee -a u2f_mappings   # Backup YubiKey
-echo >> u2fmappings
-sudo mv u2fmappings /etc
+echo >> u2f_mappings
+sudo mv u2f_mappings /etc
 
 sudo -i
-echo >> /etc/u2f_mappings
 
 cd /etc/pam.d
 
@@ -232,11 +222,6 @@ done
 exit
 EOF
 
-echo "To fetch public key: gpg --keyserver keyserver.ubuntu.com --search-keys tom.moyer@canonical.com"
-echo ""
-echo "Look at this URL for shared folders in LXD:"
-echo "https://www.cyberciti.biz/faq/how-to-add-or-mount-directory-in-lxd-linux-container/"
-echo ""
 echo "To rebuild GPG keyring: gpg-connect-agent \"scd serialno\" \"learn --force\" /bye"
 echo ""
 echo "Bootstrap complete, please check output carefully"
