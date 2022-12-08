@@ -6,7 +6,7 @@ CMD=""
 DRY_RUN=0
 
 GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing syncthingtray-kde-plasma"
-GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring"
+GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring ticktick zoom-client"
 GUI_SNAPS_CLASSIC="code"
 
 CLI_APT_PKGS="bat build-essential flatpak htop libfuse2 myrepos ncdu pcscd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop"
@@ -61,7 +61,8 @@ done
 set -e
 
 # Enable extra repositories
-${CMD} sudo add-apt-repository -y universe multiverse
+if ! grep 
+${CMD} sudo add-apt-repository -n -y universe multiverse
 
 # Download .deb packages
 
@@ -76,17 +77,8 @@ if [[ ${CLI_ONLY} == 0 ]]; then
   ## Moneydance
   [ ! -f ~/Downloads/moneydance_linux_amd64.deb ] && ${CMD} wget https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb -O ~/Downloads/moneydance_linux_amd64.deb
 
-  ## Obsidian
-  [ ! -f ~/Downloads/obsidian_1.0.0_amd64.deb ] && ${CMD} wget https://github.com/obsidianmd/obsidian-releases/releases/download/v1.0.0/obsidian_1.0.0_amd64.deb -O ~/Downloads/obsidian_1.0.0_amd64.deb
-
-  ## Zoom
-  [ ! -f ~/Downloads/zoom_amd64.deb ] && ${CMD} wget https://zoom.us/client/5.12.2.4816/zoom_amd64.deb -O ~/Downloads/zoom_amd64.deb
-
   ## Chrome
   [ ! -f ~/Downloads/google-chrome-stable_current_amd64.deb ] && ${CMD} wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Downloads/google-chrome-stable_current_amd64.deb
-
-  ## Ticktick
-  [ ! -f ~/Downloads/ticktick-1.0.40-amd64.deb ] && ${CMD} wget https://appest-public.s3.amazonaws.com/download/linux/linux_deb_x64/ticktick-1.0.40-amd64.deb -O ~/Downloads/ticktick-1.0.40-amd64.deb
 
   # Add apt repositories
   ## Albert
@@ -101,10 +93,11 @@ if [[ ${CLI_ONLY} == 0 ]]; then
 fi 
 
 ## Yubikey software
-${CMD} sudo add-apt-repository -y ppa:yubico/stable
+${CMD} sudo add-apt-repository -n -y ppa:yubico/stable
 
 ## System76 PPA
-${CMD} sudo OUT=/etc/apt/preferences.d/system76-apt-preferences sh -c 'cat << EOF >> ${OUT}
+if [[ ! -e /etc/apt/preferences.d/system76-apt-preferences ]]; then
+  ${CMD} sudo OUT=/etc/apt/preferences.d/system76-apt-preferences sh -c 'cat << EOF >> ${OUT}
 Package: *
 Pin: release o=LP-PPA-system76-dev-stable
 Pin-Priority: 1001
@@ -114,8 +107,9 @@ Pin: release o=LP-PPA-system76-dev-pre-stable
 Pin-Priority: 1001
 
 EOF'
+fi
 
-${CMD} sudo apt-add-repository -y ppa:system76-dev/stable
+${CMD} sudo apt-add-repository -n -y ppa:system76-dev/stable
 
 # Update package index files
 ${CMD} sudo apt update
@@ -144,6 +138,9 @@ ${CMD} flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flath
 if [[ ${CLI_ONLY} == 0 ]]; then
   # Install Junction
   ${CMD} flatpak install -y Junction
+
+  # Install Obsidian
+  ${CMD} flatpak install -y Obsidian
 
   # Install the downloaded .deb files
   for x in ~/Downloads/*.deb
