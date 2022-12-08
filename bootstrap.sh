@@ -9,7 +9,7 @@ GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texli
 GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring ticktick zoom-client"
 GUI_SNAPS_CLASSIC="code"
 
-CLI_APT_PKGS="bat build-essential flatpak libfuse2 myrepos ncdu pcscd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop openssh-server openvpn"
+CLI_APT_PKGS="bat build-essential flatpak libfuse2 myrepos ncdu pcscd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop openssh-server openvpn apt-file"
 CLI_SNAPS="multipass lxd"
 CLI_ONLY=0
 
@@ -200,6 +200,8 @@ ${CMD} gpg --keyserver keyserver.ubuntu.com --search-keys tom.moyer@canonical.co
 
 ${CMD} sudo snap connect multipass:libvirt
 ${CMD} multipass set local.driver=libvirt
+
+${CMD} apt-file update
 
 echo "Run the below snippet for setting up YubiKeys"
 cat <<'EOF'
