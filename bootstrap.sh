@@ -195,7 +195,9 @@ ${CMD} chmod go-rwx ~/.gnupg ~/.ssh
 ${CMD} xdg-settings set default-web-browser re.sonny.Junction.desktop
 
 ${CMD} update-desktop-database ~/.local/share/applications
-${CMD} update-desktop-database ~/.local/share/flatpak/exports/share/applications 
+${CMD} update-desktop-database ~/.local/share/flatpak/exports/share/applications
+
+${CMD} echo "emulate sh -c 'source /etc/profile'" >> /etc/zsh/zprofile
 
 ${CMD} gpg --keyserver keyserver.ubuntu.com --search-keys tom.moyer@canonical.com
 
