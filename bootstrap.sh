@@ -226,4 +226,7 @@ EOF
 
 echo "To rebuild GPG keyring: gpg-connect-agent \"scd serialno\" \"learn --force\" /bye"
 echo ""
+echo "Check the following for a Tailscale tray icon"
+echo "https://github.com/mattn/tailscale-systray"
+echo ""
 echo "Bootstrap complete, please check output carefully"
