@@ -10,7 +10,7 @@ GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify tel
 GUI_SNAPS_CLASSIC="code"
 
 CLI_APT_PKGS="bat build-essential flatpak libfuse2 myrepos ncdu pcscd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop openssh-server"
-CLI_SNAPS="multipass"
+CLI_SNAPS="multipass lxd"
 CLI_ONLY=0
 
 usage() {
