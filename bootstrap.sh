@@ -137,10 +137,10 @@ ${CMD} flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flath
 
 if [[ ${CLI_ONLY} == 0 ]]; then
   # Install Junction
-  ${CMD} flatpak install -y Junction
+  ${CMD} flatpak install -y re.sonny.Junction
 
   # Install Obsidian
-  ${CMD} flatpak install -y Obsidian
+  ${CMD} flatpak install -y md.obsidian.Obsidian
 
   # Install the downloaded .deb files
   for x in ~/Downloads/*.deb
@@ -197,6 +197,9 @@ ${CMD} update-desktop-database ~/.local/share/flatpak/exports/share/applications
 ${CMD} echo "emulate sh -c 'source /etc/profile'" >> /etc/zsh/zprofile
 
 ${CMD} gpg --keyserver keyserver.ubuntu.com --search-keys tom.moyer@canonical.com
+
+${CMD} sudo snap connect multipass:libvirt
+${CMD} multipass set local.driver=libvirt
 
 echo "Run the below snippet for setting up YubiKeys"
 cat <<'EOF'
