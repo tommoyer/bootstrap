@@ -5,11 +5,11 @@ CMD=""
 
 DRY_RUN=0
 
-GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing syncthingtray-kde-plasma kio-gdrive"
+GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing syncthingtray-kde-plasma kio-gdrive network-manager-openvpn"
 GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring ticktick zoom-client"
 GUI_SNAPS_CLASSIC="code"
 
-CLI_APT_PKGS="bat build-essential flatpak libfuse2 myrepos ncdu pcscd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop openssh-server"
+CLI_APT_PKGS="bat build-essential flatpak libfuse2 myrepos ncdu pcscd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop openssh-server openvpn"
 CLI_SNAPS="multipass lxd"
 CLI_ONLY=0
 
