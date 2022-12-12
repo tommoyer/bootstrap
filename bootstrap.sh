@@ -142,6 +142,8 @@ if [[ ${CLI_ONLY} == 0 ]]; then
   # Install Obsidian
   ${CMD} flatpak install -y md.obsidian.Obsidian
 
+  ${CMD} flatpak install -y flathub net.codeindustry.MasterPDFEditor
+
   # Install the downloaded .deb files
   for x in ~/Downloads/*.deb
   do
