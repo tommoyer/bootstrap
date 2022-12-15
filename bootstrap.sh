@@ -205,6 +205,8 @@ ${CMD} multipass set local.driver=libvirt
 
 ${CMD} apt-file update
 
+${CMD} git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+
 echo "Run the below snippet for setting up YubiKeys"
 cat <<'EOF'
 pamu2fcfg | tee u2f_mappings               # Main YubiKey
