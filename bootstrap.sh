@@ -207,6 +207,25 @@ ${CMD} apt-file update
 
 ${CMD} git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
+${CMD} mkdir /tmp/adodefont
+${CMD} pushd /tmp/adodefont
+${CMD} mkdir -p ~/.fonts
+
+${CMD} wget https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip
+${CMD} unzip 1.050R-it.zip
+${CMD} cp source-code-pro-2.030R-ro-1.050R-it/OTF/*.otf ~/.fonts/
+
+${CMD} wget https://github.com/adobe-fonts/source-serif-pro/archive/2.000R.zip
+${CMD} unzip 2.000R.zip
+${CMD} cp source-serif-pro-2.000R/OTF/*.otf ~/.fonts/
+
+${CMD} wget https://github.com/adobe-fonts/source-sans-pro/archive/2.020R-ro/1.075R-it.zip
+${CMD} unzip 1.075R-it.zip
+${CMD} cp source-sans-pro-2.020R-ro-1.075R-it/OTF/*.otf ~/.fonts/
+
+${CMD} fc-cache -f -v
+${CMD} popd # /tmp/adobefont
+
 echo "Run the below snippet for setting up YubiKeys"
 cat <<'EOF'
 pamu2fcfg | tee u2f_mappings               # Main YubiKey
