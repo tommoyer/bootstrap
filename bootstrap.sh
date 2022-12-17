@@ -139,10 +139,11 @@ if [[ ${CLI_ONLY} == 0 ]]; then
   # Install Junction
   ${CMD} flatpak install -y re.sonny.Junction
 
-  # Install Obsidian
-  ${CMD} flatpak install -y md.obsidian.Obsidian
-
+  # Install PDF app
   ${CMD} flatpak install -y flathub net.codeindustry.MasterPDFEditor
+
+  # Install Lutris
+  ${CMD} flatpak install -y flathub net.lutris.Lutris
 
   # Install the downloaded .deb files
   for x in ~/Downloads/*.deb
