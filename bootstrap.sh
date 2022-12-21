@@ -244,4 +244,3 @@ ${CMD} echo -n "Git commit: " >> ~/.bootstrap_status
 ${CMD} wget http://100.88.5.29:8888/latest -O- >> ~/.bootstrap_status
 ${CMD} echo >> ~/.bootstrap_status
 ${CMD} echo "Date: $(date)" >> ~/.bootstrap_status
-
