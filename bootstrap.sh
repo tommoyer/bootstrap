@@ -1,11 +1,13 @@
 #!/bin/bash
 
+invocation="$(printf %q "$BASH_SOURCE")$((($#)) && printf ' %q' "$@")"
+
 SYSTEM76=""
 CMD=""
 
 DRY_RUN=0
 
-GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing syncthingtray-kde-plasma kio-gdrive network-manager-openvpn emacs emacs-common-non-dfsg"
+GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing syncthingtray-kde-plasma kio-gdrive network-manager-openvpn xclip"
 GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring ticktick zoom-client"
 GUI_SNAPS_CLASSIC="code"
 
@@ -206,27 +208,6 @@ ${CMD} multipass set local.driver=libvirt
 
 ${CMD} apt-file update
 
-${CMD} git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-
-${CMD} mkdir /tmp/adodefont
-${CMD} pushd /tmp/adodefont
-${CMD} mkdir -p ~/.fonts
-
-${CMD} wget https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip
-${CMD} unzip 1.050R-it.zip
-${CMD} cp source-code-pro-2.030R-ro-1.050R-it/OTF/*.otf ~/.fonts/
-
-${CMD} wget https://github.com/adobe-fonts/source-serif-pro/archive/2.000R.zip
-${CMD} unzip 2.000R.zip
-${CMD} cp source-serif-pro-2.000R/OTF/*.otf ~/.fonts/
-
-${CMD} wget https://github.com/adobe-fonts/source-sans-pro/archive/2.020R-ro/1.075R-it.zip
-${CMD} unzip 1.075R-it.zip
-${CMD} cp source-sans-pro-2.020R-ro-1.075R-it/OTF/*.otf ~/.fonts/
-
-${CMD} fc-cache -f -v
-${CMD} popd # /tmp/adobefont
-
 echo "Run the below snippet for setting up YubiKeys"
 cat <<'EOF'
 pamu2fcfg | tee u2f_mappings               # Main YubiKey
@@ -256,3 +237,8 @@ echo "Check the following for a Tailscale tray icon"
 echo "https://github.com/mattn/tailscale-systray"
 echo ""
 echo "Bootstrap complete, please check output carefully"
+
+${CMD} echo "Command: ${invocation}" > ~/.bootstrap_status
+${CMD} echo -n "Git commit: " >> ~./.bootstrap_status
+${CMD} wget http://100.88.5.29:8888/latest -O- >> ~/.bootstrap_status
+${CMD} echo "Date: $(date)" >> ~/.bootstrap_status
