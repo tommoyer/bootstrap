@@ -237,6 +237,7 @@ echo "Check the following for a Tailscale tray icon"
 echo "https://github.com/mattn/tailscale-systray"
 echo ""
 echo "Bootstrap complete, please check output carefully"
+echo "Check ~/.bootstrap_status for details on the execution"
 
 ${CMD} echo "Command: ${invocation}" > ~/.bootstrap_status
 ${CMD} echo -n "Git commit: " >> ~/.bootstrap_status
