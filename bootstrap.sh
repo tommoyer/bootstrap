@@ -66,6 +66,15 @@ set -e
 if ! grep 
 ${CMD} sudo add-apt-repository -n -y universe multiverse
 
+
+# Install tailscale and bring up
+if [[ ${DRY_RUN} == 0 ]] ; then
+  wget -qO - https://tailscale.com/install.sh | sh
+else
+  echo "wget -qO - https://tailscale.com/install.sh | sh"
+fi
+${CMD} sudo tailscale up
+
 # Download .deb packages
 
 if [[ ${CLI_ONLY} == 0 ]]; then
@@ -124,13 +133,6 @@ if [[ ${CLI_ONLY} == 0 ]]; then
   ${CMD} sudo snap install ${GUI_SNAPS_CLASSIC} --classic
 fi
 
-# Install tailscale
-if [[ ${DRY_RUN} == 0 ]] ; then
-  wget -qO - https://tailscale.com/install.sh | sh
-else
-  echo "wget -qO - https://tailscale.com/install.sh | sh"
-fi
-
 # Install podman-compose
 ${CMD} sudo pip install podman-compose
 
@@ -164,14 +166,6 @@ fi
 
 # Set default shell to zsh
 ${CMD} sudo chsh -s /usr/bin/zsh tmoyer
-
-# Busylight
-${CMD} python3 -m pip install busylight-for-humans
-
-${CMD} ~/.local/bin/busylight udev-rules -o 99-busylights.rules
-${CMD} sudo cp 99-busylights.rules /etc/udev/rules.d
-${CMD} sudo udevadm control -R
-${CMD} sudo rm -v 99-busylights.rules
 
 # Dotfiles
 ${CMD} git clone https://github.com/tommoyer/dotfiles.git ~/.dotfiles
