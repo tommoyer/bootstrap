@@ -7,7 +7,7 @@ CMD=""
 
 DRY_RUN=0
 
-GUI_APT_PKGS="albert fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing syncthingtray-kde-plasma kio-gdrive network-manager-openvpn xclip"
+GUI_APT_PKGS="fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing syncthingtray-kde-plasma kio-gdrive network-manager-openvpn xclip yakuake ulauncher"
 GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring ticktick zoom-client jabref"
 GUI_SNAPS_CLASSIC="code"
 
@@ -63,9 +63,7 @@ done
 set -e
 
 # Enable extra repositories
-if ! grep 
 ${CMD} sudo add-apt-repository -n -y universe multiverse
-
 
 # Install tailscale and bring up
 if [[ ${DRY_RUN} == 0 ]] ; then
@@ -90,17 +88,6 @@ if [[ ${CLI_ONLY} == 0 ]]; then
 
   ## Chrome
   [ ! -f ~/Downloads/google-chrome-stable_current_amd64.deb ] && ${CMD} wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Downloads/google-chrome-stable_current_amd64.deb
-
-  # Add apt repositories
-  ## Albert
-  if [[ ${DRY_RUN} == 0 ]] ; then
-    [ ! -f /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg ] && wget -qO - https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg
-    echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_22.04/ /' | sudo tee /etc/apt/sources.list.d/home:manuelschneid3r.list
-  else
-    echo '[ ! -f /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg ] && wget -qO - https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_22.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home_manuelschneid3r.gpg'
-    echo "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_22.04/ /' | sudo tee /etc/apt/sources.list.d/home:manuelschneid3r.list"
-  fi
-
 fi 
 
 ## Yubikey software
@@ -121,6 +108,8 @@ EOF'
 fi
 
 ${CMD} sudo apt-add-repository -n -y ppa:system76-dev/stable
+
+${CMD} sudo add-apt-repository -n -y ppa:agornostal/ulauncher
 
 # Update package index files
 ${CMD} sudo apt update
@@ -145,9 +134,6 @@ if [[ ${CLI_ONLY} == 0 ]]; then
 
   # Install PDF app
   ${CMD} flatpak install -y flathub net.codeindustry.MasterPDFEditor
-
-  # Install Lutris
-  ${CMD} flatpak install -y flathub net.lutris.Lutris
 
   # Install the downloaded .deb files
   for x in ~/Downloads/*.deb
