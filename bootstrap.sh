@@ -139,6 +139,9 @@ if [[ ${CLI_ONLY} == 0 ]]; then
   # Install PDF app
   ${CMD} flatpak install -y flathub net.codeindustry.MasterPDFEditor
 
+  # Install Lutris
+  ${CMD} flatpak install -y flathub net.lutris.Lutris
+
   # Install the downloaded .deb files
   for x in ~/Downloads/*.deb
   do
