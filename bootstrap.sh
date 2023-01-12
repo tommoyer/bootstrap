@@ -88,6 +88,10 @@ if [[ ${CLI_ONLY} == 0 ]]; then
 
   ## Chrome
   [ ! -f ~/Downloads/google-chrome-stable_current_amd64.deb ] && ${CMD} wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Downloads/google-chrome-stable_current_amd64.deb
+
+  ## Steam
+  [ ! -f ~/Downloads/steam_latest.deb ] && ${CMD} wget https://repo.steampowered.com/steam/archive/stable/steam_latest.deb -O ~/Downloads/steam_latest.deb
+  
 fi 
 
 ## Yubikey software
