@@ -180,6 +180,7 @@ ${CMD} stow tmux
 ${CMD} stow vcs
 ${CMD} rm ~/.zshrc ~/.zimrc
 ${CMD} stow zsh
+${CMD} stow subl
 popd # ~/.dotfiles
 
 mkdir -p ~/Repos/home-server/
