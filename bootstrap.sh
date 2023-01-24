@@ -7,9 +7,8 @@ CMD=""
 
 DRY_RUN=0
 
-GUI_APT_PKGS="fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing syncthingtray-kde-plasma kio-gdrive network-manager-openvpn xclip yakuake ulauncher"
+GUI_APT_PKGS="fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing syncthingtray-kde-plasma kio-gdrive network-manager-openvpn xclip yakuake ulauncher sublime-text"
 GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring ticktick zoom-client jabref"
-GUI_SNAPS_CLASSIC="code"
 
 CLI_APT_PKGS="bat build-essential flatpak libfuse2 myrepos ncdu pcscd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop openssh-server openvpn apt-file"
 CLI_SNAPS="multipass lxd"
@@ -115,6 +114,15 @@ ${CMD} sudo apt-add-repository -n -y ppa:system76-dev/stable
 
 ${CMD} sudo add-apt-repository -n -y ppa:agornostal/ulauncher
 
+# Sublime Text
+if [[ ${DRY_RUN} == 0 ]] ; then
+  wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
+  echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+else
+  echo "wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null"
+  echo "echo \"deb https://download.sublimetext.com/ apt/stable/\" | sudo tee /etc/apt/sources.list.d/sublime-text.list"
+fi
+
 # Update package index files
 ${CMD} sudo apt update
 
@@ -122,9 +130,6 @@ ${CMD} sudo apt install -y ${CLI_APT_PKGS} ${GUI_APT_PKGS} ${SYSTEM76}
 
 # Install snaps
 ${CMD} sudo snap install ${GUI_SNAPS} ${CLI_SNAPS}
-if [[ ${CLI_ONLY} == 0 ]]; then
-  ${CMD} sudo snap install ${GUI_SNAPS_CLASSIC} --classic
-fi
 
 # Install podman-compose
 ${CMD} sudo pip install podman-compose
