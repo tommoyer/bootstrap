@@ -181,6 +181,7 @@ ${CMD} stow vcs
 ${CMD} rm ~/.zshrc ~/.zimrc
 ${CMD} stow zsh
 ${CMD} stow subl
+${CMD} stow watson
 popd # ~/.dotfiles
 
 mkdir -p ~/Repos/home-server/
