@@ -64,14 +64,6 @@ set -e
 # Enable extra repositories
 ${CMD} sudo add-apt-repository -n -y universe multiverse
 
-# Install tailscale and bring up
-if [[ ${DRY_RUN} == 0 ]] ; then
-  wget -qO - https://tailscale.com/install.sh | sh
-else
-  echo "wget -qO - https://tailscale.com/install.sh | sh"
-fi
-${CMD} sudo tailscale up
-
 # Download .deb packages
 
 if [[ ${CLI_ONLY} == 0 ]]; then
@@ -202,6 +194,14 @@ ${CMD} multipass set local.driver=libvirt
 
 ${CMD} apt-file update
 
+# Install tailscale and bring up
+if [[ ${DRY_RUN} == 0 ]] ; then
+  wget -qO - https://tailscale.com/install.sh | sh
+else
+  echo "wget -qO - https://tailscale.com/install.sh | sh"
+fi
+${CMD} sudo tailscale up
+
 echo "Run the below snippet for setting up YubiKeys"
 cat <<'EOF'
 pamu2fcfg | tee u2f_mappings               # Main YubiKey
@@ -231,10 +231,3 @@ echo "Check the following for a Tailscale tray icon"
 echo "https://github.com/mattn/tailscale-systray"
 echo ""
 echo "Bootstrap complete, please check output carefully"
-echo "Check ~/.bootstrap_status for details on the execution"
-
-${CMD} echo "Command: ${invocation}" > ~/.bootstrap_status
-${CMD} echo -n "Git commit: " >> ~/.bootstrap_status
-${CMD} wget http://100.88.5.29:8888/latest -O- >> ~/.bootstrap_status
-${CMD} echo >> ~/.bootstrap_status
-${CMD} echo "Date: $(date)" >> ~/.bootstrap_status
