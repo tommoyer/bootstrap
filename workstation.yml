@@ -3,5 +3,5 @@
   vars_files:
     - config.yml
   roles:
-    - minimal_workstation
+    - minimal-workstation
     - workstation
