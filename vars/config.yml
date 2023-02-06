@@ -72,3 +72,19 @@ flatpaks:
 user:
   name: tmoyer
   full_name: Tom Moyer
+
+dotfiles:
+  - apps
+  - chrome
+  - gpg
+  - latex
+  - misc
+  - pics
+  - ssh
+  - tmux
+  - vcs
+  - zsh
+  - subl
+  - watson
+
+gpg_key: 0x6B0A28C4075F6051
