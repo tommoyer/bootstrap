@@ -1,0 +1,40 @@
+---
+# tasks file for minimal_workstation
+- name: Create the user
+  become: yes
+  become_method: sudo
+  ansible.builtin.user:
+    name: "{{ user.name}}"
+    comment: "{{ user.full_name }}"
+    create_home: True
+    shell: /bin/zsh
+    state: present
+
+- name: Enable universe and multiverse
+  become: yes
+  become_method: sudo
+  ansible.builtin.command: add-apt-repository -n -y universe multiverse
+
+- name: Update and upgrade apt packages
+  become: true
+  become_method: sudo
+  apt:
+    upgrade: "dist"
+    update_cache: yes
+
+- name: Install base packages
+  become: yes
+  become_method: sudo
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ base_packages }}"
+
+- name: "Install snap packages"
+  become: yes
+  become_method: sudo
+  community.general.snap:
+    name: "{{ item }}"
+    state: present
+  loop: 
+    - "{{ base_snaps }}"

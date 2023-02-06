@@ -1,0 +1,76 @@
+---
+# tasks file for vworkstation
+
+- name: Enable PPAs
+  become: yes
+  become_method: sudo
+  apt_repository:
+    validate_certs: yes
+    repo: "{{ item }}"
+    state: present
+  loop: "{{ ppas }}"
+
+- name: Install GPG key for SubLimeText
+  apt_key:
+    url: https://download.sublimetext.com/sublimehq-pub.gpg
+    state: present
+
+- name: Add Sublime repository
+  apt_repository:
+    repo: deb https://download.sublimetext.com/ apt/stable/
+    state: present
+    filename: "sublime-text.list"
+
+- copy:
+    src: system76-apt-preferences
+    dest: /etc/apt/preferences.d/system76-apt-preferences
+
+- name: Update apt packages
+  become: true
+  become_method: sudo
+  apt:
+    update_cache: yes
+
+- name: Add the flathub flatpak repository remote to the user installation
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: user
+
+- name: Install workstation packages
+  become: yes
+  become_method: sudo
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ workstation_packages }}"
+
+- name: Install downloaded debs
+  become: yes
+  become_method: sudo
+  ansible.builtin.apt:
+    deb: "{{ item }}"
+  loop: "{{ deb_downloads }}"
+
+- name: Install workstation snap packages
+  become: yes
+  become_method: sudo
+  community.general.snap:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ workstation_snaps }}"
+
+- name: Install flatpaks
+  community.general.flatpak:
+    name: "{{ item }}"
+    state: present
+    method: user
+  loop: "{{ flatpaks }}"
+
+- name: Install python packages
+  become: yes
+  become_method: sudo
+  ansible.builtin.pip:
+    name: "{{ item }}"
+  loop: "{{ pips }}"

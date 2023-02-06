@@ -1,151 +1,4 @@
-#!/bin/bash
 
-invocation="$(printf %q "$BASH_SOURCE")$((($#)) && printf ' %q' "$@")"
-
-SYSTEM76=""
-CMD=""
-
-DRY_RUN=0
-
-GUI_APT_PKGS="fprintd gnome-keyring gnuplot graphviz input-remapper texlive-full virt-manager virt-viewer yubikey-manager yubikey-personalization system76-wallpapers yubikey-manager syncthing syncthingtray-kde-plasma kio-gdrive network-manager-openvpn xclip yakuake ulauncher sublime-text"
-GUI_SNAPS="authy bitwarden icloud-for-linux mattermost-desktop slack spotify telegram-desktop zotero-snap morgen mailspring ticktick zoom-client jabref"
-
-CLI_APT_PKGS="bat build-essential flatpak libfuse2 myrepos ncdu pcscd podman python3-pip silversearcher-ag sshuttle stow tig tmux vim virtinst zsh-autosuggestions zsh-syntax-highlighting zsh scdaemon curl libpam-yubico libpam-u2f btop openssh-server openvpn apt-file"
-CLI_SNAPS="multipass lxd"
-CLI_ONLY=0
-
-usage() {
-  echo "Usage: $0 [ -n ] [ -s ] [ -d ] [ -c ]" 1>&2
-  echo " -n : dry-run, just show what would be executed"
-  echo " -s : install System76 drivers"
-  echo " -d : debug, show commands"
-  echo " -c : command-line only stuff, skip the GUI"
-}
-
-exit_abnormal() {
-  usage
-  exit 1
-}
-
-if [[ "$EUID" == 0 ]] ; then
-  echo "Please do not run as root. This script will use sudo when root privileges are needed"
-  exit 1
-fi
-
-while getopts ":nsdc" options; do
-  case "${options}" in
-    s)
-      SYSTEM76="system76-driver"
-      ;;
-    d)
-      set -x
-      ;;
-    c)
-      GUI_APT_PKGS=""
-      GUI_SNAPS=""
-      CLI_ONLY=1
-      ;;
-    n)
-      CMD='echo'
-      DRY_RUN=1
-      ;;
-    :)
-      echo "Error: -${OPTARG} requires an argument."
-      exit_abnormal
-      ;;
-    *)
-      exit_abnormal
-      ;;
-  esac
-done
-
-set -e
-
-# Enable extra repositories
-${CMD} sudo add-apt-repository -n -y universe multiverse
-
-# Download .deb packages
-
-if [[ ${CLI_ONLY} == 0 ]]; then
-  mkdir -p ~/Downloads
-  ## Dropbox
-  [ ! -f ~/Downloads/dropbox_2020.03.04_amd64.deb ] && ${CMD} wget https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb -O ~/Downloads/dropbox_2020.03.04_amd64.deb
-
-  ## Minecraft
-  [ ! -f ~/Downloads/Minecraft.deb ] && ${CMD} wget https://launcher.mojang.com/download/Minecraft.deb -O ~/Downloads/Minecraft.deb
-
-  ## Moneydance
-  [ ! -f ~/Downloads/moneydance_linux_amd64.deb ] && ${CMD} wget https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb -O ~/Downloads/moneydance_linux_amd64.deb
-
-  ## Chrome
-  [ ! -f ~/Downloads/google-chrome-stable_current_amd64.deb ] && ${CMD} wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Downloads/google-chrome-stable_current_amd64.deb
-
-  ## Steam
-  [ ! -f ~/Downloads/steam_latest.deb ] && ${CMD} wget https://repo.steampowered.com/steam/archive/stable/steam_latest.deb -O ~/Downloads/steam_latest.deb
-  
-fi 
-
-## Yubikey software
-${CMD} sudo add-apt-repository -n -y ppa:yubico/stable
-
-## System76 PPA
-if [[ ! -e /etc/apt/preferences.d/system76-apt-preferences ]]; then
-  ${CMD} sudo OUT=/etc/apt/preferences.d/system76-apt-preferences sh -c 'cat << EOF >> ${OUT}
-Package: *
-Pin: release o=LP-PPA-system76-dev-stable
-Pin-Priority: 1001
-
-Package: *
-Pin: release o=LP-PPA-system76-dev-pre-stable
-Pin-Priority: 1001
-
-EOF'
-fi
-
-${CMD} sudo apt-add-repository -n -y ppa:system76-dev/stable
-
-${CMD} sudo add-apt-repository -n -y ppa:agornostal/ulauncher
-
-# Sublime Text
-if [[ ${DRY_RUN} == 0 ]] ; then
-  wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
-  echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-else
-  echo "wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null"
-  echo "echo \"deb https://download.sublimetext.com/ apt/stable/\" | sudo tee /etc/apt/sources.list.d/sublime-text.list"
-fi
-
-# Update package index files
-${CMD} sudo apt update
-
-${CMD} sudo apt install -y ${CLI_APT_PKGS} ${GUI_APT_PKGS} ${SYSTEM76}
-
-# Install snaps
-${CMD} sudo snap install ${GUI_SNAPS} ${CLI_SNAPS}
-
-# Install podman-compose
-${CMD} sudo pip install podman-compose
-
-# Setup Flathub
-${CMD} flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-if [[ ${CLI_ONLY} == 0 ]]; then
-  # Install Junction
-  ${CMD} flatpak install -y re.sonny.Junction
-
-  # Install PDF app
-  ${CMD} flatpak install -y flathub net.codeindustry.MasterPDFEditor
-
-  # Install Lutris
-  ${CMD} flatpak install -y flathub net.lutris.Lutris
-
-  # Install the downloaded .deb files
-  for x in ~/Downloads/*.deb
-  do
-      ${CMD} sudo apt install -y ${x}
-  done
-  rm -vf ~/Downloads/*.deb
-fi
 
 # Download zimfw
 if [[ ${DRY_RUN} == 0 ]] ; then
@@ -153,9 +6,6 @@ if [[ ${DRY_RUN} == 0 ]] ; then
 else
   echo "wget -qO - https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh"
 fi
-
-# Set default shell to zsh
-${CMD} sudo chsh -s /usr/bin/zsh tmoyer
 
 # Dotfiles
 ${CMD} git clone https://github.com/tommoyer/dotfiles.git ~/.dotfiles
@@ -176,8 +26,6 @@ ${CMD} stow subl
 ${CMD} stow watson
 popd # ~/.dotfiles
 
-mkdir -p ~/Repos/home-server/
-
 ${CMD} chmod go-rwx ~/.gnupg ~/.ssh
 
 ${CMD} xdg-settings set default-web-browser re.sonny.Junction.desktop
@@ -192,9 +40,6 @@ else
 fi
 
 ${CMD} gpg --keyserver keyserver.ubuntu.com --search-keys tom.moyer@canonical.com
-
-${CMD} sudo snap connect multipass:libvirt
-${CMD} multipass set local.driver=libvirt
 
 ${CMD} apt-file update
 

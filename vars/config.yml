@@ -1,0 +1,74 @@
+---
+base_packages:
+  - zsh
+  - bat
+  - build-essential
+  - myrepos
+  - ncdu
+  - podman
+  - python3-pip
+  - silversearcher-ag
+  - sshuttle
+  - tig
+  - tmux
+  - zsh-autosuggestions
+  - zsh-syntax-highlighting
+  - curl
+  - btop
+  - openssh-server
+  - apt-file
+  - vim
+
+base_snaps:
+  - lxd
+
+workstation_packages:
+  - flatpak
+  - libfuse2
+  - pcscd
+  - virtinst
+  - scdaemon
+  - libpam-yubico
+  - libpam-u2f
+  - openvpn
+  - sublime-text
+
+pips:
+  - podman-compose
+  - td-watson
+
+deb_downloads:
+  - https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb
+  - https://launcher.mojang.com/download/Minecraft.deb
+  - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
+  - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - https://repo.steampowered.com/steam/archive/stable/steam_latest.deb
+
+ppas:
+  - ppa:yubico/stable
+  - ppa:system76-dev/stable
+  - ppa:agornostal/ulauncher
+
+workstation_snaps:
+  - authy
+  - bitwarden
+  - icloud-for-linux
+  - mattermost-desktop
+  - slack
+  - spotify
+  - telegram-desktop
+  - zotero-snap
+  - morgen
+  - mailspring
+  - ticktick
+  - zoom-client
+  - jabref
+
+flatpaks:
+  - re.sonny.Junction
+  - net.codeindustry.MasterPDFEditor
+  - net.lutris.Lutris
+
+user:
+  name: tmoyer
+  full_name: Tom Moyer
