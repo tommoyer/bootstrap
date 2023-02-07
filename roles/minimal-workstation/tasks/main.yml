@@ -103,7 +103,7 @@
   ansible.builtin.command: gpg --keyserver keyserver.ubuntu.com --recv-keys {{ gpg_key }}
 
 - name: Install zimfw modules
-  shell: "zimfw install"
+  shell: "source /home/tmoyer/.zim/zimfw.zsh install"
   args:
     executable: /usr/bin/zsh
 
