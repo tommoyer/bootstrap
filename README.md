@@ -6,7 +6,15 @@ Prior to running this make sure that Ansible is installed
 
 Install Ansible and Git
 
-`sudo apt install ansible git -y`
+`sudo apt install git python3-pip -y`
+
+Install the latest Ansible
+
+`pip install ansible`
+
+Update PATH to find Ansible
+
+`export PATH=${PATH}:${HOME}/.local/bin`
 
 Install Ansible Snaps Module
 
