@@ -106,3 +106,8 @@
   shell: "zimfw install"
   args:
     executable: /usr/bin/zsh
+
+- name: Change remote for bootstrap
+  ansible.builtin.command: "git remote set-url origin git@github.com:tommoyer/bootstrap.git"
+  args:
+    chdir: ${HOME}/Repos/tommoyer/bootstrap
