@@ -14,7 +14,7 @@ Install Ansible Snaps Module
 
 ## Checkout this Project
 
-`$ git clone https://github.com/tommoyer/bootstrap.git`
+`$ git clone https://github.com/tommoyer/bootstrap.git ~/Repos/tommoyer/bootstrap`
 
 # Running the Script
 
