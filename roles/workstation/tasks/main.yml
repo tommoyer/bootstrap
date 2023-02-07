@@ -67,44 +67,6 @@
     method: user
   loop: "{{ flatpaks }}"
 
-- name: Install python packages
-  ansible.builtin.pip:
-    name: "{{ item }}"
-  loop: "{{ pips }}"
-
-- name: Install zimfw using its script
-  ignore_errors: yes
-  register: zimfw_output
-  shell: "curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh"
-  args:
-    executable: /usr/bin/zsh
-  changed_when: "'already exists' not in zimfw_output.stderr"
-  failed_when: false
-
-- name: Delete .zshrc and .zimrc
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - ${HOME}/.zshrc
-    - ${HOME}/.zimrc
-
-- name: Stow dotfiles
-  stow:
-    state: latest
-    package: '{{ item }}'
-    dir: "${HOME}/.dotfiles"
-    target: '$HOME'
-  loop: "{{ dotfiles }}"
-
-- name: Fix directory permissions
-  ansible.builtin.file:
-    path: "{{ item }}"
-    mode: '0700'
-  loop:
-    - ${HOME}/.gnupg
-    - ${HOME}/.ssh
-
 - name: Set default browser to Junction
   ansible.builtin.command: xdg-settings set default-web-browser re.sonny.Junction.desktop
 
@@ -120,21 +82,6 @@
   args:
     executable: /bin/sh
   failed_when: false
-
-- name: Test for zsh config
-  shell: grep -c "^emulate sh -c 'source /etc/profile'" /etc/zsh/zprofile || true
-  register: test_grep
-
-- name: Update global zprofile
-  become: yes
-  become_method: sudo
-  lineinfile:
-    dest: /etc/zsh/zprofile
-    line: emulate sh -c 'source /etc/profile'
-  when: test_grep.stdout == "0"
-
-- name: Import GPG public key
-  ansible.builtin.command: gpg --keyserver keyserver.ubuntu.com --recv-keys {{ gpg_key }}
 
 - name: Configure PAM for Yubikey
   become: true
