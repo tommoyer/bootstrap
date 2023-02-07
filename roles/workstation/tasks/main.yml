@@ -125,7 +125,9 @@
   shell: grep -c "^emulate sh -c 'source /etc/profile'" /etc/zsh/zprofile || true
   register: test_grep
 
-- name: add couchbase host to properties
+- name: Update global zprofile
+  become: yes
+  become_method: sudo
   lineinfile:
     dest: /etc/zsh/zprofile
     line: emulate sh -c 'source /etc/profile'
