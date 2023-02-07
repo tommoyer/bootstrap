@@ -30,13 +30,6 @@
   apt:
     update_cache: yes
 
-- name: Add the flathub flatpak repository remote to the user installation
-  community.general.flatpak_remote:
-    name: flathub
-    state: present
-    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-    method: user
-
 - name: Install workstation packages
   become: yes
   become_method: sudo
@@ -59,6 +52,13 @@
     name: "{{ item }}"
     state: present
   loop: "{{ workstation_snaps }}"
+
+- name: Add the flathub flatpak repository remote to the user installation
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: user
 
 - name: Install flatpaks
   community.general.flatpak:
@@ -154,6 +154,12 @@
         mv $f $f~
         awk '/@include common-auth/ {print "@include common-u2f"}; {print}' $f~ > $f
       done
+
+- name: Configuring Gnome things (1/2)
+  ansible.builtin.command: gsettings set org.gnome.evolution-data-server.calendar notify-with-tray true
+
+- name: Configuring Gnome things (2/2)
+  ansible.builtin.command: gsettings set org.gnome.mutter center-new-windows true
 
 - name: Create Yubikey setup script
   copy:

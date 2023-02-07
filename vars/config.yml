@@ -32,6 +32,19 @@ workstation_packages:
   - libpam-u2f
   - openvpn
   - sublime-text
+  - gir1.2-gda-5.0
+  - gir1.2-gsound-1.0
+  - gir1.2-gtop-2.0
+  - gnome-shell-extension-manager
+  - gnome-tweaks
+  - input-remapper
+  - texlive-full
+  - wl-clipboard
+  - yubikey-manager
+  - yubikey-personalization
+  - yubikey-manager
+  - libpam-yubico
+  - libpam-u2f
 
 pips:
   - podman-compose
