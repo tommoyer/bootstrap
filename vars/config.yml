@@ -100,4 +100,4 @@ dotfiles:
   - subl
   - watson
 
-gpg_key: 0x6B0A28C4075F6051
+gpg_key: "0x6B0A28C4075F6051"
