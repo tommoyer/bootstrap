@@ -5,3 +5,4 @@
   roles:
     - minimal-workstation
     - workstation
+    - user-config

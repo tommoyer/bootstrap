@@ -39,54 +39,6 @@
   loop: 
     - "{{ base_snaps }}"
 
-- name: Clone dotfiles (read-only)
-  ansible.builtin.git:
-    repo: https://github.com/tommoyer/dotfiles.git
-    dest: ${HOME}/.dotfiles
-
-- name: Change remote for dotfiles
-  ansible.builtin.command: "git remote set-url origin git@github.com:tommoyer/dotfiles.git"
-  args:
-    chdir: ${HOME}/.dotfiles
-
-- name: Install python packages
-  ansible.builtin.pip:
-    name: "{{ item }}"
-  loop: "{{ pips }}"
-
-- name: Install zimfw using its script
-  ignore_errors: yes
-  register: zimfw_output
-  shell: "curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh"
-  args:
-    executable: /usr/bin/zsh
-  changed_when: "'already exists' not in zimfw_output.stderr"
-  failed_when: false
-
-- name: Delete .zshrc and .zimrc
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - ${HOME}/.zshrc
-    - ${HOME}/.zimrc
-
-- name: Stow dotfiles
-  stow:
-    state: latest
-    package: '{{ item }}'
-    dir: "${HOME}/.dotfiles"
-    target: '$HOME'
-  loop: "{{ dotfiles }}"
-
-- name: Fix directory permissions
-  ansible.builtin.file:
-    path: "{{ item }}"
-    mode: '0700'
-  loop:
-    - ${HOME}/.gnupg
-    - ${HOME}/.ssh
-
 - name: Test for zsh config
   shell: grep -c "^emulate sh -c 'source /etc/profile'" /etc/zsh/zprofile || true
   register: test_grep
@@ -98,16 +50,3 @@
     dest: /etc/zsh/zprofile
     line: emulate sh -c 'source /etc/profile'
   when: test_grep.stdout == "0"
-
-- name: Import GPG public key
-  ansible.builtin.command: gpg --keyserver keyserver.ubuntu.com --recv-keys {{ gpg_key }}
-
-- name: Install zimfw modules
-  shell: "source /home/tmoyer/.zim/zimfw.zsh install"
-  args:
-    executable: /usr/bin/zsh
-
-- name: Change remote for bootstrap
-  ansible.builtin.command: "git remote set-url origin git@github.com:tommoyer/bootstrap.git"
-  args:
-    chdir: ${HOME}/Repos/tommoyer/bootstrap

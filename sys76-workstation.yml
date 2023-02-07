@@ -5,4 +5,5 @@
   roles:
     - minimal-workstation
     - workstation
+    - user-config
     - system76
