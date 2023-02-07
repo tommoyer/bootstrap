@@ -18,4 +18,10 @@ Install Ansible Snaps Module
 
 # Running the Script
 
-`ansible-playbook <playbook>.yml -i inventory
+## For VMs/CLI-only systems
+
+`ansible-playbook minimal-workstation.yml -i inventory --ask-become-pass`
+
+## For desktop workstations
+
+`ansible-playbook workstation.yml -i inventory --ask-become-pass`
