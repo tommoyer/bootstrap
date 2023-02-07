@@ -1,0 +1,8 @@
+---
+- hosts: all
+  vars_files:
+    - config.yml
+  roles:
+    - minimal-workstation
+    - workstation
+    - system76
