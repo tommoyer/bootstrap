@@ -10,7 +10,7 @@
     state: present
   loop: "{{ ppas }}"
 
-- name: Install GPG key for SubLimeText
+- name: Install GPG key for SublimeText
   become: true
   become_method: sudo
   ansible.builtin.get_url:
