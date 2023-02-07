@@ -67,15 +67,6 @@
     method: user
   loop: "{{ flatpaks }}"
 
-- name: Set default browser to Junction
-  ansible.builtin.command: xdg-settings set default-web-browser re.sonny.Junction.desktop
-
-- name: Update list of installed applications (1/2)
-  ansible.builtin.command: update-desktop-database ${HOME}/.local/share/applications
-
-- name: Update list of installed applications (2/2)
-  ansible.builtin.command: update-desktop-database ${HOME}/.local/share/flatpak/exports/share/applications
-
 - name: Install tailscale using its script
   ignore_errors: yes
   shell: "wget -qO - https://tailscale.com/install.sh | sh"
@@ -103,15 +94,3 @@
         mv $f $f~
         awk '/@include common-auth/ {print "@include common-u2f"}; {print}' $f~ > $f
       done
-
-- name: Configuring Gnome things (1/2)
-  ansible.builtin.command: gsettings set org.gnome.evolution-data-server.calendar notify-with-tray true
-
-- name: Configuring Gnome things (2/2)
-  ansible.builtin.command: gsettings set org.gnome.mutter center-new-windows true
-
-- name: Create Yubikey setup script
-  copy:
-    src: finish-yubikey-setup.sh
-    dest: ${HOME}/finish-yubikey-setup.sh
-    mode: u=rwx,g=r,o=r
