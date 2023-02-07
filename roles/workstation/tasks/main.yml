@@ -89,8 +89,7 @@
     - ${HOME}/.zshrc
     - ${HOME}/.zimrc
 
-- name: Stow dotfiles
-  stow:
+- stow:
     state: latest
     package: '{{ item }}'
     dir: "${HOME}/.dotfiles"
