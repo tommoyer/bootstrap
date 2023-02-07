@@ -1,5 +1,17 @@
 ---
 # tasks file for system76
+- name: Enable PPAs
+  become: yes
+  become_method: sudo
+  ansible.builtin.command: "add-apt-repository -y ppa:system76-dev/stable"
+
+- name: Pin System76 packages
+  become: true
+  become_method: sudo
+  copy:
+    src: system76-apt-preferences
+    dest: /etc/apt/preferences.d/system76-apt-preferences
+
 - name: Install system76-driver package
   become: yes
   become_method: sudo

@@ -24,13 +24,6 @@
     state: present
     filename: "sublime-text.list"
 
-- name: Pin System76 packages
-  become: true
-  become_method: sudo
-  copy:
-    src: system76-apt-preferences
-    dest: /etc/apt/preferences.d/system76-apt-preferences
-
 - name: Update apt packages
   become: true
   become_method: sudo
