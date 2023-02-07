@@ -45,5 +45,5 @@
     dest: ${HOME}/.dotfiles
 
 - name: Change remote for dotfiles
-  ansible.builtin.command: git remote set-url origin git@github.com:tommoyer/dotfiles.git
+  ansible.builtin.command: "git remote set-url origin git@github.com:tommoyer/dotfiles.git"
     chdir: ${HOME}/.dotfiles
