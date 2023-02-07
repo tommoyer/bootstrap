@@ -150,7 +150,8 @@
 - name: Add Yubikey as auth option
   become: true
   become_method: sudo
-  chdir: /etc/pam.d
+  args:
+    chdir: /etc/pam.d
   shell:
     cmd: |
       for f in $(grep -l "@include common-auth" *); do
