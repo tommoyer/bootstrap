@@ -49,7 +49,7 @@
     - ${HOME}/.ssh
 
 - name: Import GPG public key
-  ansible.builtin.command: gpg --keyserver keyserver.ubuntu.com --recv-keys {{ gpg_key }}
+  ansible.builtin.command: gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys {{ gpg_key }}
 
 - name: Install zimfw modules
   shell: "source /home/tmoyer/.zim/zimfw.zsh install"

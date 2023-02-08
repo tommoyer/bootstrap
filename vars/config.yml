@@ -47,6 +47,7 @@ workstation_packages:
   - libpam-yubico
   - libpam-u2f
   - waypipe
+  - ulauncher
 
 pips:
   - podman-compose
@@ -77,6 +78,7 @@ workstation_snaps:
   - ticktick
   - zoom-client
   - jabref
+  - signal-desktop
 
 flatpaks:
   - re.sonny.Junction
