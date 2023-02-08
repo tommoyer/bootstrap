@@ -48,6 +48,7 @@ workstation_packages:
   - libpam-u2f
   - waypipe
   - ulauncher
+  - wmctrl
 
 pips:
   - podman-compose
@@ -96,6 +97,7 @@ dotfiles:
   - gpg
   - latex
   - misc
+  - mr
   - pics
   - ssh
   - tmux
