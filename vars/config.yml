@@ -46,6 +46,7 @@ workstation_packages:
   - yubikey-manager
   - libpam-yubico
   - libpam-u2f
+  - waypipe
 
 pips:
   - podman-compose
