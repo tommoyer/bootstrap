@@ -49,6 +49,8 @@ workstation_packages:
   - waypipe
   - ulauncher
   - wmctrl
+  - virt-manager
+  - syncthing
 
 pips:
   - podman-compose
