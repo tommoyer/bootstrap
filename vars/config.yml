@@ -53,6 +53,8 @@ workstation_packages:
   - syncthing
   - pavucontrol
   - hexchat
+  - thunderbird
+  - kdocker
 
 pips:
   - podman-compose
@@ -78,8 +80,6 @@ workstation_snaps:
   - spotify
   - telegram-desktop
   - zotero-snap
-  - morgen
-  - mailspring
   - ticktick
   - zoom-client
   - jabref
