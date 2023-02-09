@@ -84,7 +84,6 @@ workstation_snaps:
   - signal-desktop
 
 flatpaks:
-  - re.sonny.Junction
   - net.codeindustry.MasterPDFEditor
   - net.lutris.Lutris
   - md.obsidian.Obsidian
