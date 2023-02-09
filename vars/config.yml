@@ -51,6 +51,7 @@ workstation_packages:
   - wmctrl
   - virt-manager
   - syncthing
+  - pavucontrol
 
 pips:
   - podman-compose
