@@ -54,7 +54,6 @@ workstation_packages:
   - pavucontrol
   - hexchat
   - thunderbird
-  - kdocker
 
 pips:
   - podman-compose
