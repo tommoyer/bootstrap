@@ -41,6 +41,7 @@ workstation_packages:
   - input-remapper
   - texlive-full
   - wl-clipboard
+  - xclip
   - yubikey-manager
   - yubikey-personalization
   - yubikey-manager
@@ -53,7 +54,6 @@ workstation_packages:
   - syncthing
   - pavucontrol
   - hexchat
-  - thunderbird
 
 pips:
   - podman-compose
@@ -83,6 +83,8 @@ workstation_snaps:
   - zoom-client
   - jabref
   - signal-desktop
+  - morgen
+  - mailspring
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
