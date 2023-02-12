@@ -6,6 +6,7 @@ pamu2fcfg | tee u2f_mappings               # Main YubiKey
 
 echo ""
 read -p "Remove primary Yubikey insert backup Yubikey and then press any key" -n1 -s
+echo ""
 pamu2fcfg -n | tee -a u2f_mappings   # Backup YubiKey
 
 echo >> u2f_mappings
