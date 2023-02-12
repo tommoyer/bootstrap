@@ -54,6 +54,7 @@ workstation_packages:
   - syncthing
   - pavucontrol
   - hexchat
+  - byobu
 
 pips:
   - podman-compose
