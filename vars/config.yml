@@ -55,6 +55,7 @@ workstation_packages:
   - pavucontrol
   - hexchat
   - byobu
+  - thunderbird
 
 pips:
   - podman-compose
@@ -64,7 +65,6 @@ deb_downloads:
   - https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb
   - https://launcher.mojang.com/download/Minecraft.deb
   - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
-  - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   - https://repo.steampowered.com/steam/archive/stable/steam_latest.deb
 
 ppas:
@@ -84,8 +84,6 @@ workstation_snaps:
   - zoom-client
   - jabref
   - signal-desktop
-  - morgen
-  - mailspring
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
