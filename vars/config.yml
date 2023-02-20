@@ -90,6 +90,7 @@ flatpaks:
   - net.codeindustry.MasterPDFEditor
   - net.lutris.Lutris
   - md.obsidian.Obsidian
+  - re.sonny.Junction
 
 user:
   name: tmoyer
@@ -97,7 +98,6 @@ user:
 
 dotfiles:
   - apps
-  - chrome
   - gpg
   - latex
   - misc
