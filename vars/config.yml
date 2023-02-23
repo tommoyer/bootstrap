@@ -87,6 +87,9 @@ workstation_snaps:
   - jabref
   - signal-desktop
 
+workstation_classic_snaps:
+  - nvim
+
 flatpaks:
   - net.codeindustry.MasterPDFEditor
   - net.lutris.Lutris
