@@ -57,6 +57,7 @@ workstation_packages:
   - byobu
   - thunderbird
   - thunderbird-gnome-support
+  - netclient
 
 pips:
   - podman-compose

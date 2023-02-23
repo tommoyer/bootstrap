@@ -24,6 +24,24 @@
     state: present
     filename: "sublime-text.list"
 
+- name: Install GPG key for netclient
+  become: true
+  become_method: sudo
+  ansible.builtin.get_url:
+    url: https://apt.netmaker.org/gpg.key
+    dest: /etc/apt/trusted.gpg.d/netclient.asc
+    mode: '0644'
+    force: true
+
+- name: Install apt repo list for netclient
+  become: true
+  become_method: sudo
+  ansible.builtin.get_url:
+    url: https://apt.netmaker.org/debian.deb.txt
+    dest: /etc/apt/sources.list.d/netclient.list
+    mode: '0644'
+    force: true
+
 - name: Update apt packages
   become: true
   become_method: sudo
@@ -67,12 +85,12 @@
     method: user
   loop: "{{ flatpaks }}"
 
-- name: Install tailscale using its script
-  ignore_errors: yes
-  shell: "wget -qO - https://tailscale.com/install.sh | sh"
-  args:
-    executable: /bin/sh
-  failed_when: false
+# - name: Install tailscale using its script
+#   ignore_errors: yes
+#   shell: "wget -qO - https://tailscale.com/install.sh | sh"
+#   args:
+#     executable: /bin/sh
+#   failed_when: false
 
 - name: Configure PAM for Yubikey
   become: true
