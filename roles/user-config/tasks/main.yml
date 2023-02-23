@@ -81,3 +81,8 @@
 
 - name: Mouse highlight on ctrl
   ansible.builtin.command: gsettings set org.gnome.desktop.interface locate-pointer true
+
+- name: NeoVim Basic IDE
+  ansible.builtin.git:
+    repo: https://github.com/LunarVim/nvim-basic-ide
+    dest: ${HOME}/.config/nvim
