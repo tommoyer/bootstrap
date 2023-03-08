@@ -104,6 +104,7 @@ flatpaks:
   - net.lutris.Lutris
   - md.obsidian.Obsidian
   - re.sonny.Junction
+  - us.zoom.Zoom
 
 user:
   name: tmoyer
