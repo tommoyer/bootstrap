@@ -94,6 +94,7 @@ workstation_snaps:
   - zoom-client
   - jabref
   - signal-desktop
+  - chromium
 
 workstation_classic_snaps:
   - nvim
