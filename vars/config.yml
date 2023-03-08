@@ -63,6 +63,7 @@ workstation_packages:
   - nodejs
   - npm
   - fd-find
+  - deja-dup
 
 pips:
   - podman-compose
