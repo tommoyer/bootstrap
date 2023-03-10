@@ -64,6 +64,7 @@ workstation_packages:
   - npm
   - fd-find
   - deja-dup
+  - guestfs-tools
 
 pips:
   - podman-compose
