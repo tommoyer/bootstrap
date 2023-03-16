@@ -68,8 +68,6 @@ workstation_packages:
 
 pips:
   - podman-compose
-  - td-watson
-  - pynvim
   - black
   - flake8
 
@@ -97,9 +95,6 @@ workstation_snaps:
   - jabref
   - signal-desktop
   - chromium
-
-workstation_classic_snaps:
-  - nvim
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
