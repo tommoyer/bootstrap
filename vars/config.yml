@@ -74,7 +74,6 @@ pips:
 deb_downloads:
   - https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb
   - https://launcher.mojang.com/download/Minecraft.deb
-  - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
   - https://repo.steampowered.com/steam/archive/stable/steam_latest.deb
 
 ppas:
@@ -100,7 +99,6 @@ flatpaks:
   - net.codeindustry.MasterPDFEditor
   - net.lutris.Lutris
   - md.obsidian.Obsidian
-  - re.sonny.Junction
   - us.zoom.Zoom
 
 user:
@@ -119,5 +117,6 @@ dotfiles:
   - vcs
   - zsh
   - subl
+  - watson
 
 gpg_key: "0x6B0A28C4075F6051"
