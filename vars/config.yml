@@ -5,7 +5,6 @@ base_packages:
   - build-essential
   - myrepos
   - ncdu
-  - podman
   - python3-pip
   - silversearcher-ag
   - sshuttle
@@ -19,13 +18,14 @@ base_packages:
   - apt-file
   - vim
   - stow
+  - fd-find
+  - byobu
 
 base_snaps:
   - lxd
 
 workstation_packages:
   - flatpak
-  - libfuse2
   - pcscd
   - virtinst
   - scdaemon
@@ -33,11 +33,6 @@ workstation_packages:
   - libpam-u2f
   - openvpn
   - sublime-text
-  - gir1.2-gda-5.0
-  - gir1.2-gsound-1.0
-  - gir1.2-gtop-2.0
-  - gnome-shell-extension-manager
-  - gnome-tweaks
   - input-remapper
   - texlive-full
   - wl-clipboard
@@ -54,20 +49,11 @@ workstation_packages:
   - syncthing
   - pavucontrol
   - hexchat
-  - byobu
   - thunderbird
-  - thunderbird-gnome-support
   - netclient
-  - xsel
-  - ripgrep
-  - nodejs
-  - npm
-  - fd-find
   - deja-dup
-  - guestfs-tools
 
 pips:
-  - podman-compose
   - black
   - flake8
 
@@ -75,6 +61,7 @@ deb_downloads:
   - https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb
   - https://launcher.mojang.com/download/Minecraft.deb
   - https://repo.steampowered.com/steam/archive/stable/steam_latest.deb
+  - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
 
 ppas:
   - ppa:yubico/stable
