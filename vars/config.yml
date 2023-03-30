@@ -52,6 +52,7 @@ workstation_packages:
   - thunderbird
   - netclient
   - deja-dup
+  - yakuake
 
 pips:
   - black
