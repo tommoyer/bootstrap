@@ -50,7 +50,6 @@ workstation_packages:
   - pavucontrol
   - hexchat
   - thunderbird
-  - netclient
   - deja-dup
   - yakuake
 
