@@ -59,7 +59,7 @@ pips:
   - timetagger_cli
 
 deb_downloads:
-  - https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb
+  - https://linux.dropbox.com/packages/ubuntu/dropbox_2022.12.05_amd64.deb
   - https://launcher.mojang.com/download/Minecraft.deb
   - https://repo.steampowered.com/steam/archive/stable/steam_latest.deb
   - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
