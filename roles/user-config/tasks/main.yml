@@ -32,6 +32,12 @@
     - ${HOME}/.zshrc
     - ${HOME}/.zimrc
 
+- name: Create watson directory
+  ansible.builtin.file:
+    path: ${HOME}/.config/watson
+    state: directory
+    mode: '0755'
+
 - name: Stow dotfiles
   stow:
     state: latest

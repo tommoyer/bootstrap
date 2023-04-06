@@ -2,7 +2,6 @@
 base_packages:
   - zsh
   - bat
-  - build-essential
   - myrepos
   - ncdu
   - python3-pip
@@ -25,7 +24,6 @@ base_snaps:
   - lxd
 
 workstation_packages:
-  - flatpak
   - pcscd
   - virtinst
   - scdaemon
@@ -35,32 +33,22 @@ workstation_packages:
   - sublime-text
   - input-remapper
   - texlive-full
-  - wl-clipboard
-  - xclip
   - yubikey-manager
   - yubikey-personalization
   - yubikey-manager
   - libpam-yubico
   - libpam-u2f
-  - waypipe
   - ulauncher
-  - wmctrl
   - virt-manager
   - syncthing
-  - pavucontrol
-  - hexchat
   - thunderbird
-  - deja-dup
   - yakuake
 
 pips:
   - black
   - flake8
-  - timetagger_cli
 
 deb_downloads:
-  - https://linux.dropbox.com/packages/ubuntu/dropbox_2022.12.05_amd64.deb
-  - https://launcher.mojang.com/download/Minecraft.deb
   - https://repo.steampowered.com/steam/archive/stable/steam_latest.deb
   - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
 
@@ -69,25 +57,23 @@ ppas:
   - ppa:agornostal/ulauncher
 
 workstation_snaps:
-  - authy
-  - bitwarden
   - icloud-for-linux
-  - mattermost-desktop
-  - slack
-  - spotify
-  - telegram-desktop
-  - zotero-snap
-  - ticktick
-  - zoom-client
-  - jabref
-  - signal-desktop
-  - chromium
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
   - net.lutris.Lutris
   - md.obsidian.Obsidian
   - us.zoom.Zoom
+  - com.dropbox.Client
+  - com.mojang.Minecraft
+  - com.authy.Authy
+  - com.bitwarden.desktop
+  - com.mattermost.Desktop
+  - com.slack.Slack
+  - com.spotify.Client
+  - com.ticktick.TickTick
+  - us.zoom.Zoom
+  - org.chromium.Chromium
 
 user:
   name: tmoyer
