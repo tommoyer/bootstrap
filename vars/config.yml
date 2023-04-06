@@ -50,7 +50,6 @@ pips:
   - flake8
 
 deb_downloads:
-  - https://repo.steampowered.com/steam/archive/stable/steam_latest.deb
   - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
 
 ppas:
@@ -75,6 +74,7 @@ flatpaks:
   - com.ticktick.TickTick
   - us.zoom.Zoom
   - org.chromium.Chromium
+  - com.valvesoftware.Steam
 
 user:
   name: tmoyer
