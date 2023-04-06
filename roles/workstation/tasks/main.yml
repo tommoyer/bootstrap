@@ -4,7 +4,7 @@
 - name: Enable PPAs
   become: yes
   become_method: sudo
-  ansible.builtin.command: add-apt-repository -yn "{{ item }}"
+  ansible.builtin.command: add-apt-repository -y "{{ item }}"
   loop: "{{ ppas }}"
 
 - name: Install GPG key for SublimeText
@@ -23,6 +23,10 @@
     repo: 'deb [signed-by=/etc/apt/keyrings/sublimehq-pub.asc] https://download.sublimetext.com/ apt/stable/'
     state: present
     filename: "sublime-text.list"
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
 
 - name: Install workstation packages
   become: yes
