@@ -25,6 +25,8 @@
     filename: "sublime-text.list"
 
 - name: Update apt cache
+  become: true
+  become_method: sudo
   ansible.builtin.apt:
     update_cache: yes
 
