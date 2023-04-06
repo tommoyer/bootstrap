@@ -18,7 +18,7 @@
 - name: Install zimfw using its script
   ignore_errors: yes
   register: zimfw_output
-  shell: "curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh"
+  shell: "curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | /usr/bin/zsh"
   args:
     executable: /usr/bin/zsh
   changed_when: "'already exists' not in zimfw_output.stderr"
