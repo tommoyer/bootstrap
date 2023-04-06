@@ -12,6 +12,10 @@
     src: system76-apt-preferences
     dest: /etc/apt/preferences.d/system76-apt-preferences
 
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+
 - name: Install system76-driver package
   become: yes
   become_method: sudo
