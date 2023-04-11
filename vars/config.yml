@@ -19,7 +19,6 @@ base_packages:
   - stow
   - fd-find
   - byobu
-  - snapd
 
 base_snaps:
   - lxd
@@ -43,7 +42,7 @@ workstation_packages:
   - virt-manager
   - syncthing
   - thunderbird
-  - yakuake
+  - guake
 
 pips:
   - black
