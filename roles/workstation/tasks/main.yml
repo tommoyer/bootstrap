@@ -77,6 +77,8 @@
   loop: "{{ flatpaks }}"
 
 - name: Install tailscale using its script
+  become: yes
+  become_method: sudo
   ignore_errors: yes
   shell: "wget -qO - https://tailscale.com/install.sh | sh"
   args:
