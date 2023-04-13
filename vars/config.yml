@@ -19,6 +19,7 @@ base_packages:
   - stow
   - fd-find
   - byobu
+  - python3-virtualenv
 
 base_snaps:
   - lxd
