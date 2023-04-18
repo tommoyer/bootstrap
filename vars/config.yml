@@ -43,7 +43,7 @@ workstation_packages:
   - virt-manager
   - syncthing
   - thunderbird
-  - guake
+  - yakuake
   - flatpak
 
 pips:
@@ -76,6 +76,7 @@ flatpaks:
   - us.zoom.Zoom
   - org.chromium.Chromium
   - com.valvesoftware.Steam
+  - com.github.tchx84.Flatseal
 
 user:
   name: tmoyer
