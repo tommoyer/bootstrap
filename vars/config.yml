@@ -20,6 +20,7 @@ base_packages:
   - fd-find
   - byobu
   - python3-virtualenv
+  - git-lfs
 
 base_snaps:
   - lxd

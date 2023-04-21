@@ -15,12 +15,14 @@
   become_method: sudo
   ansible.builtin.command: add-apt-repository -y universe multiverse
 
-- name: Enable snapd (for Linux Mint)
+- name: Install Git LFS PackageCloud repo using its script
   become: yes
   become_method: sudo
-  ansible.builtin.file:
-    path: /etc/apt/preferences.d/nosnap.pref
-    state: absent
+  ignore_errors: yes
+  shell: "curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash"
+  args:
+    executable: /bin/sh
+  failed_when: false
 
 - name: Update and upgrade apt packages
   become: true
