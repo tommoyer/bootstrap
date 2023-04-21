@@ -59,6 +59,7 @@ ppas:
 
 workstation_snaps:
   - icloud-for-linux
+  - nativefier
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
