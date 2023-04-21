@@ -73,6 +73,23 @@
     dest: ${HOME}/finish-yubikey-setup.sh
     mode: u=rwx,g=r,o=r
 
+- name: Download custom TickTick web app
+  ansible.builtin.get_url:
+    url: https://thomasmoyer.org/TickTick-linux-x64.tar.xz
+    dest: /home/tmoyer/TickTick-linux-x64.tar.xz
+    checksum: sha256:4ff1b76ac7e4279ef2a2c087015f899c01b6918e25f5d4dfb5410d38569028a1
+
+- name: Extract custom TickTick web app
+  ansible.builtin.unarchive:
+    src: /home/tmoyer/TickTick-linux-x64.tar.xz
+    dest: /home/tmoyer/Applications/
+    remote_src: yes
+
+- name: Delete downloaded archive file
+  ansible.builtin.file:
+    path: /home/tmoyer/TickTick-linux-x64.tar.xz
+    state: absent
+
 - name: Update list of installed applications (1/2)
   ansible.builtin.command: update-desktop-database ${HOME}/.local/share/applications
 
