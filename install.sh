@@ -5,9 +5,9 @@ die() {
     exit 1
 }
 
-sudo apt install git python3-pip -y
+sudo apt install git pipx -y
 
-pip install ansible
+pipx install --include-deps ansible
 
 export PATH=${PATH}:${HOME}/.local/bin
 
@@ -17,7 +17,7 @@ echo "Please choose system type:"
 echo "1 - Virtual machine/command-line only system"
 echo "2 - System76-based server"
 echo "3 - Desktop system or VM"
-echo "4 - System76-based desktop system"
+echo "4 - System76-based desktop system (only if not using Pop!_OS, use 3 instead for Pop!_OS)"
 
 read -ep 'Select type: ' number
 [[ $number =~ ^[[:digit:]]+$ ]] ||
