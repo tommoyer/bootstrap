@@ -20,30 +20,26 @@ base_packages:
   - fd-find
   - byobu
   - python3-virtualenv
+  - snapd
+  - pipx
 
 base_snaps:
   - lxd
 
 workstation_packages:
   - pcscd
-  - virtinst
   - scdaemon
-  - libpam-yubico
-  - libpam-u2f
   - openvpn
   - sublime-text
   - input-remapper
-  - texlive-full
   - yubikey-manager
   - yubikey-personalization
-  - yubikey-manager
   - libpam-yubico
   - libpam-u2f
-  - ulauncher
   - virt-manager
   - syncthing
   - thunderbird
-  - yakuake
+  - guake
   - flatpak
 
 pips:
@@ -55,7 +51,6 @@ deb_downloads:
 
 ppas:
   - ppa:yubico/stable
-  - ppa:agornostal/ulauncher
 
 workstation_snaps:
   - icloud-for-linux
