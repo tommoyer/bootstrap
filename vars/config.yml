@@ -41,6 +41,8 @@ workstation_packages:
   - thunderbird
   - guake
   - flatpak
+  - gnome-tweaks
+  - gnome-shell-extension-manager
 
 pips:
   - black
