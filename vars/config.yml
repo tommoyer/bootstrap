@@ -39,7 +39,6 @@ workstation_packages:
   - virt-manager
   - syncthing
   - thunderbird
-  - guake
   - flatpak
   - gnome-tweaks
   - gnome-shell-extension-manager
