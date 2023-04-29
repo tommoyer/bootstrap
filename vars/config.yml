@@ -65,7 +65,6 @@ flatpaks:
   - us.zoom.Zoom
   - com.dropbox.Client
   - com.mojang.Minecraft
-  - com.authy.Authy
   - com.bitwarden.desktop
   - com.mattermost.Desktop
   - com.slack.Slack
