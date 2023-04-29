@@ -43,10 +43,14 @@ workstation_packages:
   - gnome-tweaks
   - gnome-shell-extension-manager
   - deja-dup
+  - libhidapi-libusb0
+  - libxcb-xinerama0
+  - libxcb-cursor0
 
 pips:
   - black
   - flake8
+  - streamdeck_ui
 
 deb_downloads:
   - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb

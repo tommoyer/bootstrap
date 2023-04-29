@@ -73,6 +73,19 @@
     dest: ${HOME}/finish-yubikey-setup.sh
     mode: u=rwx,g=r,o=r
 
+- name: Install Streamdeck udev rules
+  become: yes
+  become_method: sudo
+  copy:
+    src: 70-streamdeck.rules
+    dest: /etc/udev/rules.d/70-streamdeck.rules
+    mode: u=rw,g=r,o=r
+
+- name: Reload udev rules
+  become: yes
+  become_method: sudo
+  ansible.builtin.command: udevadm control --reload-rules
+
 - name: Download custom TickTick web app
   ansible.builtin.get_url:
     url: https://thomasmoyer.org/TickTick-linux-x64.tar.xz
