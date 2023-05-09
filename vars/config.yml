@@ -73,7 +73,6 @@ flatpaks:
   - com.mattermost.Desktop
   - com.slack.Slack
   - com.spotify.Client
-  - com.ticktick.TickTick
   - us.zoom.Zoom
   - org.chromium.Chromium
   - com.valvesoftware.Steam
