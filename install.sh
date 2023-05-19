@@ -15,16 +15,13 @@ ansible-galaxy collection install community.general
 
 echo "Please choose system type:"
 echo "1 - Virtual machine/command-line only system"
-echo "2 - System76-based server"
-echo "3 - Desktop system or VM"
-echo "4 - System76-based desktop system (only if not using Pop!_OS, use 3 instead for Pop!_OS)"
+echo "2 - Desktop system or VM"
 
 read -ep 'Select type: ' number
 [[ $number =~ ^[[:digit:]]+$ ]] ||
     die '*** Error: you should have entered a number'
-(( ( (number=(10#$number)) <= 4 ) && number >= 0 )) ||
-    die '*** Error, number not in range 1..4'
-# Here I'm sure that number is a valid number in the range 0..9999
+(( ( (number=(10#$number)) <= 2 ) && number >= 0 )) ||
+    die '*** Error, number not in range 1..2'
 
 case $number in
 
@@ -33,17 +30,24 @@ case $number in
     ;;
 
   2)
-    ansible-playbook sys76-server.yml -i inventory --ask-become-pass
-    ;;
-
-  3)
     ansible-playbook workstation.yml -i inventory --ask-become-pass
-    ;;
-  4)
-    ansible-playbook sys76-workstation.yml -i inventory --ask-become-pass
     ;;
 
   *)
     die '*** Invalid selection'
     ;;
 esac
+
+while true; do
+    read -p "Do you wish to install the System76 PPA?" yn
+    case $yn in
+        [Yy]* )
+          ansible-playbook system76.yml -i inventory --ask-become-pass
+          ;;
+        [Nn]* )
+          echo "Skipping..."
+          ;;
+        * )
+          echo "Please answer yes or no.";;
+    esac
+done

@@ -11,18 +11,39 @@
     chdir: ${HOME}/.dotfiles
 
 - name: Install python packages
-  ansible.builtin.pip:
+  community.general.pipx:
     name: "{{ item }}"
   loop: "{{ pips }}"
 
+- name: Install Watson from wheel
+  community.general.pipx:
+    name: td_watson
+    source: https://thomasmoyer.org/td_watson-2.1.0+notes-py2.py3-none-any.whl
+
+- name: Install watson2sf from wheel
+  community.general.pipx:
+    name: watson2sf
+    source: https://thomasmoyer.org/watson2sf-0.1.0-py3-none-any.whl
+
+- name: Download zimfw install script
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/zimfw/install/master/install.zsh
+    dest: /tmp/install-zimfw.zsh
+    mode: '0740'
+
 - name: Install zimfw using its script
   ignore_errors: yes
+  shell: "/tmp/install-zimfw.zsh"
   register: zimfw_output
-  shell: "curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | /usr/bin/zsh"
   args:
     executable: /usr/bin/zsh
   changed_when: "'already exists' not in zimfw_output.stderr"
   failed_when: false
+
+- name: Delete downloaded script
+  ansible.builtin.file:
+    path: /tmp/install-zimfw.zsh
+    state: absent
 
 - name: Delete .zshrc and .zimrc
   ansible.builtin.file:
@@ -102,6 +123,26 @@
   ansible.builtin.file:
     path: /home/tmoyer/TickTick-linux-x64.tar.xz
     state: absent
+
+- name: Download pyenv install script
+  ansible.builtin.get_url:
+    url: https://pyenv.run
+    dest: /tmp/install-pyenv.sh
+    mode: '0740'
+
+- name: Install pyenv using its script
+  ignore_errors: yes
+  shell: "/tmp/install-pyenv.sh"
+  args:
+    executable: /bin/bash
+  failed_when: false
+
+- name: Delete downloaded script
+  ansible.builtin.file:
+    path: /tmp/install-pyenv.sh
+    state: absent
+
+- name 
 
 - name: Update list of installed applications (1/2)
   ansible.builtin.command: update-desktop-database ${HOME}/.local/share/applications

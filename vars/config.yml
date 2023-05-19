@@ -51,6 +51,8 @@ pips:
   - black
   - flake8
   - streamdeck_ui
+  - pipenv
+  - flit
 
 deb_downloads:
   - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
@@ -61,6 +63,7 @@ ppas:
 workstation_snaps:
   - icloud-for-linux
   - nativefier
+  - morgen
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
