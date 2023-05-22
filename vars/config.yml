@@ -65,20 +65,19 @@ workstation_snaps:
   - nativefier
   - morgen
   - chromium
+  - lutris
+  - obsidian
+  - zoom-client
+  - bitwarden
+  - mattermost-desktop
+  - slack
+  - spotify
+  - steam
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
-  - net.lutris.Lutris
-  - md.obsidian.Obsidian
-  - us.zoom.Zoom
   - com.dropbox.Client
   - com.mojang.Minecraft
-  - com.bitwarden.desktop
-  - com.mattermost.Desktop
-  - com.slack.Slack
-  - com.spotify.Client
-  - us.zoom.Zoom
-  - com.valvesoftware.Steam
   - com.github.tchx84.Flatseal
 
 user:
