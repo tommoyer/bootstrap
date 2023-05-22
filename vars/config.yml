@@ -64,6 +64,7 @@ workstation_snaps:
   - icloud-for-linux
   - nativefier
   - morgen
+  - chromium
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
@@ -77,7 +78,6 @@ flatpaks:
   - com.slack.Slack
   - com.spotify.Client
   - us.zoom.Zoom
-  - org.chromium.Chromium
   - com.valvesoftware.Steam
   - com.github.tchx84.Flatseal
 
