@@ -52,7 +52,7 @@ pips:
   - flake8
   - streamdeck_ui
   - pipenv
-  - flit
+  - poetry
 
 deb_downloads:
   - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
