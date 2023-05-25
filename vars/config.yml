@@ -40,12 +40,15 @@ workstation_packages:
   - syncthing
   - thunderbird
   - flatpak
-  - gnome-tweaks
-  - gnome-shell-extension-manager
   - deja-dup
   - libhidapi-libusb0
   - libxcb-xinerama0
   - libxcb-cursor0
+  - i3
+  - rofi
+  - picom
+  - polybar
+  - nitrogen
 
 pips:
   - black
