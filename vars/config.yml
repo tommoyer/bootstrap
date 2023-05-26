@@ -49,6 +49,7 @@ workstation_packages:
   - picom
   - polybar
   - nitrogen
+  - yakuake
 
 pips:
   - black
