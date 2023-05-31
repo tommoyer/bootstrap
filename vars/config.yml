@@ -53,7 +53,7 @@ workstation_packages:
   - swaylock
   - waybar
   - swaybg
-  - wdisplay
+  - wdisplays
   - sway-notification-center
 
 pips:
