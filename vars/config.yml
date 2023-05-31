@@ -45,11 +45,16 @@ workstation_packages:
   - libxcb-xinerama0
   - libxcb-cursor0
   - i3
-  - rofi
   - picom
-  - polybar
   - nitrogen
   - yakuake
+  - sway
+  - swayidle
+  - swaylock
+  - waybar
+  - swaybg
+  - wdisplay
+  - sway-notification-center
 
 pips:
   - black
