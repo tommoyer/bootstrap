@@ -25,33 +25,6 @@
     name: watson2sf
     source: https://thomasmoyer.org/watson2sf-0.1.0-py3-none-any.whl
 
-- name: Download zimfw install script
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/zimfw/install/master/install.zsh
-    dest: /tmp/install-zimfw.zsh
-    mode: '0740'
-
-- name: Install zimfw using its script
-  ignore_errors: yes
-  shell: "/tmp/install-zimfw.zsh" 
-  args:
-    executable: /usr/bin/zsh
-    chdir: /home/tmoyer
-    creates: "/home/tmoyer/.zim"
-
-- name: Delete downloaded script
-  ansible.builtin.file:
-    path: /tmp/install-zimfw.zsh
-    state: absent
-
-- name: Delete .zshrc and .zimrc
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - ${HOME}/.zshrc
-    - ${HOME}/.zimrc
-
 - name: Create watson directory
   ansible.builtin.file:
     path: ${HOME}/.config/watson
