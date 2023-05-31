@@ -41,7 +41,8 @@
   become: yes
   become_method: sudo
   ansible.builtin.apt:
-    deb: "{{ deb_downloads }}"
+    deb: "{{ item }}"
+  loop: "{{ deb_downloads }}"
 
 - name: Install workstation snap packages
   become: yes
