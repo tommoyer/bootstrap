@@ -142,8 +142,6 @@
     path: /tmp/install-pyenv.sh
     state: absent
 
-- name 
-
 - name: Update list of installed applications (1/2)
   ansible.builtin.command: update-desktop-database ${HOME}/.local/share/applications
 

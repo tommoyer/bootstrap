@@ -39,13 +39,14 @@ case $number in
 esac
 
 while true; do
-    read -p "Do you wish to install the System76 PPA?" yn
+    read -p "Do you wish to install the System76 PPA? [y/n] " yn
     case $yn in
         [Yy]* )
           ansible-playbook system76.yml -i inventory --ask-become-pass
           ;;
         [Nn]* )
           echo "Skipping..."
+          break
           ;;
         * )
           echo "Please answer yes or no.";;
