@@ -12,7 +12,8 @@
 
 - name: Install python packages
   community.general.pipx:
-    name: "{{ pips }}"
+    name: "{{ item }}"
+  loop: "{{ pips }}"
 
 - name: Install Watson from wheel
   community.general.pipx:
