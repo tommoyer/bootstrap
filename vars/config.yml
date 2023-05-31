@@ -80,7 +80,7 @@ workstation_snaps:
 flatpaks:
   - net.codeindustry.MasterPDFEditor
   - com.dropbox.Client
-  - com.mojang.Minecraft
+  - org.prismlauncher.PrismLauncher
   - com.github.tchx84.Flatseal
   - md.obsidian.Obsidian
   - net.lutris.Lutris
