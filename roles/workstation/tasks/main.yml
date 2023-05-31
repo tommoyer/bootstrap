@@ -48,16 +48,9 @@
   become: yes
   become_method: sudo
   community.general.snap:
-    name: "{{ workstation_snaps }}"
+    name: "{{ item }}"
     state: present
-
-# - name: Install workstation snap packages (classic)
-#   become: yes
-#   become_method: sudo
-#   community.general.snap:
-#     name: "{{ workstation_classic_snaps }}"
-#     state: present
-#     classic: true
+  lopp: "{{ workstation_snaps }}"
 
 - name: Add the flathub flatpak repository remote to the user installation
   community.general.flatpak_remote:
