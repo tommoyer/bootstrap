@@ -34,33 +34,29 @@
   become: yes
   become_method: sudo
   ansible.builtin.package:
-    name: "{{ item }}"
+    name: "{{ workstation_packages }}"
     state: latest
-  loop: "{{ workstation_packages }}"
 
 - name: Install downloaded debs
   become: yes
   become_method: sudo
   ansible.builtin.apt:
-    deb: "{{ item }}"
-  loop: "{{ deb_downloads }}"
+    deb: "{{ deb_downloads }}"
 
 - name: Install workstation snap packages
   become: yes
   become_method: sudo
   community.general.snap:
-    name: "{{ item }}"
+    name: "{{ workstation_snaps }}"
     state: present
-  loop: "{{ workstation_snaps }}"
 
 # - name: Install workstation snap packages (classic)
 #   become: yes
 #   become_method: sudo
 #   community.general.snap:
-#     name: "{{ item }}"
+#     name: "{{ workstation_classic_snaps }}"
 #     state: present
 #     classic: true
-#   loop: "{{ workstation_classic_snaps }}"
 
 - name: Add the flathub flatpak repository remote to the user installation
   community.general.flatpak_remote:
@@ -71,10 +67,9 @@
 
 - name: Install flatpaks
   community.general.flatpak:
-    name: "{{ item }}"
+    name: "{{ flatpaks }}"
     state: present
     method: user
-  loop: "{{ flatpaks }}"
 
 - name: Download tailscale install script
   ansible.builtin.get_url:

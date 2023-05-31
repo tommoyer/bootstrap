@@ -33,18 +33,15 @@
   become: yes
   become_method: sudo
   ansible.builtin.package:
-    name: "{{ item }}"
+    name: "{{ base_packages }}"
     state: latest
-  loop: "{{ base_packages }}"
 
 - name: Install snap packages
   become: yes
   become_method: sudo
   community.general.snap:
-    name: "{{ item }}"
+    name: "{{ base_snaps }}"
     state: present
-  loop: 
-    - "{{ base_snaps }}"
 
 - name: Test for zsh config
   shell: grep -c "^emulate sh -c 'source /etc/profile'" /etc/zsh/zprofile || true
