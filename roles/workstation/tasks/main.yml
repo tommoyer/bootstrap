@@ -50,7 +50,7 @@
   community.general.snap:
     name: "{{ item }}"
     state: present
-  lopp: "{{ workstation_snaps }}"
+  loop: "{{ workstation_snaps }}"
 
 - name: Add the flathub flatpak repository remote to the user installation
   community.general.flatpak_remote:
