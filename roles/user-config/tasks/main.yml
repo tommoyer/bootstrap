@@ -33,12 +33,11 @@
 
 - name: Install zimfw using its script
   ignore_errors: yes
-  shell: "/tmp/install-zimfw.zsh"
-  register: zimfw_output
+  shell: "/tmp/install-zimfw.zsh" 
   args:
     executable: /usr/bin/zsh
-  changed_when: "'already exists' not in zimfw_output.stderr"
-  failed_when: false
+    chdir: /home/tmoyer
+    creates: "/home/tmoyer/.zim"
 
 - name: Delete downloaded script
   ansible.builtin.file:
