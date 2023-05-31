@@ -43,6 +43,7 @@ while true; do
     case $yn in
         [Yy]* )
           ansible-playbook system76.yml -i inventory --ask-become-pass
+          break
           ;;
         [Nn]* )
           echo "Skipping..."

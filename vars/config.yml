@@ -44,17 +44,14 @@ workstation_packages:
   - libhidapi-libusb0
   - libxcb-xinerama0
   - libxcb-cursor0
-  - i3
-  - picom
-  - nitrogen
-  - yakuake
   - sway
   - swayidle
   - swaylock
   - waybar
   - swaybg
-  - wdisplay
+  - wdisplays
   - sway-notification-center
+  - brave-browser
 
 pips:
   - black
@@ -73,9 +70,6 @@ workstation_snaps:
   - icloud-for-linux
   - nativefier
   - morgen
-  - chromium
-  - lutris
-  - obsidian
   - zoom-client
   - bitwarden
   - mattermost-desktop
@@ -88,6 +82,8 @@ flatpaks:
   - com.dropbox.Client
   - com.mojang.Minecraft
   - com.github.tchx84.Flatseal
+  - md.obsidian.Obsidian
+  - net.lutris.Lutris
 
 user:
   name: tmoyer
