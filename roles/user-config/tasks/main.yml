@@ -50,11 +50,6 @@
 - name: Import GPG public key
   ansible.builtin.command: gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys {{ gpg_key }}
 
-- name: Install zimfw modules
-  shell: "source /home/tmoyer/.zim/zimfw.zsh install"
-  args:
-    executable: /usr/bin/zsh
-
 - name: Change remote for bootstrap
   ansible.builtin.command: "git remote set-url origin git@github.com:tommoyer/bootstrap.git"
   args:
