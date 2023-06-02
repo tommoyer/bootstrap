@@ -45,6 +45,7 @@ workstation_packages:
   - libxcb-cursor0
   - brave-browser
   - mailspring
+  - kwin-bismuth
 
 pips:
   - black
