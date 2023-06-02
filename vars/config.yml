@@ -38,20 +38,13 @@ workstation_packages:
   - libpam-u2f
   - virt-manager
   - syncthing
-  - thunderbird
   - flatpak
   - deja-dup
   - libhidapi-libusb0
   - libxcb-xinerama0
   - libxcb-cursor0
-  - sway
-  - swayidle
-  - swaylock
-  - waybar
-  - swaybg
-  - wdisplays
-  - sway-notification-center
   - brave-browser
+  - mailspring
 
 pips:
   - black
