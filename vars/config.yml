@@ -44,7 +44,6 @@ workstation_packages:
   - libxcb-xinerama0
   - libxcb-cursor0
   - brave-browser
-  - mailspring
   - kwin-bismuth
 
 pips:
@@ -70,6 +69,7 @@ workstation_snaps:
   - slack
   - spotify
   - steam
+  - mailspring
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
