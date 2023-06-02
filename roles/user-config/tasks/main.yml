@@ -74,23 +74,23 @@
   become_method: sudo
   ansible.builtin.command: udevadm control --reload-rules
 
-- name: Download custom TickTick web app
-  ansible.builtin.get_url:
-    url: https://thomasmoyer.org/TickTick-linux-x64.tar.xz
-    dest: /home/tmoyer/TickTick-linux-x64.tar.xz
-    checksum: sha256:9c8e38c98222d9e5d1a1ae1bee1d02020630a5081994918198937d467354e147
+# - name: Download custom TickTick web app
+#   ansible.builtin.get_url:
+#     url: https://thomasmoyer.org/TickTick-linux-x64.tar.xz
+#     dest: /home/tmoyer/TickTick-linux-x64.tar.xz
+#     checksum: sha256:9c8e38c98222d9e5d1a1ae1bee1d02020630a5081994918198937d467354e147
 
-- name: Extract custom TickTick web app
-  ansible.builtin.unarchive:
-    src: /home/tmoyer/TickTick-linux-x64.tar.xz
-    dest: /home/tmoyer/Applications/
-    remote_src: yes
-
-- name: Delete downloaded archive file
-  ansible.builtin.file:
-    path: /home/tmoyer/TickTick-linux-x64.tar.xz
-    state: absent
-
+# - name: Extract custom TickTick web app
+#   ansible.builtin.unarchive:
+#     src: /home/tmoyer/TickTick-linux-x64.tar.xz
+#     dest: /home/tmoyer/Applications/
+#     remote_src: yes
+ 
+# - name: Delete downloaded archive file
+#   ansible.builtin.file:
+#     path: /home/tmoyer/TickTick-linux-x64.tar.xz
+#     state: absent
+ 
 - name: Download pyenv install script
   ansible.builtin.get_url:
     url: https://pyenv.run
