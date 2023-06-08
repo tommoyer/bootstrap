@@ -40,7 +40,6 @@ workstation_packages:
   - virt-manager
   - syncthing
   - flatpak
-  - deja-dup
   - libhidapi-libusb0
   - libxcb-xinerama0
   - libxcb-cursor0
@@ -97,5 +96,6 @@ dotfiles:
   - zsh
   - subl
   - watson
+  - streamdeck
 
 gpg_key: "0x6B0A28C4075F6051"
