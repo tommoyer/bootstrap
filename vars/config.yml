@@ -44,7 +44,6 @@ workstation_packages:
   - libxcb-xinerama0
   - libxcb-cursor0
   - brave-browser
-  - kwin-bismuth
   - yakuake
 
 pips:
