@@ -46,6 +46,11 @@ workstation_packages:
   - brave-browser
   - yakuake
   - syncthingtray-kde-plasma
+  - fprintd
+  - libpam-fprintd
+  - borgbackup
+  - borgmatic
+  - xdotool
 
 pips:
   - black
