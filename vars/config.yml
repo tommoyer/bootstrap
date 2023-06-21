@@ -69,8 +69,8 @@ workstation_snaps:
   - mattermost-desktop
   - slack
   - spotify
-  - steam
   - mailspring
+  - snap-store
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
@@ -79,6 +79,7 @@ flatpaks:
   - com.github.tchx84.Flatseal
   - md.obsidian.Obsidian
   - net.lutris.Lutris
+  - com.valvesoftware.Steam
 
 user:
   name: tmoyer
