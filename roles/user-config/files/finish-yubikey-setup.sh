@@ -16,6 +16,7 @@ pamu2fcfg -n | tee -a u2f_mappings   # Backup YubiKey
 
 echo >> u2f_mappings
 
+echo ""
 sudo mv u2f_mappings /etc
 echo ""
 read -p "Remove backup Yubikey #2, insert primary Yubikey, and then press any key" -n1 -s

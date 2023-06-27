@@ -14,8 +14,8 @@ export PATH=${PATH}:${HOME}/.local/bin
 ansible-galaxy collection install community.general
 
 echo "Please choose system type:"
-echo "1 - Virtual machine/command-line only system"
-echo "2 - Desktop system or VM"
+echo "1 - Command-line only system"
+echo "2 - Desktop system"
 
 read -ep 'Select type: ' number
 [[ $number =~ ^[[:digit:]]+$ ]] ||
@@ -38,18 +38,18 @@ case $number in
     ;;
 esac
 
-while true; do
-    read -p "Do you wish to install the System76 PPA? [y/n] " yn
-    case $yn in
-        [Yy]* )
-          ansible-playbook system76.yml -i inventory --ask-become-pass
-          break
-          ;;
-        [Nn]* )
-          echo "Skipping..."
-          break
-          ;;
-        * )
-          echo "Please answer yes or no.";;
-    esac
-done
+# while true; do
+#     read -p "Do you wish to install the System76 PPA? [y/n] " yn
+#     case $yn in
+#         [Yy]* )
+#           ansible-playbook system76.yml -i inventory --ask-become-pass
+#           break
+#           ;;
+#         [Nn]* )
+#           echo "Skipping..."
+#           break
+#           ;;
+#         * )
+#           echo "Please answer yes or no.";;
+#     esac
+# done

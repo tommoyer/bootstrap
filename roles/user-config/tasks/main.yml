@@ -114,3 +114,6 @@
 
 - name: Update list of installed applications (2/2)
   ansible.builtin.command: update-desktop-database ${HOME}/.local/share/flatpak/exports/share/applications
+
+- name: Mouse highlight on ctrl
+  ansible.builtin.command: gsettings set org.gnome.desktop.interface locate-pointer true

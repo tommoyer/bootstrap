@@ -20,7 +20,6 @@ base_packages:
   - fd-find
   - byobu
   - python3-virtualenv
-  - snapd
   - pipx
   - neofetch
 
@@ -44,13 +43,13 @@ workstation_packages:
   - libxcb-xinerama0
   - libxcb-cursor0
   - brave-browser
-  - yakuake
-  - syncthingtray-kde-plasma
-  - fprintd
-  - libpam-fprintd
   - borgbackup
   - borgmatic
-  - xdotool
+  - gnome-shell-extension-manager
+  - gir1.2-gda-5.0
+  - gir1.2-gsound-1.0
+  - gir1.2-gtop-2.0
+  - gnome-tweaks
 
 pips:
   - black
