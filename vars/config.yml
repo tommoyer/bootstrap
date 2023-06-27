@@ -50,6 +50,7 @@ workstation_packages:
   - gir1.2-gsound-1.0
   - gir1.2-gtop-2.0
   - gnome-tweaks
+  - guake
 
 pips:
   - black
