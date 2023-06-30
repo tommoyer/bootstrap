@@ -51,6 +51,7 @@ workstation_packages:
   - gir1.2-gtop-2.0
   - gnome-tweaks
   - guake
+  - ulauncher
 
 pips:
   - black
@@ -64,6 +65,7 @@ deb_downloads:
 
 ppas:
   - ppa:yubico/stable
+  - ppa:agornostal/ulauncher
 
 workstation_snaps:
   - icloud-for-linux
