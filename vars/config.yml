@@ -87,6 +87,7 @@ flatpaks:
   - md.obsidian.Obsidian
   - net.lutris.Lutris
   - com.valvesoftware.Steam
+  - com.github.Murmele.Gittyup
 
 user:
   name: tmoyer
