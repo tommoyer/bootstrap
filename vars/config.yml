@@ -52,6 +52,8 @@ workstation_packages:
   - gnome-tweaks
   - guake
   - ulauncher
+  - inkscape
+  - xdotool
 
 pips:
   - black
