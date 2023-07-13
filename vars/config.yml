@@ -79,7 +79,7 @@ workstation_snaps:
   - mattermost-desktop
   - slack
   - spotify
-  - mailspring
+  - thunderbird
   - snap-store
 
 flatpaks:
