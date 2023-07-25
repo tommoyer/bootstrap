@@ -110,7 +110,7 @@ dotfiles:
   - ssh
   - tmux
   - vcs
-  - zsh
+  - fish
   - subl
   - watson
   - streamdeck
