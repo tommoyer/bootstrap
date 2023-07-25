@@ -22,6 +22,10 @@ base_packages:
   - python3-virtualenv
   - pipx
   - neofetch
+  - fzf
+  - fish
+  - prettyping
+  - wireguard
 
 base_snaps:
   - lxd
