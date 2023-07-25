@@ -7,20 +7,13 @@
     name: "{{ user.name}}"
     comment: "{{ user.full_name }}"
     create_home: True
-    shell: /bin/zsh
+    shell: /usr/bin/fish
     state: present
 
 - name: Enable universe and multiverse
   become: yes
   become_method: sudo
   ansible.builtin.command: add-apt-repository -y universe multiverse
-
-- name: Enable snapd (for Linux Mint)
-  become: yes
-  become_method: sudo
-  ansible.builtin.file:
-    path: /etc/apt/preferences.d/nosnap.pref
-    state: absent
 
 - name: Update and upgrade apt packages
   become: true
@@ -42,15 +35,3 @@
   community.general.snap:
     name: "{{ base_snaps }}"
     state: present
-
-- name: Test for zsh config
-  shell: grep -c "^emulate sh -c 'source /etc/profile'" /etc/zsh/zprofile || true
-  register: test_grep
-
-- name: Update global zprofile
-  become: yes
-  become_method: sudo
-  lineinfile:
-    dest: /etc/zsh/zprofile
-    line: emulate sh -c 'source /etc/profile'
-  when: test_grep.stdout == "0"
