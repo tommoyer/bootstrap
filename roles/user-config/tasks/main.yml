@@ -100,3 +100,9 @@
 
 - name: Mouse highlight on ctrl
   ansible.builtin.command: gsettings set org.gnome.desktop.interface locate-pointer true
+
+- name: Update Gnome Terminal shortcuts
+  ansible.builtin.command: gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab '<Primary>Tab'
+
+- name: Update Gnome Terminal shortcuts
+  ansible.builtin.command: gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Primary><Shift>Tab'
