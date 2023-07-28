@@ -28,6 +28,9 @@ base_packages:
 base_snaps:
   - lxd
 
+classic_snaps:
+  - node
+
 workstation_packages:
   - pcscd
   - scdaemon
@@ -112,5 +115,6 @@ dotfiles:
   - subl
   - watson
   - streamdeck
+  - npm
 
 gpg_key: "0x6B0A28C4075F6051"
