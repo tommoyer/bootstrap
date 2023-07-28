@@ -23,9 +23,7 @@ base_packages:
   - pipx
   - neofetch
   - fzf
-  - fish
   - prettyping
-  - wireguard
 
 base_snaps:
   - lxd
@@ -110,7 +108,7 @@ dotfiles:
   - ssh
   - tmux
   - vcs
-  - fish
+  - zsh
   - subl
   - watson
   - streamdeck

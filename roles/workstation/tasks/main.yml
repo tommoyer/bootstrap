@@ -102,3 +102,23 @@
         mv $f $f~
         awk '/@include common-auth/ {print "@include common-u2f"}; {print}' $f~ > $f
       done
+
+- name: Download tailscale install script
+  ansible.builtin.get_url:
+    url: https://tailscale.com/install.sh
+    dest: /tmp/install-tailscale.sh
+    mode: '0740'
+
+- name: Install tailscale using its script
+  become: yes
+  become_method: sudo
+  ignore_errors: yes
+  shell: "/tmp/install-tailscale.sh"
+  args:
+    executable: /bin/sh
+  failed_when: false
+
+- name: Delete downloaded script
+  ansible.builtin.file:
+    path: /tmp/install-tailscale.sh
+    state: absent

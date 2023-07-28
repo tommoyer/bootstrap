@@ -19,11 +19,3 @@ echo >> u2f_mappings
 sudo mv u2f_mappings /etc
 echo ""
 gpg-connect-agent "scd serialno" "learn --force" /bye
-
-echo ""
-echo "Run fish and then execute the following commands:"
-echo "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
-echo "fisher update"
-
-mkdir -p ~/.config/fish/functions/
-echo fzf_key_bindings >> ~/.config/fish/functions/fish_user_key_bindings.fish

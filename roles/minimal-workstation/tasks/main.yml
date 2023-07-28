@@ -7,7 +7,7 @@
     name: "{{ user.name}}"
     comment: "{{ user.full_name }}"
     create_home: True
-    shell: /usr/bin/fish
+    shell: /usr/bin/zsh
     state: present
 
 - name: Enable universe and multiverse
@@ -35,3 +35,15 @@
   community.general.snap:
     name: "{{ base_snaps }}"
     state: present
+
+- name: Test for zsh config
+  shell: grep -c "^emulate sh -c 'source /etc/profile'" /etc/zsh/zprofile || true
+  register: test_grep
+
+- name: Update global zprofile
+  become: yes
+  become_method: sudo
+  lineinfile:
+    dest: /etc/zsh/zprofile
+    line: emulate sh -c 'source /etc/profile'
+  when: test_grep.stdout == "0"
