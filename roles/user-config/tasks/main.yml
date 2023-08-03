@@ -106,3 +106,9 @@
 
 - name: Update Gnome Terminal shortcuts
   ansible.builtin.command: gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Primary><Shift>Tab'
+
+- name: Configuring Gnome Evolution
+  ansible.builtin.command: gsettings set org.gnome.evolution-data-server.calendar notify-with-tray true
+
+- name: Configuring Gnome window settings
+  ansible.builtin.command: gsettings set org.gnome.mutter center-new-windows true
