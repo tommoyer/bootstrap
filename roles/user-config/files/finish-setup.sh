@@ -19,3 +19,10 @@ echo >> u2f_mappings
 sudo mv u2f_mappings /etc
 echo ""
 gpg-connect-agent "scd serialno" "learn --force" /bye
+
+echo "Running lxd init"
+lxd init
+echo "Adding aliases"
+lxc alias add list-all 'list --all-projects'
+lxc alias add ushell 'exec @ARGS@ -- su - ubuntu'
+echo "Need to add any remotes"
