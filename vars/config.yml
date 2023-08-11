@@ -47,7 +47,7 @@ workstation_packages:
   - libhidapi-libusb0
   - libxcb-xinerama0
   - libxcb-cursor0
-  - brave-browser
+  - google-chrome-stable
   - borgbackup
   - borgmatic
   - gnome-shell-extension-manager
