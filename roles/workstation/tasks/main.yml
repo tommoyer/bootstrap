@@ -69,14 +69,14 @@
     state: present
   loop: "{{ workstation_snaps }}"
 
-- name: Install workstation snap packages (classic)
-  become: yes
-  become_method: sudo
-  community.general.snap:
-    name: "{{ item }}"
-    state: present
-    classic: true
-  loop: "{{ classic_snaps }}"
+# - name: Install workstation snap packages (classic)
+#   become: yes
+#   become_method: sudo
+#   community.general.snap:
+#     name: "{{ item }}"
+#     state: present
+#     classic: true
+#   loop: "{{ classic_snaps }}"
 
 - name: Add the flathub flatpak repository remote to the user installation
   community.general.flatpak_remote:

@@ -26,3 +26,4 @@ echo "Adding aliases"
 lxc alias add list-all 'list --all-projects'
 lxc alias add ushell 'exec @ARGS@ -- su - ubuntu'
 echo "Need to add any remotes"
+

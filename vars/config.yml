@@ -28,9 +28,6 @@ base_packages:
 base_snaps:
   - lxd
 
-classic_snaps:
-  - node
-
 workstation_packages:
   - pcscd
   - scdaemon
@@ -59,6 +56,7 @@ workstation_packages:
   - ulauncher
   - inkscape
   - xdotool
+  - wmctrl
 
 pips:
   - black
@@ -69,6 +67,7 @@ pips:
   - python-kasa[speedups]
 
 deb_downloads:
+  - https://github.com/Browsers-software/browsers/releases/latest/download/browsers_amd64.deb
   - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
 
 ppas:
