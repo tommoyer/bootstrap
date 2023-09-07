@@ -34,6 +34,8 @@
     force: true
 
 - name: Add Chrome repository into sources list
+  become: true
+  become_method: sudo
   ansible.builtin.apt_repository:
     repo: 'deb [arch=amd64,signed-by=/etc/apt/keyrings/linux_signing_key.pub] http://dl.google.com/linux/chrome/deb/ stable main'
     state: present
