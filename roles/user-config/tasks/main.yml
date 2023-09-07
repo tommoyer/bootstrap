@@ -98,17 +98,17 @@
 - name: Update list of installed applications (2/2)
   ansible.builtin.command: update-desktop-database ${HOME}/.local/share/flatpak/exports/share/applications
 
-- name: Mouse highlight on ctrl
-  ansible.builtin.command: gsettings set org.gnome.desktop.interface locate-pointer true
-
-- name: Update Gnome Terminal shortcuts
-  ansible.builtin.command: gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab '<Primary>Tab'
-
-- name: Update Gnome Terminal shortcuts
-  ansible.builtin.command: gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Primary><Shift>Tab'
-
-- name: Configuring Gnome Evolution
-  ansible.builtin.command: gsettings set org.gnome.evolution-data-server.calendar notify-with-tray true
-
-- name: Configuring Gnome window settings
-  ansible.builtin.command: gsettings set org.gnome.mutter center-new-windows true
+# - name: Mouse highlight on ctrl
+#   ansible.builtin.command: gsettings set org.gnome.desktop.interface locate-pointer true
+# 
+# - name: Update Gnome Terminal shortcuts
+#   ansible.builtin.command: gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab '<Primary>Tab'
+# 
+# - name: Update Gnome Terminal shortcuts
+#   ansible.builtin.command: gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Primary><Shift>Tab'
+# 
+# - name: Configuring Gnome Evolution
+#   ansible.builtin.command: gsettings set org.gnome.evolution-data-server.calendar notify-with-tray true
+# 
+# - name: Configuring Gnome window settings
+#   ansible.builtin.command: gsettings set org.gnome.mutter center-new-windows true
