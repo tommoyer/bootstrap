@@ -45,7 +45,6 @@ workstation_packages:
   - libhidapi-libusb0
   - libxcb-xinerama0
   - libxcb-cursor0
-  - google-chrome-stable
   - borgbackup
   - borgmatic
   - guake
