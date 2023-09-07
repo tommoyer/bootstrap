@@ -24,22 +24,22 @@
     state: present
     filename: "sublime-text.list"
 
-- name: Add Chrome apt signing key
-  become: true
-  become_method: sudo
-  ansible.builtin.get_url:
-    url: https://dl.google.com/linux/linux_signing_key.pub
-    dest: /etc/apt/keyrings/linux_signing_key.pub
-    mode: '0644'
-    force: true
-
-- name: Add Chrome repository into sources list
-  become: true
-  become_method: sudo
-  ansible.builtin.apt_repository:
-    repo: 'deb [arch=amd64,signed-by=/etc/apt/keyrings/linux_signing_key.pub] http://dl.google.com/linux/chrome/deb/ stable main'
-    state: present
-    filename: google-chrome
+# - name: Add Chrome apt signing key
+#   become: true
+#   become_method: sudo
+#   ansible.builtin.get_url:
+#     url: https://dl.google.com/linux/linux_signing_key.pub
+#     dest: /etc/apt/keyrings/linux_signing_key.pub
+#     mode: '0644'
+#     force: true
+# 
+# - name: Add Chrome repository into sources list
+#   become: true
+#   become_method: sudo
+#   ansible.builtin.apt_repository:
+#     repo: 'deb [arch=amd64,signed-by=/etc/apt/keyrings/linux_signing_key.pub] http://dl.google.com/linux/chrome/deb/ stable main'
+#     state: present
+#     filename: google-chrome
 
 - name: Update apt cache
   become: true

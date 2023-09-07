@@ -63,6 +63,7 @@ pips:
 deb_downloads:
   - https://github.com/Browsers-software/browsers/releases/latest/download/browsers_amd64.deb
   - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
+  - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 ppas:
   - ppa:yubico/stable
