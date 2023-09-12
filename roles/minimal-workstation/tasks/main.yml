@@ -1,15 +1,5 @@
 ---
 # tasks file for minimal_workstation
-- name: Create the user
-  become: yes
-  become_method: sudo
-  ansible.builtin.user:
-    name: "{{ user.name}}"
-    comment: "{{ user.full_name }}"
-    create_home: True
-    shell: /usr/bin/zsh
-    state: present
-
 - name: Enable universe and multiverse
   become: yes
   become_method: sudo
