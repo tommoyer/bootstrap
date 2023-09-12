@@ -36,6 +36,13 @@
     name: "{{ base_packages }}"
     state: latest
 
+- name: Pause for 1 minute for snap
+  ansible.builtin.pause:
+    minutes: 1
+
+- name: Run snap info to make sure it works
+  ansible.builtin.command: snap info
+
 - name: Install snap packages
   become: yes
   become_method: sudo
