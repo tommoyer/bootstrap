@@ -51,6 +51,7 @@ workstation_packages:
   - ulauncher
   - xdotool
   - solaar
+  - syncthing-gtk
 
 pips:
   - black

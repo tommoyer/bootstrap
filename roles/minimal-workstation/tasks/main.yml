@@ -31,7 +31,7 @@
     minutes: 1
 
 - name: Run snap info to make sure it works
-  ansible.builtin.command: snap info
+  ansible.builtin.command: snap list
 
 - name: Install snap packages
   become: yes
