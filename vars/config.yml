@@ -50,6 +50,7 @@ workstation_packages:
   - guake
   - ulauncher
   - xdotool
+  - solaar
 
 pips:
   - black
