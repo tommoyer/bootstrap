@@ -1,5 +1,12 @@
 ---
 # tasks file for user-config
+- name: Add the user 'tmoyer' with a zsh shell, appending the group 'libvirt' and 'lxd' to the user's groups
+  ansible.builtin.user:
+    name: tmoyer
+    shell: /usr/bin/bash
+    groups: lxd,libvirt
+    append: yes
+
 - name: Clone dotfiles (read-only)
   ansible.builtin.git:
     repo: https://github.com/tommoyer/dotfiles.git
