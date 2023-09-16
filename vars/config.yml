@@ -47,11 +47,11 @@ workstation_packages:
   - libxcb-cursor0
   - borgbackup
   - borgmatic
-  - guake
+  - yakuake
   - ulauncher
   - xdotool
   - solaar
-  - syncthing-gtk
+  - syncthingtray-kde-plasma
 
 pips:
   - black
