@@ -80,7 +80,6 @@ workstation_snaps:
   - spotify
   - thunderbird
   - mattermost-desktop
-  - zoom-client
   - steam
 
 classic_snaps:
