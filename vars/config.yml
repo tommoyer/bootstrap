@@ -63,7 +63,6 @@ deb_downloads:
   - https://github.com/Browsers-software/browsers/releases/latest/download/browsers_amd64.deb
   - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
   - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  - https://download.nomachine.com/download/8.8/Linux/nomachine_8.8.1_1_amd64.deb
   - https://zoom.us/client/5.15.12.7665/zoom_amd64.deb
 
 ppas:
