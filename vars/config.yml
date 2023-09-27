@@ -41,6 +41,7 @@ workstation_packages:
   - libpam-u2f
   - virt-manager
   - syncthing
+  - syncthing-gtk
   - flatpak
   - libhidapi-libusb0
   - libxcb-xinerama0
