@@ -51,6 +51,7 @@ workstation_packages:
   - ulauncher
   - xdotool
   - solaar
+  - network-manager-openvpn-gnome
 
 pips:
   - black
