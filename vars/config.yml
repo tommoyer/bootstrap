@@ -47,7 +47,6 @@ workstation_packages:
   - libxcb-xinerama0
   - libxcb-cursor0
   - borgbackup
-  - borgmatic
   - ulauncher
   - xdotool
   - solaar
@@ -60,6 +59,7 @@ pips:
   - pipenv
   - poetry
   - python-kasa[speedups]
+  - borgmatic
 
 deb_downloads:
   - https://github.com/Browsers-software/browsers/releases/latest/download/browsers_amd64.deb
