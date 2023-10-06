@@ -79,6 +79,12 @@
     dest: ${HOME}/lxd-init.yaml
     mode: u=rwx,g=r,o=r
 
+- name: LXD default profile
+  copy:
+    src: lxd-default-profile.yaml
+    dest: ${HOME}/lxd-default-profile.yaml
+    mode: u=rwx,g=r,o=r
+
 - name: LXD DNS setup
   copy:
     src: lxd-dns-lxdbr0.service

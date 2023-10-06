@@ -31,3 +31,5 @@ echo "Setting up LXD-systemd DNS integration"
 sudo mv lxd-dns-lxdbr0.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now lxd-dns-lxdbr0
+
+lxc profile edit default < lxd-default-profile.yaml
