@@ -73,6 +73,18 @@
     dest: ${HOME}/finish-setup.sh
     mode: u=rwx,g=r,o=r
 
+- name: LXD config preseed file
+  copy:
+    src: lxd-init.yaml
+    dest: ${HOME}/lxd-init.yaml
+    mode: u=rwx,g=r,o=r
+
+- name: LXD DNS setup
+  copy:
+    src: lxd-dns-lxdbr0.service
+    dest: ${HOME}/lxd-dns-lxdbr0.service
+    mode: u=rwx,g=r,o=r
+
 - name: Install Streamdeck udev rules
   become: yes
   become_method: sudo

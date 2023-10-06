@@ -15,15 +15,19 @@ read -p "Rem0ove backup Yubikey #2, insert primary Yubikey, and then press any k
 echo ""
 pamu2fcfg | tee u2f_mappings               # Main YubiKey
 
+echo ""
 echo >> u2f_mappings
 sudo mv u2f_mappings /etc
 echo ""
 gpg-connect-agent "scd serialno" "learn --force" /bye
 
-echo "Running lxd init"
-lxd init
+echo "Initializing LXD"
+cat lxd-init.yaml | lxd init --preseed
 echo "Adding aliases"
 lxc alias add list-all 'list --all-projects'
-lxc alias add ushell 'exec @ARGS@ -- su - ubuntu'
 echo "Need to add any remotes"
 
+echo "Setting up LXD-systemd DNS integration"
+sudo mv lxd-dns-lxdbr0.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now lxd-dns-lxdbr0
