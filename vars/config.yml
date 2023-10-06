@@ -51,6 +51,7 @@ workstation_packages:
   - xdotool
   - solaar
   - network-manager-openvpn-gnome
+  - xclip
 
 pips:
   - black
