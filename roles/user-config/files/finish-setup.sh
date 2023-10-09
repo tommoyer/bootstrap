@@ -44,3 +44,4 @@ rm gh-token
 mkdir -p ~/Applications
 gh release download -R obsidianmd/obsidian-releases -p "Obsidian-$(gh release list -L 1 -R obsidianmd/obsidian-releases | awk '{print $1}').AppImage" -D ~/Applications
 gh release download -R probonopd/go-appimage -p 'appimaged-*x86_64.AppImage' continuous -D ~/Applications
+chmod +x ~/Applications/*.AppImage
