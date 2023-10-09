@@ -52,6 +52,7 @@ workstation_packages:
   - solaar
   - network-manager-openvpn-gnome
   - xclip
+  - gh
 
 pips:
   - black

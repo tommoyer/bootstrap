@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export GH_TOKEN={{ gh_token }}
+
 echo ""
 read -p "Insert backup Yubikey #1, and then press any key" -n1 -s
 echo ""
@@ -33,3 +35,12 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now lxd-dns-lxdbr0
 
 lxc profile edit default < lxd-default-profile.yaml
+
+echo ${GH_TOKEN} > gh-token
+gh auth login --with-token < gh-token
+echo "export GH_TOKEN=${GH_TOKEN}" > ~/.local_profile
+rm gh-token
+
+mkdir -p ~/Applications
+gh release download -R obsidianmd/obsidian-releases -p "Obsidian-$(gh release list -L 1 -R obsidianmd/obsidian-releases | awk '{print $1}').AppImage" -D ~/Applications
+gh release download -R probonopd/go-appimage -p 'appimaged-*x86_64.AppImage' continuous -D ~/Applications

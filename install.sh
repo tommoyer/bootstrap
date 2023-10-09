@@ -30,7 +30,7 @@ case $number in
     ;;
 
   2)
-    ansible-playbook workstation.yml -i inventory --ask-become-pass
+    ansible-playbook workstation.yml -i inventory --ask-become-pass -e @gh-token.enc --ask-vault-pass
     ;;
 
   *)
