@@ -91,7 +91,6 @@ flatpaks:
   - com.dropbox.Client
   - org.prismlauncher.PrismLauncher
   - com.github.tchx84.Flatseal
-  - md.obsidian.Obsidian
   - net.lutris.Lutris
   - com.github.Murmele.Gittyup
 
