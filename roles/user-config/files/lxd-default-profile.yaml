@@ -4,7 +4,7 @@ config:
     packages:
       - ssh
       - zsh
-      - auto-apt-proxy
+      - squid-deb-proxy-client
       - git
     users:
       - name: tmoyer
@@ -251,3 +251,5 @@ used_by:
 - /1.0/instances/osc-test
 - /1.0/instances/apt-proxy
 - /1.0/instances/c0
+- /1.0/instances/nx-client
+- /1.0/instances/vbox
