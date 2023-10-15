@@ -16,7 +16,7 @@ config:
     runcmd:
       - echo "StreamLocalBindUnlink yes" > /etc/ssh/sshd_config.d/streamlocalbindunlink.conf
       - systemctl restart sshd
-      - DEBIAN_FRONTEND=noninteractive apt install -y stow myrepos bat tig tmux zsh-autosuggestions zsh-syntax-highlighting vim fzf prettyping
+      - DEBIAN_FRONTEND=noninteractive apt install -y stow myrepos bat tig tmux zsh-autosuggestions zsh-syntax-highlighting vim fzf prettyping fonts-powerline
       - echo 'source /etc/profile' >> /etc/zsh/profile
       - [su, tmoyer, -c, "git clone https://github.com/tommoyer/dotfiles.git /home/tmoyer/.dotfiles" ]
       - [su, tmoyer, -c, "rm -rf /home/tmoyer/.ssh" ]
@@ -252,4 +252,5 @@ used_by:
 - /1.0/instances/apt-proxy
 - /1.0/instances/c0
 - /1.0/instances/nx-client
-- /1.0/instances/vbox
+- /1.0/instances/temporal
+- /1.0/instances/jazz-pmcl

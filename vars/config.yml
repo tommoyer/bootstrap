@@ -25,6 +25,7 @@ base_packages:
   - fzf
   - prettyping
   - snapd
+  - fonts-powerline
 
 base_snaps:
   - lxd
@@ -113,5 +114,6 @@ dotfiles:
   - watson
   - streamdeck
   - npm
+  - xfce4
 
 gpg_key: "0x6B0A28C4075F6051"
