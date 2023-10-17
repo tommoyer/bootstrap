@@ -19,6 +19,7 @@ config:
       - DEBIAN_FRONTEND=noninteractive apt install -y stow myrepos bat tig tmux zsh-autosuggestions zsh-syntax-highlighting vim fzf prettyping fonts-powerline
       - echo 'source /etc/profile' >> /etc/zsh/profile
       - [su, tmoyer, -c, "git clone https://github.com/tommoyer/dotfiles.git /home/tmoyer/.dotfiles" ]
+      - [su, tmoyer, -c, "git clone --recurse-submodules https://github.com/eendroroy/alien.git $HOME/.alien" ]
       - [su, tmoyer, -c, "rm -rf /home/tmoyer/.ssh" ]
       - [su, tmoyer, -c, "pushd /home/tmoyer/.dotfiles; stow gpg; stow misc; stow ssh; stow tmux; stow vcs ; stow zsh; popd" ]
       - [su, tmoyer, -c, "chmod 0700 /home/tmoyer/.gnupg /home/tmoyer/.ssh" ]
@@ -254,3 +255,4 @@ used_by:
 - /1.0/instances/nx-client
 - /1.0/instances/temporal
 - /1.0/instances/jazz-pmcl
+- /1.0/instances/cp
