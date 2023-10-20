@@ -84,9 +84,6 @@ workstation_snaps:
   - mattermost-desktop
   - steam
 
-classic_snaps:
-  - kontena-lens
-
 flatpaks:
   - net.codeindustry.MasterPDFEditor
   - com.dropbox.Client
