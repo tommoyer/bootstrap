@@ -80,7 +80,7 @@ workstation_snaps:
   - bitwarden
   - slack
   - spotify
-  - thunderbird
+  - mailspring
   - mattermost-desktop
   - steam
 
