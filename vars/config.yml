@@ -54,6 +54,8 @@ workstation_packages:
   - xclip
   - gh
   - yakuake
+  - libsecret-1-0
+  - gnome-keyring
 
 pips:
   - black
