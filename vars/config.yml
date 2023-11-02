@@ -53,9 +53,7 @@ workstation_packages:
   - solaar
   - xclip
   - gh
-  - yakuake
-  - libsecret-1-0
-  - gnome-keyring
+  - guake
 
 pips:
   - black
