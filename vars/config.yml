@@ -51,7 +51,6 @@ workstation_packages:
   - solaar
   - xclip
   - gh
-  - guake
   - gnome-shell-extension-manager
   - gnome-tweaks
   - chrome-gnome-shell
