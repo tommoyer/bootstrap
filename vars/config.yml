@@ -40,9 +40,7 @@ workstation_packages:
   - yubikey-personalization
   - libpam-yubico
   - libpam-u2f
-  - virt-manager
   - syncthing
-  - syncthing-gtk
   - flatpak
   - libhidapi-libusb0
   - libxcb-xinerama0
@@ -56,6 +54,7 @@ workstation_packages:
   - guake
   - gnome-shell-extension-manager
   - gnome-tweaks
+  - chrome-gnome-shell
 
 pips:
   - black
