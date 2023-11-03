@@ -54,6 +54,8 @@ workstation_packages:
   - xclip
   - gh
   - guake
+  - gnome-shell-extension-manager
+  - gnome-tweaks
 
 pips:
   - black
