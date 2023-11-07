@@ -54,6 +54,7 @@ workstation_packages:
   - gnome-shell-extension-manager
   - gnome-tweaks
   - chrome-gnome-shell
+  - gnome-calendar
 
 pips:
   - black
@@ -76,7 +77,6 @@ ppas:
 
 workstation_snaps:
   - icloud-for-linux
-  - morgen
   - bitwarden
   - slack
   - spotify
