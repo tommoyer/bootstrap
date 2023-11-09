@@ -47,3 +47,5 @@ gh release download -R probonopd/go-appimage -p 'appimaged-*x86_64.AppImage' con
 gh release download -R MuhammedKalkan/OpenLens -p "OpenLens-$(gh release list -R MuhammedKalkan/OpenLens -L 1 | awk '{print $1}' | sed 's/^v//').x86_64.AppImage" -D ~/Applications
 chmod +x ~/Applications/*.AppImage
 /home/tmoyer/Applications/appimaged*
+
+git clone --recurse-submodules https://github.com/eendroroy/alien.git $HOME/.alien

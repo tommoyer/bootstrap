@@ -1,0 +1,52 @@
+[legacy/profiles:]
+default='c62949de-03d5-4f92-9757-e2db54f8cdac'
+list=['90af3b4d-7708-460b-badb-13839d8e7f6b', 'c62949de-03d5-4f92-9757-e2db54f8cdac']
+
+[legacy/profiles:/:90af3b4d-7708-460b-badb-13839d8e7f6b]
+allow-bold=true
+background-color='#FBFBF1F1C7C7'
+bold-color='#3C3C38383636'
+bold-color-same-as-fg=true
+cursor-background-color='#3C3C38383636'
+cursor-blink-mode='on'
+cursor-colors-set=true
+cursor-foreground-color='#FBFBF1F1C7C7'
+cursor-shape='ibeam'
+default-size-columns=120
+default-size-rows=60
+foreground-color='#3C3C38383636'
+palette=['#FBFBF1F1C7C7', '#CCCC24241D1D', '#989897971A1A', '#D7D799992121', '#454585858888', '#B1B162628686', '#68689D9D6A6A', '#7C7C6F6F6464', '#929283837474', '#9D9D00000606', '#797974740E0E', '#B5B576761414', '#070766667878', '#8F8F3F3F7171', '#42427B7B5858', '#3C3C38383636']
+scrollback-unlimited=true
+use-theme-background=false
+use-theme-colors=false
+use-theme-transparency=false
+visible-name='Gruvbox'
+
+[legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+cursor-blink-mode='on'
+cursor-shape='ibeam'
+default-size-columns=120
+default-size-rows=60
+scrollback-unlimited=true
+use-theme-colors=true
+visible-name='Default'
+
+[legacy/profiles:/:c62949de-03d5-4f92-9757-e2db54f8cdac]
+allow-bold=true
+background-color='#282828282828'
+bold-color='#EBEBDBDBB2B2'
+bold-color-same-as-fg=true
+cursor-background-color='#EBEBDBDBB2B2'
+cursor-blink-mode='on'
+cursor-colors-set=true
+cursor-foreground-color='#282828282828'
+cursor-shape='ibeam'
+default-size-columns=120
+default-size-rows=60
+foreground-color='#EBEBDBDBB2B2'
+palette=['#282828282828', '#CCCC24241D1D', '#989897971A1A', '#D7D799992121', '#454585858888', '#B1B162628686', '#68689D9D6A6A', '#A8A899998484', '#929283837474', '#FBFB49493434', '#B8B8BBBB2626', '#FAFABDBD2F2F', '#8383A5A59898', '#D3D386869B9B', '#8E8EC0C07C7C', '#EBEBDBDBB2B2']
+scrollback-unlimited=true
+use-theme-background=false
+use-theme-colors=false
+use-theme-transparency=false
+visible-name='Gruvbox Dark'

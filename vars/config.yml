@@ -55,6 +55,8 @@ workstation_packages:
   - gnome-tweaks
   - chrome-gnome-shell
   - gnome-calendar
+  - virt-viewer
+  - virt-manager
 
 pips:
   - black
