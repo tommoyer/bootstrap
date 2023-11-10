@@ -29,11 +29,6 @@ echo "Adding aliases"
 lxc alias add list-all 'list --all-projects'
 echo "Need to add any remotes"
 
-echo "Setting up LXD-systemd DNS integration"
-sudo mv lxd-dns-lxdbr0.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable --now lxd-dns-lxdbr0
-
 lxc profile edit default < lxd-default-profile.yaml
 
 echo ${GH_TOKEN} > gh-token
@@ -49,3 +44,10 @@ chmod +x ~/Applications/*.AppImage
 /home/tmoyer/Applications/appimaged*
 
 git clone --recurse-submodules https://github.com/eendroroy/alien.git $HOME/.alien
+
+dconf load /org/gnome/terminal/ < gnome_terminal_settings_backup.dconf
+
+echo "Cleaning up..."
+rm lxd-default-profile.yaml
+rm gnome_terminal_settings_backup.dconf
+rm lxd-init.yaml

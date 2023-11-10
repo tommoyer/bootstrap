@@ -85,11 +85,29 @@
     dest: ${HOME}/lxd-default-profile.yaml
     mode: u=rwx,g=r,o=r
 
+- name: Gnome terminal settings
+  copy:
+    src: gnome_terminal_settings_backup.dconf
+    dest: ${HOME}/gnome_terminal_settings_backup.dconf
+    mode: u=rwx,g=r,o=r
+
 - name: LXD DNS setup
+  become: yes
+  become_method: sudo
   copy:
     src: lxd-dns-lxdbr0.service
-    dest: ${HOME}/lxd-dns-lxdbr0.service
+    dest: /etc/systemd/system/lxd-dns-lxdbr0.service
     mode: u=rwx,g=r,o=r
+
+- name: Enable LXD DNS
+  become: yes
+  become_method: sudo
+  ansible.builtin.command: systemctl daemon-reload
+
+- name: Enable LXD DNS
+  become: yes
+  become_method: sudo
+  ansible.builtin.command: systemctl enable --now lxd-dns-lxdbr0
 
 - name: Install Streamdeck udev rules
   become: yes

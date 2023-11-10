@@ -1,3 +1,0 @@
-dconf load /org/gnome/terminal/ < gnome_terminal_settings_backup.txt
-
-udev rules for bluetooth USB
