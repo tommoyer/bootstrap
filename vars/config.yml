@@ -57,6 +57,7 @@ workstation_packages:
   - gnome-calendar
   - virt-viewer
   - virt-manager
+  - thunderbird-gnome-support
 
 pips:
   - black
@@ -82,7 +83,6 @@ workstation_snaps:
   - bitwarden
   - slack
   - spotify
-  - mailspring
   - mattermost-desktop
   - steam
 
