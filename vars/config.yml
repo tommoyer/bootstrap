@@ -54,10 +54,10 @@ workstation_packages:
   - gnome-shell-extension-manager
   - gnome-tweaks
   - chrome-gnome-shell
-  - gnome-calendar
   - virt-viewer
   - virt-manager
-  - thunderbird-gnome-support
+  - gir1.2-gda-5.0
+  - gir1.2-gsound-1.0
 
 pips:
   - black
@@ -85,6 +85,7 @@ workstation_snaps:
   - spotify
   - mattermost-desktop
   - steam
+  - mailspring
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
