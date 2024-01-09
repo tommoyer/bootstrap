@@ -73,6 +73,7 @@ deb_downloads:
   - https://infinitekind.com/stabledl/current/moneydance_linux_amd64.deb
   - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   - https://zoom.us/client/5.16.6.382/zoom_amd64.deb
+  - https://cdn.cloudflare.steamstatic.com/client/installer/steam.deb
 
 ppas:
   - ppa:yubico/stable
@@ -84,7 +85,6 @@ workstation_snaps:
   - slack
   - spotify
   - mattermost-desktop
-  - steam
   - mailspring
 
 flatpaks:
