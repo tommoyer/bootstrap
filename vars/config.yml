@@ -113,7 +113,7 @@ dotfiles:
   - vcs
   - zsh
   - subl
-  - watson
   - streamdeck
+  - task
 
 gpg_key: "0x6B0A28C4075F6051"
