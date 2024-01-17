@@ -27,21 +27,21 @@
     name: "{{ item }}"
   loop: "{{ pips }}"
 
-- name: Install Watson from wheel
-  community.general.pipx:
-    name: td_watson
-    source: https://thomasmoyer.org/td_watson-2.1.0+notes-py2.py3-none-any.whl
+# - name: Install Watson from wheel
+#   community.general.pipx:
+#     name: td_watson
+#     source: https://thomasmoyer.org/td_watson-2.1.0+notes-py2.py3-none-any.whl
 
-- name: Install watson2sf from wheel
-  community.general.pipx:
-    name: watson2sf
-    source: https://thomasmoyer.org/watson2sf-0.1.2-py3-none-any.whl
+# - name: Install watson2sf from wheel
+#   community.general.pipx:
+#     name: watson2sf
+#     source: https://thomasmoyer.org/watson2sf-0.1.2-py3-none-any.whl
 
-- name: Create watson directory
-  ansible.builtin.file:
-    path: ${HOME}/.config/watson
-    state: directory
-    mode: '0755'
+# - name: Create watson directory
+#   ansible.builtin.file:
+#     path: ${HOME}/.config/watson
+#     state: directory
+#     mode: '0755'
 
 - name: Stow dotfiles
   stow:

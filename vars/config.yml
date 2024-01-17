@@ -58,6 +58,9 @@ workstation_packages:
   - virt-manager
   - gir1.2-gda-5.0
   - gir1.2-gsound-1.0
+  - tasksh
+  - taskwarrior
+  - timewarrior
 
 pips:
   - black
