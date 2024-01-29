@@ -85,9 +85,7 @@ ppas:
 workstation_snaps:
   - icloud-for-linux
   - bitwarden
-  - slack
   - spotify
-  - mattermost-desktop
   - mailspring
 
 flatpaks:
