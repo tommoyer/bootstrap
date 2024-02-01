@@ -58,9 +58,6 @@ workstation_packages:
   - virt-manager
   - gir1.2-gda-5.0
   - gir1.2-gsound-1.0
-  - tasksh
-  - taskwarrior
-  - timewarrior
 
 pips:
   - black
@@ -113,6 +110,6 @@ dotfiles:
   - zsh
   - subl
   - streamdeck
-  - task
+  - watson
 
 gpg_key: "0x6B0A28C4075F6051"
