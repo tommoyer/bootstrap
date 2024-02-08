@@ -26,6 +26,7 @@ base_packages:
   - prettyping
   - snapd
   - fonts-powerline
+  - dialog
 
 base_snaps:
   - lxd
@@ -67,6 +68,7 @@ pips:
   - poetry
   - python-kasa[speedups]
   - borgmatic
+  - frogmouth
 
 deb_downloads:
   - https://github.com/Browsers-software/browsers/releases/latest/download/browsers_amd64.deb
