@@ -16,7 +16,7 @@ config:
     runcmd:
       - echo "StreamLocalBindUnlink yes" > /etc/ssh/sshd_config.d/streamlocalbindunlink.conf
       - systemctl restart sshd
-      - wget https://thomasmoyer.org/bootstrap.sh /home/tmoyer/bootstrap
+      - wget https://thomasmoyer.org/bootstrap.sh -O /home/tmoyer/bootstrap
 description: Default LXD profile
 devices:
   eth0:
