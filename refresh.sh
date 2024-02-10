@@ -18,7 +18,7 @@ read -ep 'Select type: ' number
 case $number in
 
   1)
-    ansible-playbook minimal-workstation.yml -i inventory --ask-become-pass
+    ansible-playbook minimal-workstation.yml -i inventory --ask-become-pass -e @gh-token.enc --ask-vault-pass
     ;;
 
   2)
