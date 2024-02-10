@@ -18,10 +18,10 @@
 
 - name: Add user to groups
   ansible.builtin.user: 
-  when: "'{{ item }}' in unix_groups.stdout_lines"
     name: "{{ user.name }}"
     groups: "{{ item }}"
     append: yes
+  when: "'{{ item }}' in unix_groups.stdout_lines"
   loop:
     - lxd
     - libvirt
