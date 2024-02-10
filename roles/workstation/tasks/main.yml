@@ -1,6 +1,18 @@
 ---
 # tasks file for vworkstation
 
+- name: Configure groups for user
+  become: yes
+  become_method: sudo
+  ansible.builtin.user:
+    name: "{{ user.name }}"
+    comment: "{{ user.full_name }}"
+    create_home: True
+    shell: /usr/bin/zsh
+    state: present
+    groups: lxd,libvirt
+    append: yes
+
 - name: Enable PPAs
   become: yes
   become_method: sudo
