@@ -5,13 +5,55 @@ die() {
     exit 1
 }
 
-sudo apt install git pipx -y
-
-pipx install --include-deps ansible
-
 export PATH=${PATH}:${HOME}/.local/bin
 
-ansible-galaxy collection install community.general
+pkgs=""
+
+if ! dpkg-query -l pipx &> /dev/null
+then
+  pkgs+="pipx"
+  echo "Selecting pipx to be installed"
+else
+  echo "pipx already installed"
+fi
+
+if ! dpkg-query -l git &> /dev/null
+then
+  pkgs+=" git"
+  echo "Selecting git to be installed"
+else
+  echo "git already installed"
+fi
+
+if [[ $pkgs != "" ]]
+then
+  sudo apt install $pkgs -y
+else
+  echo "All packaages installed"
+fi
+
+if ! pipx list | grep "package ansible" &> /dev/null
+then
+  pipx install --include-deps ansible
+else
+  echo "Ansible already installed"
+fi
+
+if ! ansible-galaxy collection list | grep community.general &> /dev/null
+then
+  ansible-galaxy collection install community.general
+else
+  echo "Skipping installation of community.general"
+fi
+
+if [[ ! -d ~/Repos/tommoyer/bootstrap ]]
+then
+  git clone https://github.com/tommoyer/bootstrap.git ~/Repos/tommoyer/bootstrap
+else
+  echo "Bootstrap repo already installed"
+fi
+
+pushd ~/Repos/tommoyer/bootstrap &> /dev/null
 
 echo "Please choose system type:"
 echo "1 - Command-line only system"
@@ -26,7 +68,7 @@ read -ep 'Select type: ' number
 case $number in
 
   1)
-    ansible-playbook minimal-workstation.yml -i inventory --ask-become-pass
+    ansible-playbook minimal-workstation.yml -i inventory --ask-become-pass -e @gh-token.enc --ask-vault-pass
     ;;
 
   2)
@@ -38,18 +80,4 @@ case $number in
     ;;
 esac
 
-# while true; do
-#     read -p "Do you wish to install the System76 PPA? [y/n] " yn
-#     case $yn in
-#         [Yy]* )
-#           ansible-playbook system76.yml -i inventory --ask-become-pass
-#           break
-#           ;;
-#         [Nn]* )
-#           echo "Skipping..."
-#           break
-#           ;;
-#         * )
-#           echo "Please answer yes or no.";;
-#     esac
-# done
+popd &> /dev/null
