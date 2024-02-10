@@ -1,7 +1,7 @@
 ---
 # tasks file for user-config
 - name: Get list of groups
-  ansible.buildin.shell:
+  ansible.builtin.shell:
     cmd: "getent group | cut -d: -f1"
     register: unix_groups
 
