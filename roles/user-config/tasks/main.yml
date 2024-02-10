@@ -1,5 +1,9 @@
 ---
 # tasks file for user-config
+- name: Get list of groups
+  shell: getent group | cut -d: -f1
+  register: unix_groups
+
 - name: Create the user
   become: yes
   become_method: sudo
@@ -9,8 +13,17 @@
     create_home: True
     shell: /usr/bin/zsh
     state: present
-    groups: lxd,libvirt
     append: yes
+
+- name: Add user to groups
+  ansible.builtin.user: 
+  when: "'{{ item }}' in unix_groups.stdout_lines"
+    name: "{{ user.name }}"
+    groups: "{{ item }}"
+    append: yes
+  loop:
+    - lxd
+    - libvirt
 
 - name: Clone dotfiles (read-only)
   ansible.builtin.git:

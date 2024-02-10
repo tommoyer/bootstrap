@@ -3,42 +3,57 @@
 export GH_TOKEN={{ gh_token }}
 
 setup_yubikey() {
-	echo ""
-	read -p "Insert backup Yubikey #1, and then press any key" -n1 -s
-	echo ""
-	pamu2fcfg -n | tee -a u2f_mappings   # Backup YubiKey
+	if [[ ! -e /etc/u2f_mappings ]]
+	then
+		echo ""
+		read -p "Insert backup Yubikey #1, and then press any key" -n1 -s
+		echo ""
+		pamu2fcfg -n | tee -a u2f_mappings   # Backup YubiKey
 
-	echo ""
-	read -p "Remove backup Yubikey #1, insert backup Yubikey #2, and then press any key" -n1 -s
-	echo ""
-	pamu2fcfg -n | tee -a u2f_mappings   # Backup YubiKey
+		echo ""
+		read -p "Remove backup Yubikey #1, insert backup Yubikey #2, and then press any key" -n1 -s
+		echo ""
+		pamu2fcfg -n | tee -a u2f_mappings   # Backup YubiKey
 
-	echo  ""
-	read -p "Rem0ove backup Yubikey #2, insert primary Yubikey, and then press any key" -n1 -s
-	echo ""
-	pamu2fcfg | tee u2f_mappings               # Main YubiKey
+		echo  ""
+		read -p "Rem0ove backup Yubikey #2, insert primary Yubikey, and then press any key" -n1 -s
+		echo ""
+		pamu2fcfg | tee u2f_mappings               # Main YubiKey
 
-	echo ""
-	echo >> u2f_mappings
-	sudo mv u2f_mappings /etc
-	echo ""
-	gpg-connect-agent "scd serialno" "learn --force" /bye	
+		echo ""
+		echo >> u2f_mappings
+		sudo mv u2f_mappings /etc
+		echo ""
+		gpg-connect-agent "scd serialno" "learn --force" /bye
+	else
+		echo "Yubikeys already setup"
+	fi
 }
 
 init_lxd() {
-	echo "Initializing LXD"
-	cat lxd-init.yaml | lxd init --preseed
-	echo "Adding aliases"
-	lxc alias add list-all 'list --all-projects'
-	echo "Need to add any remotes"
-	rm -f lxd-init.yaml
+	if [[ -e lxd-init.yaml ]]
+	then
+		echo "Initializing LXD"
+		cat lxd-init.yaml | lxd init --preseed
+		echo "Adding aliases"
+		lxc alias add list-all 'list --all-projects'
+		echo "Need to add any remotes"
+		rm -f lxd-init.yaml
+	else
+		echo "LXD already initialized"
+	fi
 }
 
 setup_gh_token() {
-	echo ${GH_TOKEN} > gh-token
-	gh auth login --with-token < gh-token
-	echo "export GH_TOKEN=${GH_TOKEN}" > ~/.local_profile
-	rm -f gh-token
+	if ! grep GH_TOKEN ~/.local_profile &>/dev/null
+	then
+		echo ${GH_TOKEN} > gh-token
+		gh auth login --with-token < gh-token
+		echo "export GH_TOKEN=${GH_TOKEN}" > ~/.local_profile
+		rm -f gh-token
+	else
+		echo "Github token already configured"
+	fi
 }
 
 download_applications() {
@@ -52,17 +67,32 @@ download_applications() {
 }
 
 finish_shell_setup() {
-	git clone --recurse-submodules https://github.com/eendroroy/alien.git $HOME/.alien	
+	if [[ ! -e ~/.alien ]]
+	then
+		git clone --recurse-submodules https://github.com/eendroroy/alien.git $HOME/.alien	
+	else
+		echo "Shell setup completed"
+	fi
 }
 
 finish_gnome_terminal_setup() {
-	dconf load /org/gnome/terminal/ < gnome_terminal_settings_backup.dconf	
-	rm -f gnome_terminal_settings_backup.dconf
+	if [[ -e gnome_terminal_settings_backup.dconf ]]
+	then
+		dconf load /org/gnome/terminal/ < gnome_terminal_settings_backup.dconf	
+		rm -f gnome_terminal_settings_backup.dconf
+	else
+		echo "Gnome settings already updated"
+	fi
 }
 
 setup_default_lxd_profile() {
-	lxc profile edit default < lxd-default-profile.yaml
-	rm -f lxd-default-profile.yaml	
+	if [[ -e lxd-default-profile.yaml ]]
+	then
+		lxc profile edit default < lxd-default-profile.yaml
+		rm -f lxd-default-profile.yaml	
+	else
+		echo "LXD default profile already installed"
+	fi
 }
 
 choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operations' 30 80 10 \
