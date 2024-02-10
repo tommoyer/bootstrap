@@ -1,8 +1,9 @@
 ---
 # tasks file for user-config
 - name: Get list of groups
-  shell: getent group | cut -d: -f1
-  register: unix_groups
+  ansible.buildin.shell:
+    cmd: "getent group | cut -d: -f1"
+    register: unix_groups
 
 - name: Create the user
   become: yes
