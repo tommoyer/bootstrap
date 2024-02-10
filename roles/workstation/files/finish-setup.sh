@@ -95,6 +95,15 @@ setup_default_lxd_profile() {
 	fi
 }
 
+import_gpg_key() {
+	if ! gpg --list-keys | grep "0x6B0A28C4075F6051"
+	then
+		gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0x6B0A28C4075F6051
+	else
+		echo "GPG public key already imported"
+	fi
+}
+
 choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operations' 30 80 10 \
 	setup_yubikey 'Setup Yubikey' 'off' \
 	init_lxd 'Initialize LXD' 'off' \

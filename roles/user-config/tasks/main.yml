@@ -46,9 +46,6 @@
     - ${HOME}/.gnupg
     - ${HOME}/.ssh
 
-- name: Import GPG public key
-  ansible.builtin.command: gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys {{ gpg_key }}
-
 - name: Change remote for bootstrap
   ansible.builtin.command: "git remote set-url origin git@github.com:tommoyer/bootstrap.git"
   args:
