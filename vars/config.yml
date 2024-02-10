@@ -27,6 +27,7 @@ base_packages:
   - snapd
   - fonts-powerline
   - dialog
+  - gh
 
 base_snaps:
   - lxd
@@ -51,7 +52,6 @@ workstation_packages:
   - xdotool
   - solaar
   - xclip
-  - gh
   - gnome-shell-extension-manager
   - gnome-tweaks
   - chrome-gnome-shell

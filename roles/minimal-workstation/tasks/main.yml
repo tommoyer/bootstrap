@@ -51,3 +51,20 @@
     dest: /etc/zsh/zprofile
     line: emulate sh -c 'source /etc/profile'
   when: test_grep.stdout == "0"
+
+- name: Install GPG key for GitHub CLI
+  become: true
+  become_method: sudo
+  ansible.builtin.get_url:
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    dest: /etc/apt/keyrings/githubcli-archive-keyring.gpg
+    mode: '0644'
+    force: true
+
+- name: Add GitHub CLI repository
+  become: true
+  become_method: sudo
+  apt_repository:
+    repo: 'deb [signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main'
+    state: present
+    filename: "github-cli.list"
