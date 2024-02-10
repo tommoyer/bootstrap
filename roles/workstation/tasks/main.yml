@@ -53,23 +53,6 @@
     state: present
     filename: "github-cli.list"
 
-# - name: Add Chrome apt signing key
-#   become: true
-#   become_method: sudo
-#   ansible.builtin.get_url:
-#     url: https://dl.google.com/linux/linux_signing_key.pub
-#     dest: /etc/apt/keyrings/linux_signing_key.pub
-#     mode: '0644'
-#     force: true
-# 
-# - name: Add Chrome repository into sources list
-#   become: true
-#   become_method: sudo
-#   ansible.builtin.apt_repository:
-#     repo: 'deb [arch=amd64,signed-by=/etc/apt/keyrings/linux_signing_key.pub] http://dl.google.com/linux/chrome/deb/ stable main'
-#     state: present
-#     filename: google-chrome
-
 - name: Update apt cache
   become: true
   become_method: sudo
@@ -160,3 +143,95 @@
   ansible.builtin.file:
     path: /tmp/install-tailscale.sh
     state: absent
+
+- name: Install Watson from wheel
+  community.general.pipx:
+    name: td_watson
+    source: https://thomasmoyer.org/td_watson-2.1.0+notes-py2.py3-none-any.whl
+
+- name: Install watson2sf from wheel
+  community.general.pipx:
+    name: watson2sf
+    source: https://thomasmoyer.org/watson2sf-0.1.2-py3-none-any.whl
+
+- name: Create watson directory
+  ansible.builtin.file:
+    path: ${HOME}/.config/watson
+    state: directory
+    mode: '0755'
+
+- name: Post-Ansible finish script
+  template:
+    src: files/finish-setup.sh
+    dest: ${HOME}/finish-setup.sh
+    mode: u=rwx,g=r,o=r
+
+- name: LXD config preseed file
+  copy:
+    src: lxd-init.yaml
+    dest: ${HOME}/lxd-init.yaml
+    mode: u=rwx,g=r,o=r
+
+- name: LXD default profile
+  copy:
+    src: lxd-default-profile.yaml
+    dest: ${HOME}/lxd-default-profile.yaml
+    mode: u=rwx,g=r,o=r
+
+- name: Gnome terminal settings
+  copy:
+    src: gnome_terminal_settings_backup.dconf
+    dest: ${HOME}/gnome_terminal_settings_backup.dconf
+    mode: u=rwx,g=r,o=r
+
+- name: LXD DNS setup
+  become: yes
+  become_method: sudo
+  copy:
+    src: lxd-dns-lxdbr0.service
+    dest: /etc/systemd/system/lxd-dns-lxdbr0.service
+    mode: u=rwx,g=r,o=r
+
+- name: Enable LXD DNS
+  become: yes
+  become_method: sudo
+  ansible.builtin.command: systemctl daemon-reload
+
+- name: Enable LXD DNS
+  become: yes
+  become_method: sudo
+  ansible.builtin.command: systemctl enable --now lxd-dns-lxdbr0
+
+- name: Install Streamdeck udev rules
+  become: yes
+  become_method: sudo
+  copy:
+    src: 70-streamdeck.rules
+    dest: /etc/udev/rules.d/70-streamdeck.rules
+    mode: u=rw,g=r,o=r
+
+- name: Reload udev rules
+  become: yes
+  become_method: sudo
+  ansible.builtin.command: udevadm control --reload-rules
+
+- name: Update list of installed applications (1/2)
+  ansible.builtin.command: update-desktop-database ${HOME}/.local/share/applications
+
+- name: Update list of installed applications (2/2)
+  ansible.builtin.command: update-desktop-database ${HOME}/.local/share/flatpak/exports/share/applications
+
+- name: Mouse highlight on ctrl
+  ansible.builtin.command: gsettings set org.gnome.desktop.interface locate-pointer true
+
+- name: Update Gnome Terminal shortcuts
+  ansible.builtin.command: gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab '<Primary>Tab'
+
+- name: Update Gnome Terminal shortcuts
+  ansible.builtin.command: gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Primary><Shift>Tab'
+
+- name: Configuring Gnome Evolution
+  ansible.builtin.command: gsettings set org.gnome.evolution-data-server.calendar notify-with-tray true
+
+- name: Configuring Gnome window settings
+  ansible.builtin.command: gsettings set org.gnome.mutter center-new-windows true
