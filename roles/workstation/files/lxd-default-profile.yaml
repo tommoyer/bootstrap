@@ -8,8 +8,6 @@ config:
       - git
     users:
       - name: tmoyer
-        ssh_import_id:
-          - lp:tom-tom
         sudo: ALL=(ALL) NOPASSWD:ALL
         shell: /usr/bin/zsh
         groups: users, admin
@@ -30,11 +28,5 @@ devices:
     type: disk
 name: default
 used_by:
-- /1.0/instances/iscsi-target
-- /1.0/instances/osc-test
-- /1.0/instances/apt-proxy
-- /1.0/instances/c0
-- /1.0/instances/nx-client
-- /1.0/instances/temporal
-- /1.0/instances/jazz-pmcl
-- /1.0/instances/cp
+- /1.0/instances/ccd
+- /1.0/instances/itis-3246
