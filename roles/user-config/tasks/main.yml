@@ -9,7 +9,6 @@
     create_home: True
     shell: /usr/bin/zsh
     state: present
-    append: yes
 
 - name: Clone dotfiles (read-only)
   ansible.builtin.git:
