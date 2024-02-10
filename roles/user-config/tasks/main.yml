@@ -41,6 +41,11 @@
     state: directory
     mode: '0755'
 
+- name: Ensure SSH authorized keys file does not exist (needed for containers)
+  ansible.builtin.file:
+    path: ${HOME}/.ssh/authorized_keys
+    state: absent
+
 - name: Stow dotfiles
   stow:
     state: latest
