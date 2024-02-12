@@ -86,6 +86,7 @@ workstation_snaps:
   - bitwarden
   - spotify
   - mailspring
+  - mattermost-desktop
 
 flatpaks:
   - net.codeindustry.MasterPDFEditor
@@ -94,7 +95,6 @@ flatpaks:
   - com.github.tchx84.Flatseal
   - net.lutris.Lutris
   - com.github.Murmele.Gittyup
-  - org.ferdium.Ferdium
 
 user:
   name: tmoyer
