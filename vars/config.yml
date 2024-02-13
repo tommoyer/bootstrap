@@ -52,13 +52,13 @@ workstation_packages:
   - xdotool
   - solaar
   - xclip
-  - gnome-shell-extension-manager
-  - gnome-tweaks
-  - chrome-gnome-shell
   - virt-viewer
   - virt-manager
-  - gir1.2-gda-5.0
-  - gir1.2-gsound-1.0
+  # - gnome-shell-extension-manager
+  # - gnome-tweaks
+  # - chrome-gnome-shell
+  # - gir1.2-gda-5.0
+  # - gir1.2-gsound-1.0
 
 pips:
   - black
@@ -107,11 +107,11 @@ dotfiles:
   - mr
   - pics
   - ssh
+  - streamdeck
+  - subl
   - tmux
   - vcs
-  - zsh
-  - subl
-  - streamdeck
   - watson
+  - zsh
 
 gpg_key: "0x6B0A28C4075F6051"
