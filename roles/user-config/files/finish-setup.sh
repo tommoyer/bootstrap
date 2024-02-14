@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export GH_TOKEN={{ gh_token }}
+export GH_TOKEN=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
 
 setup_yubikey() {
 	if [[ ! -e /etc/u2f_mappings ]]
@@ -34,20 +34,21 @@ init_lxd() {
 	if ! id | grep lxd &> /dev/null
 	then
 		echo "You need to add yourself to the LXD group before doing this"
+		echo "Once you logout and back in, try running this again"
 		sudo adduser tmoyer lxd
-		newgrp lxd
-	fi
-	sudo snap refresh lxd --channel=latest/stable
-	if [[ -e lxd-init.yaml ]]
-	then
-		echo "Initializing LXD"
-		cat lxd-init.yaml | lxd init --preseed
-		echo "Adding aliases"
-		lxc alias add list-all 'list --all-projects'
-		echo "Need to add any remotes"
-		rm -f lxd-init.yaml
+		return
 	else
-		echo "LXD already initialized"
+		if [[ -e lxd-init.yaml ]]
+		then
+			echo "Initializing LXD"
+			cat lxd-init.yaml | lxd init --preseed
+			echo "Adding aliases"
+			lxc alias add list-all 'list --all-projects'
+			echo "Need to add any remotes"
+			rm -f lxd-init.yaml
+		else
+			echo "LXD already initialized"
+		fi
 	fi
 }
 
@@ -93,22 +94,34 @@ finish_gnome_terminal_setup() {
 }
 
 setup_default_lxd_profile() {
-	if [[ -e lxd-default-profile.yaml ]]
+	if ! id | grep lxd &> /dev/null
 	then
-		lxc profile edit default < lxd-default-profile.yaml
-		rm -f lxd-default-profile.yaml	
+		echo "You need to add yourself to the LXD group before doing this"
+		echo "Once you logout and back in, try running this again"
 	else
-		echo "LXD default profile already installed"
+		if [[ -e lxd-default-profile.yaml ]]
+		then
+			lxc profile edit default < lxd-default-profile.yaml
+			rm -f lxd-default-profile.yaml	
+		else
+			echo "LXD default profile already installed"
+		fi
 	fi
 }
 
 setup_lxd_dns() {
-	if [[ -e /etc/systemd/system/lxd-dns-lxdbr0.service ]]
+	if ! id | grep lxd &> /dev/null
 	then
-		sudo systemctl daemon-reload
-		sudo systemctl enable --now lxd-dns-lxdbr0	
+		echo "You need to add yourself to the LXD group before doing this"
+		echo "Once you logout and back in, try running this again"
 	else
-		echo "LXD DNS not configured"
+		if [[ -e /etc/systemd/system/lxd-dns-lxdbr0.service ]]
+		then
+			sudo systemctl daemon-reload
+			sudo systemctl enable --now lxd-dns-lxdbr0	
+		else
+			echo "LXD DNS not configured"
+		fi
 	fi
 }
 
