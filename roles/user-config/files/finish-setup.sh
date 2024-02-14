@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export GH_TOKEN=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
+export GH_TOKEN={{ gh_token }}
 
 setup_yubikey() {
 	if [[ ! -e /etc/u2f_mappings ]]
