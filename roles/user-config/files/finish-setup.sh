@@ -31,6 +31,12 @@ setup_yubikey() {
 }
 
 init_lxd() {
+	if ! id | grep lxd &> /dev/null
+	then
+		echo "You need to add yourself to the LXD group before doing this"
+		sudo adduser tmoyer lxd
+		newgrp lxd
+	fi
 	if [[ -e lxd-init.yaml ]]
 	then
 		echo "Initializing LXD"
@@ -99,7 +105,7 @@ setup_lxd_dns() {
 	if [[ -e /etc/systemd/system/lxd-dns-lxdbr0.service ]]
 	then
 		sudo systemctl daemon-reload
-		systemctl enable --now lxd-dns-lxdbr0	
+		sudo systemctl enable --now lxd-dns-lxdbr0	
 	else
 		echo "LXD DNS not configured"
 	fi
