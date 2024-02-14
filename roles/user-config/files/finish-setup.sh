@@ -115,17 +115,17 @@ choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operati
 	minimal_workstation 'Command-line only stuff' 'off' \
 	all 'Do everything' 'off')
 
-if [[ $choice == 'minimal_workstation' ]]
+if [[ $choices == 'minimal_workstation' ]]
 then
 	setup_gh_token
 	finish_shell_setup
 	import_gpg_key
 	if command -v lxd &> /dev/null
 	then
-    	init_lxd
-    	setup_default_lxd_profile
+		init_lxd
+		setup_default_lxd_profile
 	fi
-elif [[ $choice == 'all' ]]
+elif [[ $choices == 'all' ]]
 then
 	setup_yubikey
 	init_lxd

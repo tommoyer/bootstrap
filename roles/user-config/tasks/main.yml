@@ -64,6 +64,36 @@
     path: /tmp/install-pyenv.sh
     state: absent
 
+- name: LXD config preseed file
+  copy:
+    src: lxd-init.yaml
+    dest: ${HOME}/lxd-init.yaml
+    mode: u=rwx,g=r,o=r
+
+- name: LXD default profile
+  copy:
+    src: lxd-default-profile.yaml
+    dest: ${HOME}/lxd-default-profile.yaml
+    mode: u=rwx,g=r,o=r
+
+- name: LXD DNS setup
+  become: yes
+  become_method: sudo
+  copy:
+    src: lxd-dns-lxdbr0.service
+    dest: /etc/systemd/system/lxd-dns-lxdbr0.service
+    mode: u=rwx,g=r,o=r
+
+- name: Enable LXD DNS
+  become: yes
+  become_method: sudo
+  ansible.builtin.command: systemctl daemon-reload
+
+- name: Enable LXD DNS
+  become: yes
+  become_method: sudo
+  ansible.builtin.command: systemctl enable --now lxd-dns-lxdbr0
+
 - name: Post-Ansible finish script
   template:
     src: files/finish-setup.sh
