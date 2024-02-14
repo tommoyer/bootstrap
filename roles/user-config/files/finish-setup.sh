@@ -88,15 +88,15 @@ finish_shell_setup() {
 	fi
 }
 
-finish_gnome_terminal_setup() {
-	if [[ -e gnome_terminal_settings_backup.dconf ]]
-	then
-		dconf load /org/gnome/terminal/ < gnome_terminal_settings_backup.dconf	
-		rm -f gnome_terminal_settings_backup.dconf
-	else
-		echo "Gnome settings already updated"
-	fi
-}
+# finish_gnome_terminal_setup() {
+# 	if [[ -e gnome_terminal_settings_backup.dconf ]]
+# 	then
+# 		dconf load /org/gnome/terminal/ < gnome_terminal_settings_backup.dconf	
+# 		rm -f gnome_terminal_settings_backup.dconf
+# 	else
+# 		echo "Gnome settings already updated"
+# 	fi
+# }
 
 setup_default_lxd_profile() {
 	if [[ -e lxd-default-profile.yaml ]]
@@ -145,7 +145,7 @@ choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operati
 	setup_gh_token 'Setup Github Token' 'off' \
 	download_applications 'Download Applications' 'off' \
 	finish_shell_setup 'Finish ZSH Setup' 'off' \
-	finish_gnome_terminal_setup 'Finish Gnome Terminal Setup' 'off' \
+	# finish_gnome_terminal_setup 'Finish Gnome Terminal Setup' 'off' \
 	setup_default_lxd_profile 'Setup Default LXD Profile' 'off' \
 	setup_lxd_dns 'Configure LXD DNS' 'off' \
 	minimal_workstation 'Command-line only stuff' 'off' \
