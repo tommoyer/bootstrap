@@ -157,7 +157,6 @@ then
 	finish_shell_setup
 	import_gpg_key
 	lxd_setup
-fi
 elif [[ $choices == 'all' ]]
 then
 	setup_yubikey
