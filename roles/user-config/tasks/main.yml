@@ -20,11 +20,6 @@
   args:
     chdir: ${HOME}/.dotfiles
 
-- name: Install python packages
-  community.general.pipx:
-    name: "{{ item }}"
-  loop: "{{ pips }}"
-
 - name: Ensure SSH authorized keys file does not exist (needed for containers)
   ansible.builtin.file:
     path: ${HOME}/.ssh/authorized_keys

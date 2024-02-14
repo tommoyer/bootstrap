@@ -16,6 +16,7 @@ config:
       - systemctl restart sshd
       - wget https://thomasmoyer.org/bootstrap.sh -O /home/tmoyer/bootstrap.sh
       - chmod +x /home/tmoyer/bootstrap.sh
+      - chown tmoyer:tmoyer /home/tmoyer/bootstrap.sh
 description: Default LXD profile
 devices:
   eth0:
@@ -28,5 +29,5 @@ devices:
     type: disk
 name: default
 used_by:
+- /1.0/instances/proxy
 - /1.0/instances/ccd
-- /1.0/instances/itis-3246

@@ -68,3 +68,8 @@
     repo: 'deb [signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main'
     state: present
     filename: "github-cli.list"
+
+- name: Install base python packages
+  community.general.pipx:
+    name: "{{ item }}"
+  loop: "{{ base_pips }}"
