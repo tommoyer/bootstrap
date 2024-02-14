@@ -126,6 +126,18 @@ import_gpg_key() {
 	fi
 }
 
+lxd_setup(){
+	if command -v lxd &> /dev/null
+	then
+		if verify_lxd_group
+		then
+			init_lxd
+			setup_default_lxd_profile
+			setup_lxd_dns
+		fi
+	fi
+}
+
 choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operations' 30 80 10 \
 	setup_yubikey 'Setup Yubikey' 'off' \
 	init_lxd 'Initialize LXD' 'off' \
@@ -136,6 +148,7 @@ choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operati
 	setup_default_lxd_profile 'Setup Default LXD Profile' 'off' \
 	setup_lxd_dns 'Configure LXD DNS' 'off' \
 	minimal_workstation 'Command-line only stuff' 'off' \
+	lxd_setup 'LXD Setup' 'off' \
 	all 'Do everything' 'off')
 
 if [[ $choices == 'minimal_workstation' ]]
@@ -143,25 +156,16 @@ then
 	setup_gh_token
 	finish_shell_setup
 	import_gpg_key
-	if command -v lxd &> /dev/null
-	then
-		if verify_lxd_group
-		then
-			init_lxd
-			setup_default_lxd_profile
-			setup_lxd_dns
-		fi
-	fi
+	lxd_setup
+fi
 elif [[ $choices == 'all' ]]
 then
 	setup_yubikey
-	init_lxd
 	setup_gh_token
 	download_applications
 	finish_shell_setup
 	finish_gnome_terminal_setup
-	setup_default_lxd_profile
-	setup_lxd_dns
+	lxd_setup
 else
 	for choice in $choices
 	do
