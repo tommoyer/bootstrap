@@ -136,12 +136,6 @@
     name: "{{ item }}"
   loop: "{{ workstation_pips }}"
 
-- name: Post-Ansible finish script
-  template:
-    src: files/finish-setup.sh
-    dest: ${HOME}/finish-setup.sh
-    mode: u=rwx,g=r,o=r
-
 - name: LXD config preseed file
   copy:
     src: lxd-init.yaml

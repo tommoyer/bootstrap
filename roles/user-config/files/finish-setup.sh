@@ -111,9 +111,32 @@ choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operati
 	download_applications 'Download Applications' 'off' \
 	finish_shell_setup 'Finish ZSH Setup' 'off' \
 	finish_gnome_terminal_setup 'Finish Gnome Terminal Setup' 'off' \
-	setup_default_lxd_profile 'Setup Default LXD Profile' 'off')
+	setup_default_lxd_profile 'Setup Default LXD Profile' 'off' \
+	minimal_workstation 'Command-line only stuff' 'off' \
+	all 'Do everything' 'off')
 
-for choice in $choices
-do
-	$choice
-done
+if [[ $choice == 'minimal_workstation' ]]
+then
+	setup_gh_token
+	finish_shell_setup
+	import_gpg_key
+	if command -v lxd &> /dev/null
+	then
+    	init_lxd
+    	setup_default_lxd_profile
+	fi
+elif [[ $choice == 'all' ]]
+then
+	setup_yubikey
+	init_lxd
+	setup_gh_token
+	download_applications
+	finish_shell_setup
+	finish_gnome_terminal_setup
+	setup_default_lxd_profile
+else
+	for choice in $choices
+	do
+		$choice
+	done
+fi

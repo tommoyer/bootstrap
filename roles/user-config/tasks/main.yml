@@ -63,4 +63,10 @@
   ansible.builtin.file:
     path: /tmp/install-pyenv.sh
     state: absent
+
+- name: Post-Ansible finish script
+  template:
+    src: files/finish-setup.sh
+    dest: ${HOME}/finish-setup.sh
+    mode: u=rwx,g=r,o=r
   
