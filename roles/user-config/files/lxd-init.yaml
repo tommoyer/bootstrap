@@ -1,7 +1,7 @@
 config: {}
 networks:
 - config:
-    ipv4.address: 10.79.2.1/24
+    ipv4.address: 172.16.30.1/24
     ipv4.nat: "true"
     ipv6.address: none
   description: ""
