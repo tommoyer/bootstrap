@@ -30,7 +30,20 @@ setup_yubikey() {
 	fi
 }
 
+verify_lxd_group() {
+	if ! id | grep lxd &> /dev/null
+	then
+		echo "Adding your user to LXD group, logout to make change effective"
+		sudo adduser tmoyer lxd
+		return 1
+	else
+		echo "Group already added, good to go"
+		return 0
+	fi
+}
+
 init_lxd() {
+	sudo snap refresh lxd --channel=latest/stable
 	if [[ -e lxd-init.yaml ]]
 	then
 		echo "Initializing LXD"
@@ -40,7 +53,7 @@ init_lxd() {
 		echo "Need to add any remotes"
 		rm -f lxd-init.yaml
 	else
-		echo "LXD already initialized"
+		echo "LXD already initialized or preseed file missing"
 	fi
 }
 
@@ -91,7 +104,17 @@ setup_default_lxd_profile() {
 		lxc profile edit default < lxd-default-profile.yaml
 		rm -f lxd-default-profile.yaml	
 	else
-		echo "LXD default profile already installed"
+		echo "LXD default profile already installed or profile file missing"
+	fi
+}
+
+setup_lxd_dns() {
+	if [[ -e /etc/systemd/system/lxd-dns-lxdbr0.service ]]
+	then
+		sudo systemctl daemon-reload
+		sudo systemctl enable --now lxd-dns-lxdbr0	
+	else
+		echo "LXD DNS not configured"
 	fi
 }
 
@@ -104,6 +127,18 @@ import_gpg_key() {
 	fi
 }
 
+lxd_setup(){
+	if command -v lxd &> /dev/null
+	then
+		if verify_lxd_group
+		then
+			init_lxd
+			setup_default_lxd_profile
+			setup_lxd_dns
+		fi
+	fi
+}
+
 choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operations' 30 80 10 \
 	setup_yubikey 'Setup Yubikey' 'off' \
 	init_lxd 'Initialize LXD' 'off' \
@@ -111,9 +146,29 @@ choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operati
 	download_applications 'Download Applications' 'off' \
 	finish_shell_setup 'Finish ZSH Setup' 'off' \
 	finish_gnome_terminal_setup 'Finish Gnome Terminal Setup' 'off' \
-	setup_default_lxd_profile 'Setup Default LXD Profile' 'off')
+	setup_default_lxd_profile 'Setup Default LXD Profile' 'off' \
+	setup_lxd_dns 'Configure LXD DNS' 'off' \
+	minimal_workstation 'Command-line only stuff' 'off' \
+	lxd_setup 'LXD Setup' 'off' \
+	all 'Do everything' 'off')
 
-for choice in $choices
-do
-	$choice
-done
+if [[ $choices == 'minimal_workstation' ]]
+then
+	setup_gh_token
+	finish_shell_setup
+	import_gpg_key
+	lxd_setup
+elif [[ $choices == 'all' ]]
+then
+	setup_yubikey
+	setup_gh_token
+	download_applications
+	finish_shell_setup
+	finish_gnome_terminal_setup
+	lxd_setup
+else
+	for choice in $choices
+	do
+		$choice
+	done
+fi

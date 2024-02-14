@@ -20,11 +20,6 @@
   args:
     chdir: ${HOME}/.dotfiles
 
-- name: Install python packages
-  community.general.pipx:
-    name: "{{ item }}"
-  loop: "{{ pips }}"
-
 - name: Ensure SSH authorized keys file does not exist (needed for containers)
   ansible.builtin.file:
     path: ${HOME}/.ssh/authorized_keys
@@ -68,4 +63,30 @@
   ansible.builtin.file:
     path: /tmp/install-pyenv.sh
     state: absent
+
+- name: LXD config preseed file
+  copy:
+    src: lxd-init.yaml
+    dest: ${HOME}/lxd-init.yaml
+    mode: u=rwx,g=r,o=r
+
+- name: LXD default profile
+  copy:
+    src: lxd-default-profile.yaml
+    dest: ${HOME}/lxd-default-profile.yaml
+    mode: u=rwx,g=r,o=r
+
+- name: LXD DNS setup
+  become: yes
+  become_method: sudo
+  copy:
+    src: lxd-dns-lxdbr0.service
+    dest: /etc/systemd/system/lxd-dns-lxdbr0.service
+    mode: u=rwx,g=r,o=r
+
+- name: Post-Ansible finish script
+  template:
+    src: files/finish-setup.sh
+    dest: ${HOME}/finish-setup.sh
+    mode: u=rwx,g=r,o=r
   
