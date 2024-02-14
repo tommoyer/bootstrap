@@ -95,6 +95,16 @@ setup_default_lxd_profile() {
 	fi
 }
 
+setup_lxd_dns() {
+	if [[ -e /etc/systemd/system/lxd-dns-lxdbr0.service ]]
+	then
+		sudo systemctl daemon-reload
+		systemctl enable --now lxd-dns-lxdbr0	
+	else
+		echo "LXD DNS not configured"
+	fi
+}
+
 import_gpg_key() {
 	if ! gpg --list-keys | grep "0x6B0A28C4075F6051"
 	then
@@ -112,6 +122,7 @@ choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operati
 	finish_shell_setup 'Finish ZSH Setup' 'off' \
 	finish_gnome_terminal_setup 'Finish Gnome Terminal Setup' 'off' \
 	setup_default_lxd_profile 'Setup Default LXD Profile' 'off' \
+	setup_lxd_dns 'Configure LXD DNS' 'off' \
 	minimal_workstation 'Command-line only stuff' 'off' \
 	all 'Do everything' 'off')
 
@@ -124,6 +135,7 @@ then
 	then
 		init_lxd
 		setup_default_lxd_profile
+		setup_lxd_dns
 	fi
 elif [[ $choices == 'all' ]]
 then
@@ -134,6 +146,7 @@ then
 	finish_shell_setup
 	finish_gnome_terminal_setup
 	setup_default_lxd_profile
+	setup_lxd_dns
 else
 	for choice in $choices
 	do
