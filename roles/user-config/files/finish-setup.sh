@@ -43,6 +43,7 @@ verify_lxd_group() {
 }
 
 init_lxd() {
+	sudo snap refresh lxd --channel=latest/stable
 	if [[ -e lxd-init.yaml ]]
 	then
 		echo "Initializing LXD"
