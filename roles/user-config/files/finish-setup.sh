@@ -37,6 +37,7 @@ init_lxd() {
 		sudo adduser tmoyer lxd
 		newgrp lxd
 	fi
+	sudo snap refresh lxd --channel=latest/stable
 	if [[ -e lxd-init.yaml ]]
 	then
 		echo "Initializing LXD"
