@@ -1,18 +1,6 @@
 ---
 # tasks file for vworkstation
 
-- name: Configure groups for user
-  become: yes
-  become_method: sudo
-  ansible.builtin.user:
-    name: "{{ user.name }}"
-    comment: "{{ user.full_name }}"
-    create_home: True
-    shell: /usr/bin/zsh
-    state: present
-    groups: lxd,libvirt
-    append: yes
-
 - name: Enable PPAs
   become: yes
   become_method: sudo
@@ -197,6 +185,18 @@
   become: yes
   become_method: sudo
   ansible.builtin.command: udevadm control --reload-rules
+
+- name: Configure groups for user
+  become: yes
+  become_method: sudo
+  ansible.builtin.user:
+    name: "{{ user.name }}"
+    comment: "{{ user.full_name }}"
+    create_home: True
+    shell: /usr/bin/zsh
+    state: present
+    groups: lxd,libvirt
+    append: yes
 
 - name: Update list of installed applications (1/2)
   ansible.builtin.command: update-desktop-database ${HOME}/.local/share/applications
