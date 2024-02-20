@@ -139,17 +139,29 @@ lxd_setup(){
 	fi
 }
 
+update_application_lists(){
+	if [[ -e ${HOME}/.local/share/applications ]]
+	then
+		update-desktop-database ${HOME}/.local/share/applications
+	fi
+
+	if [[ - e ${HOME}/.local/share/flatpak/exports/share/applications ]]	
+	then
+		update-desktop-database ${HOME}/.local/share/flatpak/exports/share/applications
+	fi
+}
+
 choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operations' 30 80 10 \
 	setup_yubikey 'Setup Yubikey' 'off' \
 	init_lxd 'Initialize LXD' 'off' \
 	setup_gh_token 'Setup Github Token' 'off' \
 	download_applications 'Download Applications' 'off' \
 	finish_shell_setup 'Finish ZSH Setup' 'off' \
-	# finish_gnome_terminal_setup 'Finish Gnome Terminal Setup' 'off' \
 	setup_default_lxd_profile 'Setup Default LXD Profile' 'off' \
 	setup_lxd_dns 'Configure LXD DNS' 'off' \
 	minimal_workstation 'Command-line only stuff' 'off' \
 	lxd_setup 'LXD Setup' 'off' \
+	update_application_lists 'Update application lists' 'off' \
 	all 'Do everything' 'off')
 
 if [[ $choices == 'minimal_workstation' ]]
@@ -165,6 +177,7 @@ then
 	download_applications
 	finish_shell_setup
 	finish_gnome_terminal_setup
+	update_application_lists
 	lxd_setup
 else
 	for choice in $choices
