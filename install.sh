@@ -5,6 +5,32 @@ die() {
     exit 1
 }
 
+if [[ $# -gt 1 ]]
+then
+  printf >&2 'You can only specify one argument\n'
+  die 'Usage: $0 [-c|-d]'
+fi
+
+OPTSTRING=":cd"
+
+CHOICE=0
+
+while getopts ${OPTSTRING} opt; do
+  case ${opt} in
+    c)
+      echo "Option -c was triggered."
+      CHOICE=1
+      ;;
+    d)
+      echo "Option -d was triggered."
+      CHOICE=2
+      ;;
+    ?)
+      die "Invalid option: -${OPTARG}."
+      ;;
+  esac
+done
+
 export PATH=${PATH}:${HOME}/.local/bin
 
 pkgs=""
@@ -55,17 +81,20 @@ fi
 
 pushd ~/Repos/tommoyer/bootstrap &> /dev/null
 
-echo "Please choose system type:"
-echo "1 - Command-line only system"
-echo "2 - Desktop system"
+if [[ $CHOICE == 0 ]]
+then
+  echo "Please choose system type:"
+  echo "1 - Command-line only system"
+  echo "2 - Desktop system"
 
-read -ep 'Select type: ' number
-[[ $number =~ ^[[:digit:]]+$ ]] ||
-    die '*** Error: you should have entered a number'
-(( ( (number=(10#$number)) <= 2 ) && number >= 0 )) ||
-    die '*** Error, number not in range 1..2'
+  read -ep 'Select type: ' CHOICE
+  [[ $CHOICE =~ ^[[:digit:]]+$ ]] ||
+      die '*** Error: you should have entered a number'
+  (( ( (CHOICE=(10#$CHOICE)) <= 2 ) && CHOICE >= 0 )) ||
+      die '*** Error, number not in range 1..2'
+fi
 
-case $number in
+case $CHOICE in
 
   1)
     ansible-playbook minimal-workstation.yml -i inventory --ask-become-pass -e @gh-token.enc --ask-vault-pass
