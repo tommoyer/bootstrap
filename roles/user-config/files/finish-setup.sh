@@ -151,6 +151,29 @@ update_application_lists(){
 	fi
 }
 
+mr_repos(){
+	mkdir -p ~/.config/mr/config.d/
+    pushd ~/.config/mr/config.d &>/dev/null
+    for file in $(ls ../available.d)
+    do
+        read -p "Include ${file}? (y/n) " yn
+        case $yn in 
+            [yY] )
+                ln -s ../available.d/${file} .
+                ;;
+            [nN] ) echo "Skipping";
+                ;;
+            * )
+                echo "Invalid response, skipping"
+                ;;
+        esac
+    done
+    popd &>/dev/null
+    pushd ~ &>/dev/null
+    mr update
+    popd &>/dev/null
+}
+
 choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operations' 30 80 10 \
 	setup_yubikey 'Setup Yubikey' 'off' \
 	import_gpg_key 'Import GPG key [M]' 'off' \
@@ -163,6 +186,7 @@ choices=$(dialog --stdout --backtitle 'Finish System Setup' --checklist 'Operati
 	update_application_lists 'Update application lists' 'off' \
 	lxd_setup 'LXD Setup [M*]' 'off' \
 	minimal_workstation 'Command-line only stuff' 'off' \
+	mr_repos 'Setup myrepos [M]' 'off' \
 	all 'Do everything' 'off')
 
 if [[ $choices == 'minimal_workstation' ]]
@@ -171,6 +195,7 @@ then
 	finish_shell_setup
 	import_gpg_key
 	lxd_setup
+	mr_repos
 elif [[ $choices == 'all' ]]
 then
 	setup_yubikey
@@ -181,6 +206,7 @@ then
 	update_application_lists
 	import_gpg_key
 	lxd_setup
+	mr_repos
 else
 	for choice in $choices
 	do
