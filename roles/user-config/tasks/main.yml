@@ -25,22 +25,6 @@
     path: ${HOME}/.ssh/authorized_keys
     state: absent
 
-- name: Install Watson from wheel
-  community.general.pipx:
-    name: td_watson
-    source: https://thomasmoyer.org/td_watson-2.1.0+notes-py2.py3-none-any.whl
-
-- name: Install watson2sf from wheel
-  community.general.pipx:
-    name: watson2sf
-    source: https://thomasmoyer.org/watson2sf-0.1.2-py3-none-any.whl
-
-- name: Create watson directory
-  ansible.builtin.file:
-    path: ${HOME}/.config/watson
-    state: directory
-    mode: '0755'
-
 - name: Stow dotfiles
   stow:
     state: latest
@@ -105,24 +89,3 @@
     src: files/finish-setup.sh
     dest: ${HOME}/finish-setup.sh
     mode: u=rwx,g=r,o=r
-
-- name: Update list of installed applications (1/2)
-  ansible.builtin.command: update-desktop-database ${HOME}/.local/share/applications
-
-- name: Update list of installed applications (2/2)
-  ansible.builtin.command: update-desktop-database ${HOME}/.local/share/flatpak/exports/share/applications
-
-- name: Mouse highlight on ctrl
-  ansible.builtin.command: gsettings set org.gnome.desktop.interface locate-pointer true
-
-- name: Update Gnome Terminal shortcuts
-  ansible.builtin.command: gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab '<Primary>Tab'
-
-- name: Update Gnome Terminal shortcuts
-  ansible.builtin.command: gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab '<Primary><Shift>Tab'
-
-- name: Configuring Gnome Evolution
-  ansible.builtin.command: gsettings set org.gnome.evolution-data-server.calendar notify-with-tray true
-
-- name: Configuring Gnome window settings
-  ansible.builtin.command: gsettings set org.gnome.mutter center-new-windows true
