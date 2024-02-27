@@ -62,11 +62,11 @@ workstation_packages:
   - xclip
   - virt-viewer
   - virt-manager
-  # - gnome-shell-extension-manager
-  # - gnome-tweaks
-  # - chrome-gnome-shell
-  # - gir1.2-gda-5.0
-  # - gir1.2-gsound-1.0
+  - gnome-shell-extension-manager
+  - gnome-tweaks
+  - chrome-gnome-shell
+  - gir1.2-gda-5.0
+  - gir1.2-gsound-1.0
 
 workstation_pips:
   - streamdeck_ui
