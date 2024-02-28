@@ -104,15 +104,25 @@ EXTRA_VARS=""
 case $CHOICE in
 
   1)
-    EXTRA_VARS='{"workstation":"false","gnome":"false"}'
+    cat << EOF > vars/choices.yml
+workstation: False
+gnome: False
+EOF
     ;;
 
   2)
-    EXTRA_VARS='{"workstation":"true","gnome":"false"}'
+    cat << EOF > vars/choices.yml
+workstation: True
+gnome: False
+EOF
     ;;
 
   3)
-    EXTRA_VARS='{"workstation":"true","gnome":"true"}'
+    cat << EOF > vars/choices.yml
+workstation: True
+gnome: True
+EOF
+
     ;;
 
   *)
@@ -120,6 +130,6 @@ case $CHOICE in
     ;;
 esac
 
-ansible-playbook workstation.yml -i inventory --ask-become-pass -e @gh-token.enc --ask-vault-pass --check
+ansible-playbook workstation.yml -i inventory --ask-become-pass -e @gh-token.enc --ask-vault-pass
 
 popd &> /dev/null
