@@ -11,18 +11,22 @@ then
   die 'Usage: $0 [-c|-d]'
 fi
 
-OPTSTRING=":cd"
+OPTSTRING=":cdg"
 
 CHOICE=0
 
 while getopts ${OPTSTRING} opt; do
   case ${opt} in
     c)
-      echo "Option -c was triggered."
+      echo "Minimal workstation chosen"
       CHOICE=1
       ;;
     d)
-      echo "Option -d was triggered."
+      echo "Desktop system chosen"
+      CHOICE=2
+      ;;
+    g)
+      echo "Gnome desktop system chosen"
       CHOICE=2
       ;;
     ?)
@@ -86,27 +90,36 @@ then
   echo "Please choose system type:"
   echo "1 - Command-line only system"
   echo "2 - Desktop system"
+  echo "3 - Gnome specific desktop system"
 
   read -ep 'Select type: ' CHOICE
   [[ $CHOICE =~ ^[[:digit:]]+$ ]] ||
       die '*** Error: you should have entered a number'
-  (( ( (CHOICE=(10#$CHOICE)) <= 2 ) && CHOICE >= 0 )) ||
-      die '*** Error, number not in range 1..2'
+  (( ( (CHOICE=(10#$CHOICE)) <= 3 ) && CHOICE >= 0 )) ||
+      die '*** Error, number not in range 1..3'
 fi
+
+EXTRA_VARS=""
 
 case $CHOICE in
 
   1)
-    ansible-playbook minimal-workstation.yml -i inventory --ask-become-pass -e @gh-token.enc --ask-vault-pass
+    EXTRA_VARS='{"workstation":"false","gnome":"false"}'
     ;;
 
   2)
-    ansible-playbook workstation.yml -i inventory --ask-become-pass -e @gh-token.enc --ask-vault-pass
+    EXTRA_VARS='{"workstation":"true","gnome":"false"}'
+    ;;
+
+  3)
+    EXTRA_VARS='{"workstation":"true","gnome":"true"}'
     ;;
 
   *)
     die '*** Invalid selection'
     ;;
 esac
+
+ansible-playbook workstation.yml -i inventory --ask-become-pass -e @gh-token.enc --ask-vault-pass --check
 
 popd &> /dev/null

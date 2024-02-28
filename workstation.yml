@@ -3,6 +3,7 @@
   vars_files:
     - config.yml
   roles:
-    - minimal-workstation
-    - workstation
-    - user-config
+    - {role: minimal-workstation}
+    - {role: workstation, when: workstation | bool}
+    - {role: user-config}
+    - {role: gnome, when: gnome | bool}

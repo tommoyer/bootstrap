@@ -62,6 +62,8 @@ workstation_packages:
   - xclip
   - virt-viewer
   - virt-manager
+
+gnome_packages:
   - gnome-shell-extension-manager
   - gnome-tweaks
   - chrome-gnome-shell

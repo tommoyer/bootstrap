@@ -1,6 +1,6 @@
 ---
 # tasks file for user-config
-- name: Create the user
+- name: Update user information
   become: yes
   become_method: sudo
   ansible.builtin.user:
