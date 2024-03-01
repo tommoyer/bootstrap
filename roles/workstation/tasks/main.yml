@@ -161,6 +161,18 @@
     groups: lxd,libvirt
     append: yes
 
+- name: Create application directory (1/2)
+  ansible.builtin.file:
+    path: ${HOME}/.local/share/applications
+    state: directory
+    mode: '0755'
+
+- name: Create application directory (2/2)
+  ansible.builtin.file:
+    path: ${HOME}/.local/share/flatpak/exports/share/applications
+    state: directory
+    mode: '0755'
+
 - name: Update list of installed applications (1/2)
   ansible.builtin.command: update-desktop-database ${HOME}/.local/share/applications
 
