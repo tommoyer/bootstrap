@@ -6,17 +6,9 @@ config:
       - zsh
       - squid-deb-proxy-client
       - git
-    users:
-      - name: tmoyer
-        sudo: ALL=(ALL) NOPASSWD:ALL
-        shell: /usr/bin/zsh
-        groups: users, admin
     runcmd:
       - echo "StreamLocalBindUnlink yes" > /etc/ssh/sshd_config.d/streamlocalbindunlink.conf
       - systemctl restart sshd
-      - wget https://thomasmoyer.org/bootstrap.sh -O /home/tmoyer/bootstrap.sh
-      - chmod +x /home/tmoyer/bootstrap.sh
-      - chown tmoyer:tmoyer /home/tmoyer/bootstrap.sh
 description: Default LXD profile
 devices:
   eth0:
