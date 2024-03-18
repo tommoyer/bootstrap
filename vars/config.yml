@@ -39,6 +39,7 @@ base_pips:
   - poetry
   - borgmatic
   - frogmouth
+  - nuitka
 
 workstation_packages:
   - pcscd
