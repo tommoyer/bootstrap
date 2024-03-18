@@ -99,6 +99,7 @@ flatpaks:
   - com.github.tchx84.Flatseal
   - net.lutris.Lutris
   - com.github.Murmele.Gittyup
+  - com.bambulab.BambuStudio
 
 user:
   name: tmoyer
